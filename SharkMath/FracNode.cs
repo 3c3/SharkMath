@@ -9,7 +9,7 @@ namespace SharkMath
     /// <summary>
     /// Клас за дроб
     /// </summary>
-    class FracNode : Node
+    public class FracNode : Node
     {
         /// <summary>
         /// Числител

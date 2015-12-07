@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    class PolyNode : Node
+    public class PolyNode : Node
     {
         public Polynomial poly;
         public override string print(bool attach, bool brackets)

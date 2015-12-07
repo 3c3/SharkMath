@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    class PowerNode : Node
+    public class PowerNode : Node
     {
         Node powered; // това, което е на степен
         Node power; // или NumNode, или FracNode

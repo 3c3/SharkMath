@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SharkMath
 {
-    class Monomial : IComparable, IPrintable
+    public class Monomial : IComparable, IPrintable
     {
         public List<Simple> simples = new List<Simple>();
         public Number coef;
@@ -111,12 +111,12 @@ namespace SharkMath
             {
                 int n = 0;
 
-                while(s[idx] >= '0' && s[idx] <= '9')
+                while(idx < s.Length && s[idx] >= '0' && s[idx] <= '9')
                 {
                     n*=10;
                     n+=s[idx++]-'0';
                 }
-                coef=new Number(n);
+                this.coef.numerator = n;
             }
 
             power = 0;
@@ -189,9 +189,9 @@ namespace SharkMath
         /// <param name="attach">Слепване: дали да има разстояние м/у знака и числото/буквите</param>
         /// <param name="brackets">игнорира се</param>
         /// <returns>LaTeX</returns>
-        public string print(bool attach, bool brackets)
+        public string print(bool attach, bool ignored)
         {
-            string result = coef.print(attach, false);
+            string result = coef.print(attach, simples.Count==0);
             simples.ForEach(s => result += s.print());
             return result;
         }

@@ -9,7 +9,7 @@ namespace SharkMath
     /// <summary>
     /// Основният клас за сложни изрази. Просто число
     /// </summary>
-    abstract class Node : IPrintable
+    public abstract class Node : IPrintable
     {
         /// <summary>
         /// Коефициентът

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    class Polynomial : IPrintable
+    public class Polynomial : IPrintable
     {
         public List<Monomial> monos; /// състващите едночлени
 
@@ -21,7 +21,7 @@ namespace SharkMath
             monos = new List<Monomial>();
         }
 
-        Polynomial(char ltr, Number root)
+        public Polynomial(char ltr, Number root)
 	    {
             Monomial first = new Monomial(new Number(1), ltr);
             Monomial second = new Monomial(new Number(-root.numerator, root.denominator));
@@ -34,8 +34,9 @@ namespace SharkMath
         /// Прави полином от низ
         /// </summary>
         /// <param name="s">Без дроби; степените се запизват директно след буквата без доп. знаци</param>
-        Polynomial(string s)
+        public Polynomial(string s)
         {
+            monos = new List<Monomial>();
             int idx = 0;
 
             bool sign=true; //true e +, false e -
@@ -68,22 +69,27 @@ namespace SharkMath
 
             monos.Sort();
         }
-
+        /// <summary>
+        /// Принтира многочлен
+        /// </summary>
+        /// <param name="attach">Дали да се слепва</param>
+        /// <param name="brackets">Дали да е в скоби. НЕ слага знак пред скобите!</param>
+        /// <returns></returns>
         public string print(bool attach, bool brackets)
         {
             string result = "";
 
             if(brackets)
             {
-                if(attach) result += "+ ";
+                //if(attach) result += "+ ";
                 result+="(";
                 for (int i = 0; i < monos.Count; i++) result += monos[i].print(i > 0, false);
                 result += ")";
             }
             else
             {
-                if (attach) monos.ForEach(m => m.print(true, false));
-                else for (int i = 0; i < monos.Count; i++) monos[i].print(i > 0, false);
+                if (attach) monos.ForEach(m => result+= m.print(true, false));
+                else for (int i = 0; i < monos.Count; i++) result += monos[i].print(i > 0, false);
             }
 
             return result;

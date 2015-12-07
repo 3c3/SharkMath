@@ -9,7 +9,7 @@ namespace SharkMath
     /// <summary>
     /// Клас за прост едночлен, буква и степен цяло число
     /// </summary>
-    class Simple : IComparable
+    public class Simple : IComparable
     {
         public char letter;
         public short power;

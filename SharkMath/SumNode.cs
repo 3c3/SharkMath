@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    class SumNode : Node
+    public class SumNode : Node
     {
         List<Node> children;
         public override string print(bool attach, bool brackets)

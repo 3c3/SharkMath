@@ -173,27 +173,31 @@ namespace SharkMath
 
 
 
-        public string print(bool attach, bool brackets)
+        public string print(bool attach, bool showOne)
         {
-            brackets = false;// няма смисъл число да е в скоби
             string result;
             if(attach)
             { // при слепване се оставя интервал
                 if (isNegative)
                 {
-                    result = "- ";
+                    result = " - ";
                     if (isInteger) result += (-numerator).ToString(); //затова трябва да се обърне знака на горното
                     else result += "\\frac{" + (-numerator).ToString() + "}{" + denominator.ToString() + "}";
+                    return result;
                 }
                 else
                 {
-                    result = "+ ";
+                    result = " + ";
+                    if (isOne && !showOne) return result; 
                     if (isInteger) result += numerator.ToString();
                     else result += "\\frac{" + numerator.ToString() + "}{" + denominator.ToString() + "}";
+                    return result;
                 }                
             }
             else
             {
+                if (isNegative && isOne) return "-";
+                if (!showOne && isOne) return "";
                 if (isInteger) return numerator.ToString();
                 else
                 {
@@ -201,9 +205,7 @@ namespace SharkMath
                     else result = "\\frac{" + numerator.ToString() + "}{" + denominator + "}";
                     return result;
                 }
-            }
-            return "error";
-        
+            }       
         }
     }
 }
