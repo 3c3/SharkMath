@@ -103,6 +103,37 @@ namespace SharkMath
             coef = new Number(newCoef);
         }
 
+        public Monomial(string s, ref int idx) //Конструктор със string
+        {
+            //Във финалната версия няма да се ползва много, но сега
+            coef = new Number(1);               //ще е полезен за тестване, а може и да му се намери някоя
+            if(s[idx] >= '0' && s[idx] <= '9')           //употреба за домашно по математика
+            {
+                int n = 0;
+
+                while(s[idx] >= '0' && s[idx] <= '9')
+                {
+                    n*=10;
+                    n+=s[idx++]-'0';
+                }
+                coef=new Number(n);
+            }
+
+            power = 0;
+            if(idx>=s.Length)
+            {
+                return;
+            }
+
+            while(idx<s.Length && s[idx]!=' ') //Вече е сигурно, че първия символ е буква
+            {
+                Simple si = new Simple(s, ref idx);   //Затова правим прости едночлени докато можем
+                simples.Add(si);//Ето тук влиза пойнтъра към индекс в оня конструктор
+                power+=si.power;
+            }
+            simples.Sort();
+        }
+
         public Int32 CompareTo(Object obj)
         {
             Monomial m = obj as Monomial;

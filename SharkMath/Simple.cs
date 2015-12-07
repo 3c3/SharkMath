@@ -26,6 +26,22 @@ namespace SharkMath
             power = src.power;
         }
 
+        public Simple(string s, ref int idx) //Този е малко по-интересен
+        {                          //Приема, че на позиция idx има буква
+            letter=s[idx++];        //тя ще е буквата на простия едночлен
+            //цифрите след тази буква образуват степента
+            short n = 0;
+            while(s[idx] >= '0' && s[idx] <='9')
+            {
+                n*=10;
+                n+=(short)(s[idx++]-'0');
+            }
+
+            if(n>0) power = n;
+            else power = 1;  //Накрая idx сочи следващата буква в низа
+
+        }
+
         public Int32 CompareTo(Object obj)
         {
             Simple s2 = obj as Simple;

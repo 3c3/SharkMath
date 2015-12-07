@@ -19,6 +19,14 @@ namespace SharkMath
             } 
         }
 
+        public bool isOne
+        {
+            get
+            {
+                return (numerator == 1 || numerator==-1) && denominator == 1;
+            }
+        }
+
         public bool isInteger
         {
             get
@@ -32,6 +40,14 @@ namespace SharkMath
             get
             {
                 return numerator<0;
+            }
+        }
+
+        public char sign
+        {
+            get
+            {
+                return numerator < 0 ? '-' : '+';
             }
         }
 

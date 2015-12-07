@@ -11,7 +11,14 @@ namespace SharkMath
         public Polynomial poly;
         public override string print(bool attach, bool brackets)
         {
-            throw new NotImplementedException();
+            string result = "";
+            /*if (coef.isNegative) brackets = true;
+            if(coef.isOne)
+            {
+                if(attach || coef.isNegative) result+=coef.isNegative 
+            }*/
+
+            return result;
         }
     }
 }
