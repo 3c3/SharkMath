@@ -144,8 +144,8 @@ namespace SharkMath
             if (power > m.power) return -1;
             if (m.power > power) return 1;
 
-            if (simples.Count > m.simples.Count) return -1;
-            if (m.simples.Count > simples.Count) return 1;
+            if (simples.Count < m.simples.Count) return -1;
+            if (m.simples.Count < simples.Count) return 1;
 
             int lim = Math.Min(simples.Count, m.simples.Count);
 

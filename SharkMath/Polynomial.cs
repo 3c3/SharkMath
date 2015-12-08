@@ -167,9 +167,12 @@ namespace SharkMath
             if(p1.monos.Count < p2.monos.Count)
             {
                 Polynomial tmp = p1;
-                p2 = p1;
+                p1 = p2;
                 p2 = tmp;
             }
+
+            Console.WriteLine("p1: " + p1.print(false, false));
+            Console.WriteLine("p2: " + p2.print(false, false));
 
             Polynomial result = multPolyByMono(p1, p2.monos[0]);
             Console.WriteLine("initial: " + result.print(false, false));
