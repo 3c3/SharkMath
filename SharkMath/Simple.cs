@@ -31,7 +31,7 @@ namespace SharkMath
             letter=s[idx++];        //тя ще е буквата на простия едночлен
             //цифрите след тази буква образуват степента
             short n = 0;
-            while(s[idx] >= '0' && s[idx] <='9')
+            while(idx < s.Length && s[idx] >= '0' && s[idx] <='9')
             {
                 n*=10;
                 n+=(short)(s[idx++]-'0');

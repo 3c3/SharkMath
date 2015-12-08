@@ -171,8 +171,6 @@ namespace SharkMath
             return eval > 0;
         }
 
-
-
         public string print(bool attach, bool showOne)
         {
             string result;
@@ -181,6 +179,7 @@ namespace SharkMath
                 if (isNegative)
                 {
                     result = " - ";
+                    if(isOne && !showOne) return result;
                     if (isInteger) result += (-numerator).ToString(); //затова трябва да се обърне знака на горното
                     else result += "\\frac{" + (-numerator).ToString() + "}{" + denominator.ToString() + "}";
                     return result;

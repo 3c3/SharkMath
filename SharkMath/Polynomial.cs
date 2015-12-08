@@ -109,30 +109,34 @@ namespace SharkMath
             int lim1 = p1.monos.Count;
             int lim2 = p2.monos.Count;
 
-            while(idx1 < lim1 && idx2 < lim2)
+            while(idx1 < lim1 && idx2 < lim2) // сливане на 2 сортирани масива
             {
                 Monomial m1 = p1.monos[idx1];
                 Monomial m2 = p2.monos[idx2];
-                if(m1>m2)
-                {
-                    newList.Add(new Monomial(m1));
-                    idx1++;
-                }
-                else if(m2>m1)
-                {
-                    newList.Add(new Monomial(m2));
-                    idx2++;
-                }
-                else
-                {
-                    Number newCoef = m1.coef + m2.coef;
-                    if (newCoef.isZero) continue;
 
-                    newList.Add(new Monomial(m1, newCoef));
+                int cmpResult = m1.CompareTo(m2);
+
+                switch(cmpResult)
+                {
+                    case -1: // първия елемент е по-голям => добавяме го
+                        newList.Add(new Monomial(m1));
+                        idx1++;
+                        break;
+                    case 0: // равни са, събираме коефициентите
+                        idx1++;
+                        idx2++;
+                        Number newCoef = m1.coef + m2.coef;
+                        if (newCoef.isZero) continue; // ако се получи 0 нищо не добавяме                    
+                        newList.Add(new Monomial(m1, newCoef));
+                        break;
+                    case 1: // втория е по-голям, добавяме
+                         newList.Add(new Monomial(m2));
+                         idx2++;
+                         break;
                 }
             }
-            while (idx1 < lim1) newList.Add(new Monomial(p1.monos[idx1++]));
-            while (idx2 < lim2) newList.Add(new Monomial(p2.monos[idx2++]));
+            while (idx1 < lim1) newList.Add(new Monomial(p1.monos[idx1++])); // добавяме останалите едночлени
+            while (idx2 < lim2) newList.Add(new Monomial(p2.monos[idx2++])); // само един от тези ще се изпълни
 
             if (newList.Count > 0) return new Polynomial(newList, true);
             return new Polynomial();
@@ -153,7 +157,7 @@ namespace SharkMath
 
         public static Polynomial multPolyByMono(Polynomial p, Monomial m)
         {
-            List<Monomial> newList = p.monos.Select(mc => mc*m) as List<Monomial>;
+            List<Monomial> newList = p.monos.Select(mc => mc*m).ToList<Monomial>();
             if(newList==null) throw new Exception("This was a bad idea.");
             return new Polynomial(newList, false);
         }
@@ -166,8 +170,16 @@ namespace SharkMath
                 p2 = p1;
                 p2 = tmp;
             }
+
             Polynomial result = multPolyByMono(p1, p2.monos[0]);
-            for (int i = 1; i < p2.monos.Count; i++) result += multPolyByMono(p1, p2.monos[i]);
+            Console.WriteLine("initial: " + result.print(false, false));
+            for (int i = 1; i < p2.monos.Count; i++)
+            {
+                Polynomial tmp = multPolyByMono(p1, p2.monos[i]); ;
+                Console.WriteLine("tmp: " + tmp.print(false, false));
+                result += tmp;
+                Console.WriteLine("result: " + result.print(false, false));
+            }
             return result;
         }
     }

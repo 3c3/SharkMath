@@ -86,9 +86,10 @@ namespace SharkMath
         /// <param name="src"></param>
         public Monomial(Monomial src)
         {
-            simples = src.simples.Select(s => new Simple(s)) as List<Simple>;
-            if (simples == null) throw new Exception("This was a bad idea!");
+            simples = new List<Simple>(src.simples.Count);
+            src.simples.ForEach(s => simples.Add(s));
             coef = new Number(src.coef);
+            power = src.power;
         }
 
         /// <summary>
@@ -98,9 +99,10 @@ namespace SharkMath
         /// <param name="newCoef">Новото число</param>
         public Monomial(Monomial m, Number newCoef)
         {
-            simples = m.simples.Select(s => new Simple(s)) as List<Simple>;
-            if (simples == null) throw new Exception("This was a bad idea!");
+            simples = new List<Simple>(m.simples.Count);
+            m.simples.ForEach(s => simples.Add(s));
             coef = new Number(newCoef);
+            power = m.power;
         }
 
         public Monomial(string s, ref int idx) //Конструктор със string
@@ -140,7 +142,7 @@ namespace SharkMath
             if (m == null) throw new ArgumentException("Tried to compare Monomial to something else.");
 
             if (power > m.power) return -1;
-            if (m.power > power) return -1;
+            if (m.power > power) return 1;
 
             if (simples.Count > m.simples.Count) return -1;
             if (m.simples.Count > simples.Count) return 1;
@@ -161,22 +163,30 @@ namespace SharkMath
 
         public static bool operator>(Monomial m1, Monomial m2)
         {
-            return m1.CompareTo(m2) == -1;
+            return m1.CompareTo(m2) == 1;
         }
 
         public static bool operator<(Monomial m1, Monomial m2)
         {
-            return m1.CompareTo(m2) == 1;
+            return m1.CompareTo(m2) == -1;
         }
 
         public static Monomial operator*(Monomial m1, Monomial m2)
         {
             if (m1.coef.isZero || m2.coef.isZero) return new Monomial();
-            Number newCoef = m1.coef + m2.coef;
+            Number newCoef = m1.coef * m2.coef;
 
             SortedDictionary<char, short> powers = new System.Collections.Generic.SortedDictionary<char,short>();
-            m1.simples.ForEach(s => powers[s.letter] += s.power);
-            m2.simples.ForEach(s => powers[s.letter] += s.power);
+            foreach(Simple s in m1.simples)
+            {
+                if (powers.ContainsKey(s.letter)) powers[s.letter] += s.power;
+                else powers.Add(s.letter, s.power);
+            }
+            foreach (Simple s in m2.simples)
+            {
+                if (powers.ContainsKey(s.letter)) powers[s.letter] += s.power;
+                else powers.Add(s.letter, s.power);
+            }
 
             List<Simple> newList = new List<Simple>();
             foreach (KeyValuePair<char, short> kvp in powers) newList.Add(new Simple(kvp.Key, kvp.Value));
