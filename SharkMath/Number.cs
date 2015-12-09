@@ -79,7 +79,7 @@ namespace SharkMath
 
         public Number(int k)
         {
-            numerator = 1;
+            numerator = k;
             denominator = 1;
         }
 
@@ -219,6 +219,12 @@ namespace SharkMath
                     return result;
                 }
             }       
+        }
+
+        public void makeOne()
+        {
+            numerator = 1;
+            denominator = 1;
         }
     }
 }

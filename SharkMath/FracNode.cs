@@ -55,8 +55,19 @@ namespace SharkMath
         public override string print(bool attach, bool brackets)
         {
             string result = coef.print(attach, false);
+
+            bool numNeg = numerator.isNegative;
+            bool denNeg = numerator.isNegative;
+
+            if (numNeg) numerator.flipSign();
+            if (denNeg) denominator.flipSign();
+
             if(brackets) result += String.Format("(\\frac{{{0}}}{{{1}}})", numerator.print(false, false), denominator.print(false, false));
             else result += String.Format("\\frac{{{0}}}{{{1}}}", numerator.print(false, false), denominator.print(false, false));
+
+            if (numNeg) numerator.flipSign();
+            if (denNeg) denominator.flipSign();
+
             return result;
         }
 
@@ -72,6 +83,9 @@ namespace SharkMath
 
             coef *= numerator.coef;
             coef /= denominator.coef;
+
+            numerator.coef.makeOne();
+            denominator.coef.makeOne();
         }
     }
 }

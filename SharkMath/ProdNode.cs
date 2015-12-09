@@ -61,9 +61,9 @@ namespace SharkMath
         {
             foreach(Node node in children)
             {
+                node.simplify();
                 coef *= node.coef;
-                node.coef.numerator = 1;
-                node.coef.denominator = 1;
+                node.coef.makeOne();
             }
         }
     }

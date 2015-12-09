@@ -16,6 +16,14 @@ namespace SharkMath
         /// </summary>
         public Number coef;
 
+        public bool isNegative
+        {
+            get
+            {
+                return coef.isNegative;
+            }
+        }
+
         /// <summary>
         /// Принтира елемента
         /// </summary>
