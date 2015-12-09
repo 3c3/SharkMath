@@ -79,5 +79,15 @@ namespace SharkMath
         {
             return new SumNode(this);
         }
+
+        public override void simplify()
+        {
+            if (children.Count == 0) return;
+            if(children[0].coef.isNegative)
+            {
+                children.ForEach(n => n.flipSign());
+                coef.numerator *= -1;
+            }
+        }
     }
 }

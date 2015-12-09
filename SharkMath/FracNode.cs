@@ -64,5 +64,14 @@ namespace SharkMath
         {
             return new FracNode(this);
         }
+
+        public override void simplify()
+        {
+            numerator.simplify();
+            denominator.simplify();
+
+            coef *= numerator.coef;
+            coef /= denominator.coef;
+        }
     }
 }

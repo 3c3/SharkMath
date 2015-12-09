@@ -9,7 +9,7 @@ namespace SharkMath
     /// <summary>
     /// Основният клас за сложни изрази.
     /// </summary>
-    public abstract class Node : IPrintable, ICopiable
+    public abstract class Node : IPrintable, ICopiable, ISimplifiable
     {
         /// <summary>
         /// Коефициентът
@@ -30,5 +30,12 @@ namespace SharkMath
         }
 
         public abstract object copy();
+
+        public abstract void simplify();
+
+        public void flipSign()
+        {
+            coef.numerator *= -1;
+        }
     }
 }

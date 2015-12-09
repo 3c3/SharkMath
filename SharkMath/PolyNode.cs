@@ -70,5 +70,14 @@ namespace SharkMath
         {
             return new PolyNode(this);
         }
+
+        public override void simplify()
+        {
+            if(poly.isNegative)
+            {
+                poly.flipSigns();
+                coef.numerator *= -1;
+            }
+        }
     }
 }

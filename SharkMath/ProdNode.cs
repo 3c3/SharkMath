@@ -56,5 +56,15 @@ namespace SharkMath
         {
             return new ProdNode(this);
         }
+
+        public override void simplify()
+        {
+            foreach(Node node in children)
+            {
+                coef *= node.coef;
+                node.coef.numerator = 1;
+                node.coef.denominator = 1;
+            }
+        }
     }
 }

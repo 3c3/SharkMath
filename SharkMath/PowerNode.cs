@@ -19,5 +19,10 @@ namespace SharkMath
         {
             throw new NotImplementedException();
         }
+
+        public override void simplify()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

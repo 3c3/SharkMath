@@ -33,6 +33,17 @@ namespace SharkMath
             monos = new List<Monomial>();
         }
 
+        /// <summary>
+        /// Дали коефициентът пред най-високата степен е отрицателен
+        /// </summary>
+        public bool isNegative
+        {
+            get
+            {
+                return monos.Count > 0 ? monos[0].coef.isNegative : false;
+            }
+        }
+
         public Polynomial(Number num)
         {
             monos = new List<Monomial>();
