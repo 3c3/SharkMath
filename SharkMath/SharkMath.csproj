@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FracNode.cs" />
+    <Compile Include="ICopiable.cs" />
     <Compile Include="IPrintable.cs" />
     <Compile Include="Monomial.cs" />
     <Compile Include="Node.cs" />

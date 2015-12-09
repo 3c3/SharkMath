@@ -10,12 +10,24 @@ namespace SharkMath
     {
         public List<Monomial> monos; /// състващите едночлени
 
+        /// <summary>
+        /// Copy конструктор
+        /// </summary>
+        public Polynomial(Polynomial src)
+        {
+            monos = new List<Monomial>(src.monos.Count);
+            src.monos.ForEach(m => monos.Add(new Monomial(m)));
+        }
+
         public Polynomial(List<Monomial> monos, bool isSorted)
         {
             this.monos = monos;
             if(!isSorted)monos.Sort();
         }
 
+        /// <summary>
+        /// Нулиращ конструктор
+        /// </summary>
         public Polynomial()
         {
             monos = new List<Monomial>();
@@ -81,7 +93,6 @@ namespace SharkMath
 
             if(brackets)
             {
-                //if(attach) result += "+ ";
                 result+="(";
                 for (int i = 0; i < monos.Count; i++) result += monos[i].print(i > 0, false);
                 result += ")";
@@ -164,24 +175,17 @@ namespace SharkMath
 
         public static Polynomial operator*(Polynomial p1, Polynomial p2)
         {
-            if(p1.monos.Count < p2.monos.Count)
-            {
-                Polynomial tmp = p1;
+            if(p1.monos.Count < p2.monos.Count) // винаги умножаваме по-голямо по по-малко
+            {                                   // така имаме по-малко извиквания
+                Polynomial tmp = p1;            // на multPolyByMono и събиране
                 p1 = p2;
                 p2 = tmp;
             }
 
-            Console.WriteLine("p1: " + p1.print(false, false));
-            Console.WriteLine("p2: " + p2.print(false, false));
-
-            Polynomial result = multPolyByMono(p1, p2.monos[0]);
-            Console.WriteLine("initial: " + result.print(false, false));
-            for (int i = 1; i < p2.monos.Count; i++)
-            {
-                Polynomial tmp = multPolyByMono(p1, p2.monos[i]); ;
-                Console.WriteLine("tmp: " + tmp.print(false, false));
-                result += tmp;
-                Console.WriteLine("result: " + result.print(false, false));
+            Polynomial result = multPolyByMono(p1, p2.monos[0]); // използва се стандартния метод за умножение
+            for (int i = 1; i < p2.monos.Count; i++) // по-оптимизирани биха били практични при толкова висок брой едночлени,
+            {                                        // че обработването от човек би било невъзможно
+                result += multPolyByMono(p1, p2.monos[i]);
             }
             return result;
         }

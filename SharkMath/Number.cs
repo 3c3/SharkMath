@@ -19,11 +19,25 @@ namespace SharkMath
             } 
         }
 
+        /// <summary>
+        /// Дали е +/-1
+        /// </summary>
         public bool isOne
         {
             get
             {
                 return (numerator == 1 || numerator==-1) && denominator == 1;
+            }
+        }
+
+        /// <summary>
+        /// Дали е +1
+        /// </summary>
+        public bool isPosOne
+        {
+            get
+            {
+                return numerator == 1 && denominator == 1;
             }
         }
 
