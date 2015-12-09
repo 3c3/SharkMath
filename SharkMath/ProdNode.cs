@@ -13,5 +13,10 @@ namespace SharkMath
         {
             throw new NotImplementedException();
         }
+
+        public override object copy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

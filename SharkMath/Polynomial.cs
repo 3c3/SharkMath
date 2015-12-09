@@ -33,6 +33,12 @@ namespace SharkMath
             monos = new List<Monomial>();
         }
 
+        public Polynomial(Number num)
+        {
+            monos = new List<Monomial>();
+            monos.Add(new Monomial(num));
+        }
+
         public Polynomial(char ltr, Number root)
 	    {
             Monomial first = new Monomial(new Number(1), ltr);

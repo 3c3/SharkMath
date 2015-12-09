@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
+    /// <summary>
+    /// Основният елемент, многочлен с рационални коефициенти
+    /// </summary>
     public class PolyNode : Node
     {
         public Polynomial poly;

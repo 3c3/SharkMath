@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace SharkMath
 {
     /// <summary>
-    /// Основният клас за сложни изрази. Просто число
+    /// Основният клас за сложни изрази.
     /// </summary>
-    public class Node : IPrintable, ICopiable
+    public abstract class Node : IPrintable, ICopiable
     {
         /// <summary>
         /// Коефициентът
@@ -17,36 +17,18 @@ namespace SharkMath
         public Number coef;
 
         /// <summary>
-        /// Принтира число
+        /// Принтира елемента
         /// </summary>
-        /// <param name="attach">При true, винаги има знак + интервал. При false, има само долепен -, ако трябва</param>
-        /// <param name="showOne">Дали да показва +1</param>
+        /// <param name="attach">При true, винаги има знак и интервал. При false, има само долепен -, ако трябва</param>
+        /// <param name="brackets">Дали да показва +1</param>
         /// <returns></returns>
-        public virtual string print(bool attach, bool showOne)
-        {
-            return coef.print(attach, showOne);
-        }
+        public abstract string print(bool attach, bool brackets);
 
-        /// <summary>
-        /// Нулира
-        /// </summary>
         public Node()
         {
             coef = new Number(0);
         }
 
-        /// <summary>
-        /// Copy конструктор
-        /// </summary>
-        /// <param name="src">Това, което копираме</param>
-        public Node(Node src)
-        {
-            coef = new Number(src.coef);
-        }
-
-        public virtual object copy()
-        {
-            return new Node(this);
-        }
+        public abstract object copy();
     }
 }

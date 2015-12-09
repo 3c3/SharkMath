@@ -209,8 +209,8 @@ namespace SharkMath
             }
             else
             {
+                if (!showOne && isPosOne) return "";
                 if (isNegative && isOne) return "-";
-                if (!showOne && isOne) return "";
                 if (isInteger) return numerator.ToString();
                 else
                 {

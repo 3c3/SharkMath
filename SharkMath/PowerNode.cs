@@ -14,5 +14,10 @@ namespace SharkMath
         {
  	        throw new System.NotImplementedException();
         }
+
+        public override object copy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
