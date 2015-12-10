@@ -9,7 +9,7 @@ namespace SharkMath
     /// <summary>
     /// Клас за дроб
     /// </summary>
-    public class FracNode : Node
+    public class FracNode : Node, IMultipliable
     {
         /// <summary>
         /// Числител
@@ -86,6 +86,28 @@ namespace SharkMath
 
             numerator.coef.makeOne();
             denominator.coef.makeOne();
+        }
+
+        /// <summary>
+        /// Умножава текущата дроб. Ползвай смело с всичко
+        /// </summary>
+        /// <param name="arg">Умножителя. Не го променя</param>
+        public void Multiply(Node arg)
+        {
+            Node copyNode = arg.copy() as Node;
+            if(copyNode is FracNode)
+            {
+                FracNode fn = copyNode as FracNode;
+                coef *= fn.coef;
+
+                numerator = Node.Multiply2(numerator, fn.numerator, true);
+                denominator = Node.Multiply2(denominator, fn.denominator, true);
+                return;
+            }
+
+            coef *= copyNode.coef;
+            copyNode.coef.makeOne();
+            numerator = Node.Multiply2(numerator, copyNode, true);
         }
     }
 }

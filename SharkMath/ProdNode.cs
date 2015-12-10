@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    public class ProdNode : Node
+    public class ProdNode : Node, IMultipliable
     {
         List<Node> children;
 
@@ -23,12 +23,17 @@ namespace SharkMath
             coef = new Number(src.coef);
         }
 
+        /// <summary>
+        /// Създава произведение по 2 елемента. Взима впредвид коефициентите им.
+        /// </summary>
+        /// <param name="n1"></param>
+        /// <param name="n2"></param>
         public ProdNode(Node n1, Node n2)
         {
             children = new List<Node>(2);
             children.Add(n1.copy() as Node);
             children.Add(n2.copy() as Node);
-            coef = new Number(1);
+            coef = n1.coef * n2.coef;
         }
         /// <summary>
         /// Принтира произведение
@@ -65,6 +70,25 @@ namespace SharkMath
                 coef *= node.coef;
                 node.coef.makeOne();
             }
+        }
+        /// <summary>
+        /// Добавя към текущото произведение. НЕ ползвай с FracNode!
+        /// </summary>
+        /// <param name="arg">Това, по което умножаваме. Не се променя</param>
+        public void Multiply(Node arg)
+        {
+            if(arg is ProdNode) // Перфектно, просто сливаме 2 произведения
+            {
+                ProdNode pn = arg as ProdNode;
+                coef *= pn.coef;
+                pn.children.ForEach(n => children.Add(n.copy() as Node));
+                return;
+            }
+
+            coef *= arg.coef; // в общия случай
+            Node copyNode = arg.copy() as Node; // добавяме само 1 дете
+            copyNode.coef.makeOne();
+            children.Add(copyNode);
         }
     }
 }
