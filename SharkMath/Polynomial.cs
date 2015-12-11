@@ -9,6 +9,8 @@ namespace SharkMath
     public class Polynomial : IPrintable
     {
         public List<Monomial> monos; /// състващите едночлени
+        
+        #region Конструктори
 
         /// <summary>
         /// Copy конструктор
@@ -19,6 +21,11 @@ namespace SharkMath
             src.monos.ForEach(m => monos.Add(new Monomial(m)));
         }
 
+        /// <summary>
+        /// Многочлен по списък от едночлени
+        /// </summary>
+        /// <param name="monos">Списъкът едночлени</param>
+        /// <param name="isSorted">Дали списъкът е сортиран. Ако не е - се сортира.</param>
         public Polynomial(List<Monomial> monos, bool isSorted)
         {
             this.monos = monos;
@@ -34,6 +41,72 @@ namespace SharkMath
         }
 
         /// <summary>
+        /// Многочлен, който е просто число
+        /// </summary>
+        /// <param name="num"></param>
+        public Polynomial(Number num)
+        {
+            monos = new List<Monomial>();
+            monos.Add(new Monomial(num));
+        }
+
+        /// <summary>
+        /// Многочлен-корен, т.е. при буквата равна на корена, е 0
+        /// </summary>
+        /// <param name="ltr">буквата на променливата</param>
+        /// <param name="root">числото корен</param>
+        public Polynomial(char ltr, Number root)
+        {
+            Monomial first = new Monomial(new Number(1), ltr);
+            Monomial second = new Monomial(new Number(-root.numerator, root.denominator));
+
+            monos = new List<Monomial>();
+            monos.Add(first);
+            monos.Add(second);
+        }
+        /// <summary>
+        /// Прави полином от низ, напр. 2x2 - 3x + 3
+        /// </summary>
+        /// <param name="s">Без дроби; степените се запизват директно след буквата без доп. знаци</param>
+        public Polynomial(string s)
+        {
+            monos = new List<Monomial>();
+            int idx = 0;
+
+            bool sign = true; //true e +, false e -
+
+            while (idx < s.Length)
+            {
+                char c = s[idx];
+                if (c == ' ')
+                {
+                    idx++;
+                    continue;
+                }
+                if (c == '+')
+                {
+                    idx++;
+                    sign = true;
+                    continue;
+                }
+                if (c == '-')
+                {
+                    idx++;
+                    sign = false;
+                    continue;
+                }
+
+                Monomial m = new Monomial(s, ref idx);
+                if (!sign) m.coef.numerator *= -1;
+                monos.Add(m);
+            }
+
+            monos.Sort();
+        }
+
+        #endregion
+
+        /// <summary>
         /// Дали коефициентът пред най-високата степен е отрицателен
         /// </summary>
         public bool isNegative
@@ -43,61 +116,7 @@ namespace SharkMath
                 return monos.Count > 0 ? monos[0].coef.isNegative : false;
             }
         }
-
-        public Polynomial(Number num)
-        {
-            monos = new List<Monomial>();
-            monos.Add(new Monomial(num));
-        }
-
-        public Polynomial(char ltr, Number root)
-	    {
-            Monomial first = new Monomial(new Number(1), ltr);
-            Monomial second = new Monomial(new Number(-root.numerator, root.denominator));
-
-            monos = new List<Monomial>();
-            monos.Add(first);
-            monos.Add(second);
-	    }
-        /// <summary>
-        /// Прави полином от низ
-        /// </summary>
-        /// <param name="s">Без дроби; степените се запизват директно след буквата без доп. знаци</param>
-        public Polynomial(string s)
-        {
-            monos = new List<Monomial>();
-            int idx = 0;
-
-            bool sign=true; //true e +, false e -
-
-            while(idx<s.Length)
-            {
-                char c = s[idx];
-                if(c==' ')
-                {
-                    idx++;
-                    continue;
-                }
-                if(c=='+')
-                {
-                    idx++;
-                    sign=true;
-                    continue;
-                }
-                if(c=='-')
-                {
-                    idx++;
-                    sign=false;
-                    continue;
-                }
-
-                Monomial m = new Monomial(s, ref idx);
-                if(!sign) m.coef.numerator*=-1;
-                monos.Add(m);
-            }
-
-            monos.Sort();
-        }
+       
         /// <summary>
         /// Принтира многочлен
         /// </summary>
@@ -123,10 +142,47 @@ namespace SharkMath
             return result;
         }
 
+        /// <summary>
+        /// Обръща знаците
+        /// </summary>
         public void flipSigns()
         {
             monos.ForEach(m => m.coef.numerator *= -1);
         }
+        
+        /// <summary>
+        /// Намира най-големия общ числов множител
+        /// </summary>
+        /// <returns></returns>
+        public Number findGcd()
+        {
+            int g_num = monos[0].coef.numerator;
+            int g_den = monos[0].coef.denominator;
+
+            for(int i = 1; i < monos.Count; i++)
+            {
+                g_num = Number.gcd(g_num, monos[i].coef.numerator);
+                g_den = Number.gcd(g_den, monos[i].coef.denominator);
+            }
+
+            return new Number(g_num, g_den);
+        }
+
+        /// <summary>
+        /// Намира числовия НОД и дели всичко коефициенти на него
+        /// </summary>
+        /// <returns></returns>
+        public Number findAndExtractGcd()
+        {
+            Number numGcd = findGcd();
+            if (numGcd.isPosOne) return numGcd;
+
+            monos.ForEach(m => m.coef.DivideBy(numGcd));
+
+            return numGcd;
+        }
+
+        #region Математически функции/оператори
 
         public static Polynomial addPoly(Polynomial p1, Polynomial p2)
         {
@@ -206,5 +262,7 @@ namespace SharkMath
             }
             return result;
         }
+
+        #endregion
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    public class SumNode : Node
+    public class SumNode : Node, IAddable
     {
         List<Node> children;
 
@@ -80,6 +80,9 @@ namespace SharkMath
             return new SumNode(this);
         }
 
+        /// <summary>
+        /// Ако първият елемент е със знак -, обръща значците на всички и коефициентът на сумата
+        /// </summary>
         public override void simplify()
         {
             if (children.Count == 0) return;
@@ -88,6 +91,37 @@ namespace SharkMath
                 children.ForEach(n => n.flipSign());
                 coef.numerator *= -1;
             }
+        }
+
+        /// <summary>
+        /// Добавя елемента към текущата сума
+        /// </summary>
+        /// <param name="arg">Добавяемото, не се променя</param>
+        public void Add(Node arg)
+        {
+            Number modCoef = arg.coef / coef; // нагласяме коефициентите
+
+            if(arg is SumNode) // ако елемента е сума
+            { // сливаме елементите на двете суми
+                SumNode sn = arg as SumNode;
+
+                if (modCoef.isPosOne) sn.children.ForEach(n => children.Add(n.copy() as Node)); // нищо не променяме по елементите, защото
+                else                                                                            // коеф. им са еднакви
+                {
+                    foreach(Node node in sn.children)
+                    { // не са еднаки, затова коригираме
+                        Node copyNode = node.copy() as Node;
+                        copyNode.coef.MultiplyBy(modCoef); 
+                        children.Add(copyNode);
+                    }
+                }
+                return;
+            }
+
+            // елемента не е сума, затова просто го добавяме като дете
+            Node cpyNode = arg.copy() as Node;
+            cpyNode.coef.MultiplyBy(modCoef);
+            children.Add(cpyNode);
         }
     }
 }

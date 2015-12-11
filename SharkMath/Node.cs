@@ -60,7 +60,7 @@ namespace SharkMath
         /// <param name="arg2"></param>
         /// <param name="compact">Да се опитаме ли да избегнем създаването на нови елементи</param>
         /// <returns>Произведението като нов елемент</returns>
-        public static Node Multiply2(Node arg1, Node arg2, bool compact)
+        public static Node Multiply2(Node arg1, Node arg2, bool compact = true)
         {
             if(!compact)
             { // най-лесното, просто правим произведение
@@ -111,7 +111,7 @@ namespace SharkMath
         /// <param name="arg2"></param>
         /// <param name="compact">Да се опитаме ли да избегнем създаването на нови елементи</param>
         /// <returns>Сбора като нов елемент</returns>
-        public static Node Add2(Node arg1, Node arg2, bool compact)
+        public static Node Add2(Node arg1, Node arg2, bool compact = true)
         {   // ако не искаме компактно просто връщаме нова сума
             if (!compact) return new SumNode(arg1.copy() as Node, arg2.copy() as Node);
 

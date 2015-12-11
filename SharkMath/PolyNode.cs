@@ -78,6 +78,8 @@ namespace SharkMath
                 poly.flipSigns();
                 coef.numerator *= -1;
             }
+
+            coef.MultiplyBy(poly.findAndExtractGcd());
         }
     }
 }
