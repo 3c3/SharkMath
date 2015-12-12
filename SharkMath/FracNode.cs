@@ -9,7 +9,7 @@ namespace SharkMath
     /// <summary>
     /// Клас за дроб
     /// </summary>
-    public class FracNode : Node, IMultipliable
+    public class FracNode : Node, IMultipliable, IAddable
     {
         /// <summary>
         /// Числител
@@ -19,6 +19,8 @@ namespace SharkMath
         /// Знаменател
         /// </summary>
         Node denominator;
+
+        #region Конструктори
 
         /// <summary>
         /// Прави празна дроб 0/1
@@ -52,6 +54,8 @@ namespace SharkMath
             coef = new Number(1);
         }
 
+        #endregion
+
         public override string print(bool attach, bool brackets)
         {
             string result = coef.print(attach, false);
@@ -76,13 +80,16 @@ namespace SharkMath
             return new FracNode(this);
         }
 
+        /// <summary>
+        /// Изважда коефициентите на числителя и знаменателя пред дробта
+        /// </summary>
         public override void simplify()
         {
             numerator.simplify();
             denominator.simplify();
 
-            coef *= numerator.coef;
-            coef /= denominator.coef;
+            coef.MultiplyBy(numerator.coef);
+            coef.DivideBy(denominator.coef);
 
             numerator.coef.makeOne();
             denominator.coef.makeOne();
@@ -98,16 +105,44 @@ namespace SharkMath
             if(copyNode is FracNode)
             {
                 FracNode fn = copyNode as FracNode;
-                coef *= fn.coef;
+                coef.MultiplyBy(fn.coef);
 
                 numerator = Node.Multiply2(numerator, fn.numerator, true);
                 denominator = Node.Multiply2(denominator, fn.denominator, true);
                 return;
             }
 
-            coef *= copyNode.coef;
+            coef.MultiplyBy(copyNode.coef);
             copyNode.coef.makeOne();
             numerator = Node.Multiply2(numerator, copyNode, true);
+        }
+
+        /// <summary>
+        /// Добавя елемнт към дробта
+        /// </summary>
+        /// <param name="arg">Добавяемото, не се променя</param>
+        public void Add(Node arg)
+        {
+            if(arg is FracNode)
+            { // ако имаме дроб прилагаме съответното правило
+                FracNode fn = arg.copy() as FracNode;
+
+                numerator.coef.MultiplyBy(coef); // качваме коефициентите при числителите
+                coef.makeOne(); 
+
+                fn.numerator.coef.MultiplyBy(fn.coef);
+                fn.coef.makeOne();
+
+                numerator = Node.Add2(Node.Multiply2(numerator, fn.denominator), Node.Multiply2(fn.numerator, denominator));
+                denominator = Node.Multiply2(denominator, fn.denominator);
+
+                simplify(); // оправяме знаци / извеждаме общ множител
+                return;
+            }
+            // общия случай
+            Node newNode = Node.Multiply2(denominator, arg);
+            newNode.coef.DivideBy(coef);
+            numerator = Node.Add2(numerator, newNode);
         }
     }
 }

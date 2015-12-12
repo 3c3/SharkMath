@@ -13,6 +13,8 @@ namespace SharkMath
     {
         public Polynomial poly;
 
+        #region Конструктори
+
         public PolyNode()
         {
             coef = new Number(0);
@@ -30,6 +32,8 @@ namespace SharkMath
             coef = new Number(src.coef);
             poly = new Polynomial(src.poly);
         }
+
+        #endregion
 
         /// <summary>
         /// Принтира многочленно звено
@@ -59,8 +63,8 @@ namespace SharkMath
             }
             else
             {
-                if (coef.isPosOne) result = poly.print(false, false);
-                else result = coef.print(false, false) + poly.print(false, true);
+                if (coef.isPosOne) result += poly.print(false, brackets);
+                else result += coef.print(false, false) + poly.print(false, true);                
             }
 
             return result;
@@ -78,6 +82,8 @@ namespace SharkMath
                 poly.flipSigns();
                 coef.numerator *= -1;
             }
+
+            coef.MultiplyBy(poly.findAndExtractGcd());
         }
     }
 }

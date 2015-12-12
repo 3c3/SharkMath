@@ -67,7 +67,7 @@ namespace SharkMath
             foreach(Node node in children)
             {
                 node.simplify();
-                coef *= node.coef;
+                coef.MultiplyBy(node.coef);
                 node.coef.makeOne();
             }
         }
@@ -80,12 +80,12 @@ namespace SharkMath
             if(arg is ProdNode) // Перфектно, просто сливаме 2 произведения
             {
                 ProdNode pn = arg as ProdNode;
-                coef *= pn.coef;
+                coef.MultiplyBy(pn.coef);
                 pn.children.ForEach(n => children.Add(n.copy() as Node));
                 return;
             }
 
-            coef *= arg.coef; // в общия случай
+            coef.MultiplyBy(arg.coef); // в общия случай
             Node copyNode = arg.copy() as Node; // добавяме само 1 дете
             copyNode.coef.makeOne();
             children.Add(copyNode);

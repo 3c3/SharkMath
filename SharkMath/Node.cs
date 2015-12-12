@@ -60,7 +60,7 @@ namespace SharkMath
         /// <param name="arg2"></param>
         /// <param name="compact">Да се опитаме ли да избегнем създаването на нови елементи</param>
         /// <returns>Произведението като нов елемент</returns>
-        public static Node Multiply2(Node arg1, Node arg2, bool compact)
+        public static Node Multiply2(Node arg1, Node arg2, bool compact = true)
         {
             if(!compact)
             { // най-лесното, просто правим произведение
@@ -111,12 +111,41 @@ namespace SharkMath
         /// <param name="arg2"></param>
         /// <param name="compact">Да се опитаме ли да избегнем създаването на нови елементи</param>
         /// <returns>Сбора като нов елемент</returns>
-        public static Node Add2(Node arg1, Node arg2, bool compact)
+        public static Node Add2(Node arg1, Node arg2, bool compact = true)
         {   // ако не искаме компактно просто връщаме нова сума
             if (!compact) return new SumNode(arg1.copy() as Node, arg2.copy() as Node);
 
+            // първо проверяваме за дроби, защото се са специален случай
+            if (arg2 is FracNode)
+            { // винаги дробта е в arg1
+                Node tmp = arg1;
+                arg1 = arg2;
+                arg2 = tmp;
+            }
 
-            // ако не можем да сме компкатни
+            if(arg1 is FracNode)
+            {
+                FracNode resultNode = arg1.copy() as FracNode;
+                resultNode.Add(arg2);
+                return resultNode;
+            }
+
+            // после за суми
+            if (arg2 is SumNode)
+            { // винаги arg1
+                Node tmp = arg1;
+                arg1 = arg2;
+                arg2 = tmp;
+            }
+
+            if (arg1 is SumNode)
+            {
+                SumNode result = arg1.copy() as SumNode;
+                result.Add(arg2);
+                return result;
+            }
+
+            // и ако нито едно от двете не присъства, просто правим нова сума
             return new SumNode(arg1.copy() as Node, arg2.copy() as Node);
         }
     }

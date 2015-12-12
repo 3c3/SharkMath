@@ -8,8 +8,10 @@ namespace SharkMath
 {
     public class Number : IPrintable, IComparable
     {
-        public int numerator;
-        public int denominator;
+        public int numerator; // числител
+        public int denominator; // знаменател
+
+        #region Свойства
 
         public bool isZero
         {
@@ -65,6 +67,9 @@ namespace SharkMath
             }
         }
 
+        #endregion
+
+        #region Конструктори
         public Number()
         {
             numerator = 0;
@@ -83,6 +88,11 @@ namespace SharkMath
             denominator = 1;
         }
 
+        /// <summary>
+        /// Създава дроб по числител и знаменател
+        /// </summary>
+        /// <param name="num">числител</param>
+        /// <param name="denom">знаменател</param>
         public Number(int num, int denom)
         {
             if (denom == 0) throw new DivideByZeroException("Tried to create a number with denominator 0!");
@@ -91,20 +101,21 @@ namespace SharkMath
                 num *= -1;
                 denom *= -1;
             }
-            int g = gcd(num, denom);
-            if(g==1)
-            {
-                numerator = num;
-                denominator = denom;
-            }
-            else
-            {
-                numerator = num / g;
-                denominator = denom / g;
-            }
+
+            numerator = num;
+            denominator = denom;
+            checkGcd();
         }
 
-        static int gcd(int a, int b)
+        #endregion
+
+        /// <summary>
+        /// Намира НОД на две числа. Винаги положителен резултат
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static int gcd(int a, int b)
         {
             if (a < 0) a *= -1;
             if (b < 0) b *= -1;
@@ -118,6 +129,8 @@ namespace SharkMath
             }
             return b;
         }
+
+        #region Оператори
 
         public static Number operator+(Number n1, Number n2)
         {
@@ -162,18 +175,7 @@ namespace SharkMath
             return n1.denominator != n2.denominator || n1.numerator != n2.numerator;
         }
 
-        public Int32 CompareTo(Object obj)
-        {
-            Number n2 = obj as Number;
-            if (n2 == null) throw new ArgumentException("Tried to compare Number with another class.");
-
-            int eval = numerator * n2.denominator - n2.numerator * denominator;
-            if (eval < 0) return -1;
-            if (eval > 0) return 1;
-            return 0;
-        }
-
-        public static bool operator<(Number n1, Number n2)
+        public static bool operator <(Number n1, Number n2)
         {
             int eval = n1.numerator * n2.denominator - n2.numerator * n1.denominator;
             return eval < 0;
@@ -185,6 +187,80 @@ namespace SharkMath
             return eval > 0;
         }
 
+
+        #endregion
+
+        #region Модифициращи функции
+
+        /// <summary>
+        /// Съкращава дробта, ако е възможно
+        /// </summary>
+        public void checkGcd()
+        {
+            int g = gcd(numerator, denominator);
+            if (g == 1) return;
+            numerator /= g;
+            denominator /= g;
+        }
+
+        /// <summary>
+        /// Умножава самото число
+        /// </summary>
+        /// <param name="arg"></param>
+        public void MultiplyBy(Number arg)
+        {
+            if (arg.isPosOne) return;
+            numerator *= arg.numerator;
+            denominator *= arg.denominator;
+            checkGcd();
+        }
+
+        /// <summary>
+        /// Дели самото число
+        /// </summary>
+        /// <param name="arg"></param>
+        public void DivideBy(Number arg)
+        {
+            if (arg.isPosOne) return;
+            numerator *= arg.denominator;
+            denominator *= arg.numerator;
+            checkGcd();
+        }
+
+        public void makeOne()
+        {
+            numerator = 1;
+            denominator = 1;
+        }
+
+        /// <summary>
+        /// Сменя числител и знаменател
+        /// </summary>
+        public void flip()
+        {
+            int tmp = denominator;
+            denominator = numerator;
+            numerator = tmp;
+            if (denominator < 0)
+            {
+                denominator *= -1;
+                numerator *= -1;
+            }
+        }
+
+        #endregion
+
+        public Int32 CompareTo(Object obj)
+        {
+            Number n2 = obj as Number;
+            if (n2 == null) throw new ArgumentException("Tried to compare Number with another class.");
+
+            int eval = numerator * n2.denominator - n2.numerator * denominator;
+            if (eval < 0) return -1;
+            if (eval > 0) return 1;
+            return 0;
+        }
+                
         public string print(bool attach, bool showOne)
         {
             string result;
@@ -221,10 +297,6 @@ namespace SharkMath
             }       
         }
 
-        public void makeOne()
-        {
-            numerator = 1;
-            denominator = 1;
-        }
+
     }
 }

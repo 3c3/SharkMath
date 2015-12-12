@@ -84,11 +84,12 @@ namespace SharkMath
         /// Copy constructor
         /// </summary>
         /// <param name="src"></param>
-        public Monomial(Monomial src)
+        public Monomial(Monomial src, bool flipSign = false)
         {
             simples = new List<Simple>(src.simples.Count);
             src.simples.ForEach(s => simples.Add(s));
             coef = new Number(src.coef);
+            if (flipSign) coef.numerator *= -1;
             power = src.power;
         }
 
