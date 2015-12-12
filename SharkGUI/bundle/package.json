@@ -1,0 +1,19 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "description": "SharkGUI js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^6.1.2",
+    "babel-plugin-react-transform": "^2.0.0-beta1",
+    "cssnext": "^1.8.4",
+    "postcss-loader": "^0.8.0",
+    "postcss-nested": "^1.0.0",
+    "react-dom": "^0.14.3"
+  }
+}
