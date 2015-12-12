@@ -104,6 +104,12 @@
   <ItemGroup>
     <Folder Include="bundle\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharkMath\SharkMath.csproj">
+      <Project>{42fef908-c2ff-44fc-b611-6a0f28fb5903}</Project>
+      <Name>SharkMath</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\cef.redist.x86.3.2454.1344\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2454.1344\build\cef.redist.x86.targets')" />
   <Import Project="..\packages\cef.redist.x64.3.2454.1344\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2454.1344\build\cef.redist.x64.targets')" />
