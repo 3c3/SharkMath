@@ -123,9 +123,15 @@ namespace SharkMath
         /// <param name="attach">Дали да се слепва</param>
         /// <param name="brackets">Дали да е в скоби. НЕ слага знак пред скобите!</param>
         /// <returns></returns>
-        public string print(bool attach, bool brackets)
+        public string print(bool attach = false, bool brackets = false)
         {
             string result = "";
+
+            if(monos.Count == 0)
+            {
+                if (attach) return " + 0";
+                else return "0";
+            }
 
             if(brackets)
             {
@@ -226,6 +232,48 @@ namespace SharkMath
             return new Polynomial();
         }
 
+        public static Polynomial subtractPoly(Polynomial p1, Polynomial p2)
+        {
+            List<Monomial> newList = new List<Monomial>(p1.monos.Count + p2.monos.Count);
+
+            int idx1 = 0;
+            int idx2 = 0;
+            int lim1 = p1.monos.Count;
+            int lim2 = p2.monos.Count;
+
+            while (idx1 < lim1 && idx2 < lim2) // сливане на 2 сортирани масива
+            {
+                Monomial m1 = p1.monos[idx1];
+                Monomial m2 = p2.monos[idx2];
+
+                int cmpResult = m1.CompareTo(m2);
+
+                switch (cmpResult)
+                {
+                    case -1: // първия елемент е по-голям => добавяме го
+                        newList.Add(new Monomial(m1));
+                        idx1++;
+                        break;
+                    case 0: // равни са, изваждаме коефициентите
+                        idx1++;
+                        idx2++;
+                        Number newCoef = m1.coef - m2.coef;
+                        if (newCoef.isZero) continue; // ако се получи 0 нищо не добавяме                    
+                        newList.Add(new Monomial(m1, newCoef));
+                        break;
+                    case 1: // втория е по-голям, добавяме
+                        newList.Add(new Monomial(m2, true));
+                        idx2++;
+                        break;
+                }
+            }
+            while (idx1 < lim1) newList.Add(new Monomial(p1.monos[idx1++])); // добавяме останалите едночлени
+            while (idx2 < lim2) newList.Add(new Monomial(p2.monos[idx2++], true)); // само един от тези ще се изпълни
+
+            if (newList.Count > 0) return new Polynomial(newList, true);
+            return new Polynomial();
+        }
+
         public static Polynomial operator+(Polynomial p1, Polynomial p2)
         {
             return addPoly(p1, p2);
@@ -233,10 +281,7 @@ namespace SharkMath
 
         public static Polynomial operator-(Polynomial p1, Polynomial p2)
         {
-            p2.flipSigns();
-            Polynomial result = addPoly(p1, p2);
-            p2.flipSigns();
-            return result;
+            return subtractPoly(p1, p2);
         }
 
         public static Polynomial multPolyByMono(Polynomial p, Monomial m)

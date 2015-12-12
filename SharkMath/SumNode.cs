@@ -94,7 +94,7 @@ namespace SharkMath
         }
 
         /// <summary>
-        /// Добавя елемента към текущата сума
+        /// Добавя елемента към текущата сума. НЕ ползвай с FracNode!
         /// </summary>
         /// <param name="arg">Добавяемото, не се променя</param>
         public void Add(Node arg)

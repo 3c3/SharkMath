@@ -209,6 +209,7 @@ namespace SharkMath
         /// <param name="arg"></param>
         public void MultiplyBy(Number arg)
         {
+            if (arg.isPosOne) return;
             numerator *= arg.numerator;
             denominator *= arg.denominator;
             checkGcd();
@@ -220,6 +221,7 @@ namespace SharkMath
         /// <param name="arg"></param>
         public void DivideBy(Number arg)
         {
+            if (arg.isPosOne) return;
             numerator *= arg.denominator;
             denominator *= arg.numerator;
             checkGcd();
