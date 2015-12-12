@@ -60,7 +60,7 @@ namespace SharkMath
 
             // коефициентът е +1, така че го игнорираме
 
-            if (attach && brackets) result += " + ";
+            if (attach) result += " + ";
 
             if (brackets)
             {
