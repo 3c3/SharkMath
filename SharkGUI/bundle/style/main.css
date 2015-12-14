@@ -1,5 +1,11 @@
 @lost flexbox flex;
 
+body {
+	margin: 0px;
+	padding: 0px;
+	lost-utility: clearfix;
+}
+
 .grid {
 	lost-center: 100%;
 	lost-utility: clearfix;
@@ -10,5 +16,32 @@
 
 	.collumn_main {
 		lost-column: 3/5;
+	}
+}
+
+.tabs {
+	> nav {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		background-color: #2780e3;
+		color: white;
+		
+		cursor: pointer;
+		> * {
+			padding: 5px;
+		}
+
+		> span {
+			display: block;
+			&:hover{
+				background-color: #1967be;
+			}
+		}
+
+		> .selected {
+			color: #2780e3;
+			background-color: white;
+		}
 	}
 }

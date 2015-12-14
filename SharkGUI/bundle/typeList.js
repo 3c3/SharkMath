@@ -24,7 +24,7 @@ export default class TypeList extends React.Component
 			<div className="drop_menu">
 				<div className="bar">
 				<span className="title">{this.props.title}</span>
-				<span className="button" onClick={this.buttonClick.bind(this)}>V</span>
+				<span className="button" onClick={this.buttonClick.bind(this)}>{(this.state.show) ? "/\\" : "V"}</span>
 				</div>
 
 				<div className={classnames({ panel: true }, { panel_show: this.state.show },  { panel_hide: !this.state.show })}>

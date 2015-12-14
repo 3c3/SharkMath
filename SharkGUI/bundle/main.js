@@ -4,6 +4,7 @@ import Katex from "./katex";
 import validate from "validate.js"
 import TypeList from "./typeList.js"
 import lodash from "lodash"; //because I can
+import TabMenu from "./tabMenu.js";
 
 require("./style/katex.min.css");
 require("./style/main.css");
@@ -37,30 +38,34 @@ class App extends React.Component
 
 	render(){
 		return(
-			<div className="grid">
-				<div className="collumn_side">
-				Types
-				<TypeList title="7kl">
-					Hello world from 7kl
-				</TypeList>
-				<TypeList title="8kl">
-					Hello world from 8kl
+			<div className="tabs">
+				<TabMenu onChange={(i,e) => console.log(i,e)} heading="Генерирай:" tabs={["много задачи", "една задача"]}></TabMenu>
+				<div className="grid">
+					<div className="collumn_side">
+					Types
+					<TypeList title="7kl">
+						Hello world from 7kl
+					</TypeList>
+					<TypeList title="8kl">
+						Hello world from 8kl
 
-				</TypeList>
+					</TypeList>
 
-				</div>
-				<div className="collumn_main">
-					Math: 
-					<input onChange={this.handleChange("a")}/>+
-					<input onChange={this.handleChange("b")}/>
-					<input value="Add" type="button" onClick={(e => this.setState({res: app.add(this.state.a, this.state.b)})).bind(this)} />
-					<Katex problem={this.state.res} style={{fontSize: "2em"}}/>
-				</div>
-				<div className="collumn_side">
-				Properties
+					</div>
+					<div className="collumn_main">
+						Math: 
+						<input onChange={this.handleChange("a")}/>+
+						<input onChange={this.handleChange("b")}/>
+						<input value="Add" type="button" onClick={(e => this.setState({res: app.add(this.state.a, this.state.b)})).bind(this)} />
+						<Katex problem={this.state.res} style={{fontSize: "1.5em"}}/>
+					</div>
+					<div className="collumn_side">
+					Properties
 
+					</div>
 				</div>
-			</div>)
+			</div>
+			)
 	}
 }
 

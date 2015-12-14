@@ -19,8 +19,6 @@ namespace SharkGUI
             var segments = uri.Segments;
             var file = segments[segments.Length - 1];
 
-            segments.Select(i => { Console.WriteLine(i); return i; });
-
             Task.Run(() =>
             {
                 // Base to dispose of callback as it wraps a managed resource

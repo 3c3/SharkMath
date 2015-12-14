@@ -29,6 +29,11 @@ namespace SharkGUI
 
         }
 
+        public static string Utf8String(string s) {
+            byte[] bytes = Encoding.Default.GetBytes(s);
+            return Encoding.UTF8.GetString(bytes);
+        }
+
         public ChromiumWebBrowser browser;
         public void InitBrowser()
         {
@@ -65,7 +70,9 @@ namespace SharkGUI
 
 
             var handler = browser.ResourceHandlerFactory as DefaultResourceHandlerFactory;
-            handler.RegisterHandler("app://bundle.js", ResourceHandler.FromString(Resources.bundle));
+
+
+            handler.RegisterHandler("app://bundle.js", ResourceHandler.FromString(Utf8String(Resources.bundle)));
            // handler.RegisterHandler( "app://main", ResourceHandler.FromString(Resources.index));
             
 
@@ -86,8 +93,8 @@ namespace SharkGUI
             if (browser.IsBrowserInitialized)
             {
               //  Console.WriteLine(Resources.index);
-                browser.LoadHtml(Resources.index, "app://main");
-                //browser.Load(@"app://index/");
+                browser.LoadHtml(Utf8String(Resources.index), "app://main");
+                //browser.Load(@"app://main/index");
                 browser.ShowDevTools();
             }
   
