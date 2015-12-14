@@ -101,10 +101,15 @@
 
 	var _tabMenu2 = _interopRequireDefault(_tabMenu);
 
+	var _tabPanel = __webpack_require__(312);
+
+	var _tabPanel2 = _interopRequireDefault(_tabPanel);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(244); //because I can
+	//because I can
 
+	__webpack_require__(244);
 	__webpack_require__(310);
 
 	var App = (function (_React$Component) {
@@ -117,6 +122,7 @@
 
 			_this.state = {
 				res: app.generate(),
+				index: 0,
 				a: "",
 				b: ""
 			};
@@ -150,43 +156,52 @@
 				return _react2.default.createElement(
 					'div',
 					{ className: 'tabs' },
-					_react2.default.createElement(_tabMenu2.default, { onChange: function onChange(i, e) {
-							return console.log(i, e);
-						}, heading: 'Генерирай:', tabs: ["много задачи", "една задача"] }),
+					_react2.default.createElement(_tabMenu2.default, { onChange: function onChange(i) {
+							return _this3.setState({ index: i });
+						}, heading: 'Генерирай:', tabs: ["Eдна задача", "Mного задачи"] }),
 					_react2.default.createElement(
-						'div',
-						{ className: 'grid' },
+						_tabPanel2.default,
+						{ index: this.state.index },
 						_react2.default.createElement(
 							'div',
-							{ className: 'collumn_side' },
-							'Types',
+							null,
+							'Една задача'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'grid' },
 							_react2.default.createElement(
-								_typeList2.default,
-								{ title: '7kl' },
-								'Hello world from 7kl'
+								'div',
+								{ className: 'collumn_side' },
+								'Types',
+								_react2.default.createElement(
+									_typeList2.default,
+									{ title: '7kl' },
+									'Hello world from 7kl'
+								),
+								_react2.default.createElement(
+									_typeList2.default,
+									{ title: '8kl' },
+									'Hello world from 8kl'
+								)
 							),
 							_react2.default.createElement(
-								_typeList2.default,
-								{ title: '8kl' },
-								'Hello world from 8kl'
+								'div',
+								{ className: 'collumn_main' },
+								'Мнго задачи Math:',
+								_react2.default.createElement('input', { onChange: this.handleChange("a") }),
+								'+',
+								_react2.default.createElement('input', { onChange: this.handleChange("b") }),
+								_react2.default.createElement('input', { value: 'Add', type: 'button', onClick: (function (e) {
+										return _this3.setState({ res: app.add(_this3.state.a, _this3.state.b) });
+									}).bind(this) }),
+								_react2.default.createElement(_katex2.default, { problem: this.state.res, style: { fontSize: "1.5em" } })
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'collumn_side' },
+								'Properties'
 							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'collumn_main' },
-							'Math:',
-							_react2.default.createElement('input', { onChange: this.handleChange("a") }),
-							'+',
-							_react2.default.createElement('input', { onChange: this.handleChange("b") }),
-							_react2.default.createElement('input', { value: 'Add', type: 'button', onClick: (function (e) {
-									return _this3.setState({ res: app.add(_this3.state.a, _this3.state.b) });
-								}).bind(this) }),
-							_react2.default.createElement(_katex2.default, { problem: this.state.res, style: { fontSize: "1.5em" } })
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'collumn_side' },
-							'Properties'
 						)
 					)
 				);
@@ -45009,10 +45024,14 @@
 			value: function renderTabs() {
 				var _this2 = this;
 
+				if (!this.props.tabs) {
+					return _react2.default.createElement("div", null);
+				}
+				console.log(this.props);
 				return this.props.tabs.map(function (t, i) {
 					return _react2.default.createElement(
 						"span",
-						{ onClick: _this2.onChange.bind(_this2, i), className: (0, _classnames2.default)({ show: i == _this2.state.selectedIndex }) },
+						{ key: t + i, onClick: _this2.onChange.bind(_this2, i), className: (0, _classnames2.default)({ selected: i == _this2.state.selectedIndex }) },
 						t
 					);
 				});
@@ -45496,10 +45515,79 @@
 
 
 	// module
-	exports.push([module.id, "body {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n\t*zoom: 1;\r\n}\r\n\r\nbody:before {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n}\r\n\r\nbody:after {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n\tclear: both;\r\n}\r\n\r\n.grid {\r\n\tdisplay: flex;\r\n\tflex-flow: row wrap;\r\n\tmax-width: 100%;\r\n\tmargin-left: auto;\r\n\tmargin-right: auto;\r\n\t*zoom: 1;\r\n}\r\n\r\n.grid:before {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n}\r\n\r\n.grid:after {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n\tclear: both;\r\n}\r\n\r\n.grid .collumn_side {\r\n\tflex: 0 0 auto;\r\n\twidth: calc(99.99% * 1/5 - (30px - 30px * 1/5));\r\n}\r\n\r\n.grid .collumn_side:nth-child(n) {\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.grid .collumn_side:last-child {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.grid .collumn_side:nth-child(5n) {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.grid .collumn_main {\r\n\tflex: 0 0 auto;\r\n\twidth: calc(99.99% * 3/5 - (30px - 30px * 3/5));\r\n}\r\n\r\n.grid .collumn_main:nth-child(n) {\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.grid .collumn_main:last-child {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.grid .collumn_main:nth-child(5n) {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.tabs > nav {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n\t-webkit-box-orient: horizontal;\r\n\t-webkit-box-direction: normal;\r\n\t-webkit-flex-direction: row;\r\n\t-ms-flex-direction: row;\r\n\tflex-direction: row;\r\n\t-webkit-box-pack: start;\r\n\t-webkit-justify-content: flex-start;\r\n\t-ms-flex-pack: start;\r\n\tjustify-content: flex-start;\r\n\tbackground-color: #2780e3;\r\n\tcolor: white;\r\n\tcursor: pointer;\r\n}\r\n\r\n.tabs > nav > * {\r\n\tpadding: 5px;\r\n}\r\n\r\n.tabs > nav > span {\r\n\tdisplay: block;\r\n}\r\n\r\n.tabs > nav > span:hover{\r\n\tbackground-color: #1967be;\r\n}\r\n\r\n.tabs > nav > .selected {\r\n\tcolor: #2780e3;\r\n\tbackground-color: white;\r\n}", ""]);
+	exports.push([module.id, "* {\r\n\tfont-family: 'Segoe UI';\r\n}\r\n\r\nbody {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n\t*zoom: 1;\r\n}\r\n\r\nbody:before {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n}\r\n\r\nbody:after {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n\tclear: both;\r\n}\r\n\r\n.grid {\r\n\tdisplay: flex;\r\n\tflex-flow: row wrap;\r\n\tmax-width: 100%;\r\n\tmargin-left: auto;\r\n\tmargin-right: auto;\r\n\t*zoom: 1;\r\n}\r\n\r\n.grid:before {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n}\r\n\r\n.grid:after {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n\tclear: both;\r\n}\r\n\r\n.grid .collumn_side {\r\n\tflex: 0 0 auto;\r\n\twidth: calc(99.99% * 1/5 - (30px - 30px * 1/5));\r\n}\r\n\r\n.grid .collumn_side:nth-child(n) {\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.grid .collumn_side:last-child {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.grid .collumn_side:nth-child(5n) {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.grid .collumn_main {\r\n\tflex: 0 0 auto;\r\n\twidth: calc(99.99% * 3/5 - (30px - 30px * 3/5));\r\n}\r\n\r\n.grid .collumn_main:nth-child(n) {\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.grid .collumn_main:last-child {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.grid .collumn_main:nth-child(5n) {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.tabs > nav {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n\t-webkit-box-orient: horizontal;\r\n\t-webkit-box-direction: normal;\r\n\t-webkit-flex-direction: row;\r\n\t-ms-flex-direction: row;\r\n\tflex-direction: row;\r\n\t-webkit-box-pack: start;\r\n\t-webkit-justify-content: flex-start;\r\n\t-ms-flex-pack: start;\r\n\tjustify-content: flex-start;\r\n\tbackground-color: #2780e3;\r\n\tcolor: white;\r\n\tcursor: pointer;\r\n}\r\n\r\n.tabs > nav > * {\r\n\tpadding: 0.4em;\r\n}\r\n\r\n.tabs > nav > span {\r\n\tdisplay: block;\r\n}\r\n\r\n.tabs > nav > span:hover{\r\n\tbackground-color: #1967be;\r\n}\r\n\r\n.tabs > nav > .selected {\r\n\tcolor: #2780e3;\r\n\tbackground-color: white;\r\n\tcursor: default;\r\n}\r\n\r\n.tabs > nav > .selected:hover {\r\n\tbackground-color: white;\r\n}", ""]);
 
 	// exports
 
+
+/***/ },
+/* 312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _getPrototypeOf = __webpack_require__(2);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(14);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(15);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(19);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(44);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _react = __webpack_require__(51);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(237);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var TabMenu = (function (_React$Component) {
+		(0, _inherits3.default)(TabMenu, _React$Component);
+
+		function TabMenu(props) {
+			(0, _classCallCheck3.default)(this, TabMenu);
+			return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(TabMenu).call(this, props));
+		}
+
+		(0, _createClass3.default)(TabMenu, [{
+			key: "renderTabPanel",
+			value: function renderTabPanel() {
+				console.log(this);
+				for (var child in this.props.children) {
+					if (child == this.props.index) {
+						return this.props.children[child];
+					}
+				}
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				return this.renderTabPanel();
+			}
+		}]);
+		return TabMenu;
+	})(_react2.default.Component);
+
+	exports.default = TabMenu;
 
 /***/ }
 /******/ ]);

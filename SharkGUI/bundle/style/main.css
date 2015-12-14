@@ -1,5 +1,9 @@
 @lost flexbox flex;
 
+* {
+	font-family: 'Segoe UI';
+}
+
 body {
 	margin: 0px;
 	padding: 0px;
@@ -29,7 +33,7 @@ body {
 		
 		cursor: pointer;
 		> * {
-			padding: 5px;
+			padding: 0.4em;
 		}
 
 		> span {
@@ -41,6 +45,11 @@ body {
 
 		> .selected {
 			color: #2780e3;
+			background-color: white;
+			cursor: default;
+		}
+
+		> .selected:hover {
 			background-color: white;
 		}
 	}

@@ -17,7 +17,9 @@ export default class TabMenu extends React.Component
 	}
 
 	renderTabs(){
-		return this.props.tabs.map((t,i) => {return <span onClick={this.onChange.bind(this,i)} className={classnames({ show: i == this.state.selectedIndex })}>{t}</span>})
+		if(!this.props.tabs){return <div></div>}
+		console.log(this.props)
+		return this.props.tabs.map((t,i) => {return <span key={t+i} onClick={this.onChange.bind(this,i)} className={classnames({ selected: i == this.state.selectedIndex })}>{t}</span>})
 	}
 
 	render(){

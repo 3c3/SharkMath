@@ -5,6 +5,8 @@ import validate from "validate.js"
 import TypeList from "./typeList.js"
 import lodash from "lodash"; //because I can
 import TabMenu from "./tabMenu.js";
+import TabPanel from "./tabPanel.js";
+
 
 require("./style/katex.min.css");
 require("./style/main.css");
@@ -15,6 +17,7 @@ class App extends React.Component
 		super(props)
 		this.state = {
 			res: app.generate(),
+			index: 0,
 			a: "",
 			b: ""
 		}
@@ -39,7 +42,10 @@ class App extends React.Component
 	render(){
 		return(
 			<div className="tabs">
-				<TabMenu onChange={(i,e) => console.log(i,e)} heading="Генерирай:" tabs={["много задачи", "една задача"]}></TabMenu>
+				<TabMenu onChange={i => this.setState({index: i})} heading="Генерирай:" tabs={["Eдна задача", "Mного задачи"]}></TabMenu>
+				<TabPanel index={this.state.index}>
+				<div>Една задача</div>
+
 				<div className="grid">
 					<div className="collumn_side">
 					Types
@@ -53,6 +59,7 @@ class App extends React.Component
 
 					</div>
 					<div className="collumn_main">
+					Мнго задачи
 						Math: 
 						<input onChange={this.handleChange("a")}/>+
 						<input onChange={this.handleChange("b")}/>
@@ -61,9 +68,9 @@ class App extends React.Component
 					</div>
 					<div className="collumn_side">
 					Properties
-
 					</div>
 				</div>
+				</TabPanel>
 			</div>
 			)
 	}
