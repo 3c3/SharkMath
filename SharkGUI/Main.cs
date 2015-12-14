@@ -16,9 +16,6 @@ using SharkMath;
 
 namespace SharkGUI
 {
-
-
-
     public partial class Main : Form
     {
         public Main()
@@ -39,38 +36,48 @@ namespace SharkGUI
 
 
             settings.MultiThreadedMessageLoop = true;
-            settings.RegisterScheme(new CefCustomScheme() {
-                SchemeName = "app",
-                SchemeHandlerFactory = new AppSchemeHandlerFactory()
+           /* settings.RegisterScheme(new CefCustomScheme() {
+                SchemeName = "app"//,
+            //    SchemeHandlerFactory = new AppSchemeHandlerFactory()
             });
-
-            settings.RegisterScheme(new CefCustomScheme()
-            {
-                SchemeName = "app",
-                SchemeHandlerFactory = new AppSchemeHandlerFactory()
-            });
+*/
 
             Cef.OnContextInitialized = delegate
             {
                 var cookieManager = Cef.GetGlobalCookieManager();
                 cookieManager.SetStoragePath("cookies", true);
                 cookieManager.SetSupportedSchemes("app");
+                cookieManager.SetSupportedSchemes("chrome-devtools");
             };
 
             settings.LogSeverity = LogSeverity.Verbose;
+            settings.RegisterScheme(new CefCustomScheme() { 
+               SchemeName = "app",
+               SchemeHandlerFactory = new AppSchemeHandlerFactory()
+            });
             Cef.Initialize(settings);
 
             browser = new ChromiumWebBrowser("");
-            browser.RegisterJsObject("app", new Binded());
+            
+            browser.RegisterJsObject("app", new App());
+            browser.LoadError += browser_LoadError;
            // browser = new ChromiumWebBrowser("main");
 
 
             var handler = browser.ResourceHandlerFactory as DefaultResourceHandlerFactory;
             handler.RegisterHandler("app://bundle.js", ResourceHandler.FromString(Resources.bundle));
+           // handler.RegisterHandler( "app://main", ResourceHandler.FromString(Resources.index));
+            
+
             browser.IsBrowserInitializedChanged += browser_IsBrowserInitializedChanged;
             this.Controls.Add(browser);
             //IBrowser b = browser.GetBrowser();
             browser.Dock = DockStyle.Fill;
+        }
+
+        void browser_LoadError(object sender, LoadErrorEventArgs e)
+        {
+            Console.WriteLine("Load error: {0}, url: {1}, coed: {2}, from: {3}", e.ErrorText, e.FailedUrl, e.ErrorCode, sender.GetType());
         }
 
         void browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e)
@@ -78,104 +85,14 @@ namespace SharkGUI
 
             if (browser.IsBrowserInitialized)
             {
-                Console.WriteLine(Resources.index);
-                browser.LoadHtml(Resources.index , "app://main");
+              //  Console.WriteLine(Resources.index);
+                browser.LoadHtml(Resources.index, "app://main");
+                //browser.Load(@"app://index/");
                 browser.ShowDevTools();
-               //browser.Load(@"app://index/");
             }
   
             Console.WriteLine("Browser init {0}", browser.IsBrowserInitialized);
 
-        }
-    }
-
-    class Binded {
-        public string Add(string a, string b) { 
-            Polynomial p1 = new Polynomial(a);
-            Polynomial p2 = new Polynomial(b);
-            Polynomial result = p1 + p2;
-            return result.print(false, false);
-        }
-        public string Generate(){
-            Polynomial p1 = new Polynomial("x2 - 3x + 5");
-            Polynomial p2 = new Polynomial("x - 3");
-
-            PolyNode pn1 = new PolyNode(p1);
-            PolyNode pn2 = new PolyNode(p2);
-
-            FracNode fn = new FracNode(pn1, pn2);
-            return fn.print(false, false);
-        }
-        public string Show(string name) {
-            MessageBox.Show("Hello " + name, "Greeter", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            return "Hello " + name;
-        }
-    }
-
-    class AppResourceHandler : IResourceHandler
-    {
-        private Dictionary<string, string> ResourceDictionary;
-        private MemoryStream stream;
-        private string mimeType;
-
-        public AppResourceHandler()
-        {
-            ResourceDictionary = new Dictionary<string, string>
-            {
-                { "/", Resources.index },
-                { "/bundle.js", Resources.bundle }
-            };
-        }
-        public System.IO.Stream GetResponse(IResponse response, out long responseLength, out string redirectUrl)
-        {
-            responseLength = stream.Length;
-            redirectUrl = null;
-
-            response.StatusCode = (int)HttpStatusCode.OK;
-            response.StatusText = "OK";
-            response.MimeType = mimeType;
-
-            return stream;
-        }
-
-        public bool ProcessRequestAsync(IRequest request, ICallback callback)
-        {
-            var uri = request.Url.Split(new char[] { '/' }).Last();
-            var fileName = uri;
-            string resource;
-            if (ResourceDictionary.TryGetValue(fileName, out resource) && !string.IsNullOrEmpty(resource))
-            {
-                Console.WriteLine("Loading: {0}", uri);
-
-                Task.Run(() =>
-                {
-                    using (callback)
-                    {
-                        var bytes = Encoding.UTF8.GetBytes(resource);
-                        stream = new MemoryStream(bytes);
-
-                        var fileExtension = Path.GetExtension(fileName);
-                        mimeType = ResourceHandler.GetMimeType(fileExtension);
-                        Console.WriteLine("Loaded: {0} {1}", fileName, resource);
-
-                        callback.Continue();
-                    }
-                });
-            }
-            else
-            {
-                callback.Dispose();
-            }
-            return true;
-        }
-    }
-    class AppSchemeHandlerFactory : ISchemeHandlerFactory
-    {
-
-        public IResourceHandler Create(IBrowser browser, IFrame frame, string schemeName, IRequest request)
-        {
-            return new AppResourceHandler();
         }
     }
 }

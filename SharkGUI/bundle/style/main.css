@@ -1,0 +1,14 @@
+@lost flexbox flex;
+
+.grid {
+	lost-center: 100%;
+	lost-utility: clearfix;
+
+	.collumn_side {
+		lost-column: 1/5;
+	}
+
+	.collumn_main {
+		lost-column: 3/5;
+	}
+}

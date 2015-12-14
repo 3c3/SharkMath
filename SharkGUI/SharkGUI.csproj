@@ -60,6 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.cs" />
+    <Compile Include="AppResourceHandler.cs" />
+    <Compile Include="AppSchemeHandlerFactory.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
