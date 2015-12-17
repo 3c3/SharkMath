@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace SharkGUI
 {
-    class App
+    class AppObject
     {
         public string Add(string a, string b)
         {
@@ -28,10 +28,9 @@ namespace SharkGUI
             FracNode fn = new FracNode(pn1, pn2);
             return fn.print(false, false);
         }
-        public string Show(string name)
+        public void Show(string title, string message)
         {
-            MessageBox.Show("Hello " + name, "Greeter", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return "Hello " + name;
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

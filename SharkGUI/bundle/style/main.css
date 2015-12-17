@@ -1,5 +1,8 @@
 @lost flexbox flex;
 
+$blue: #2780e3;
+$blue-hover: #1967be;
+
 * {
 	font-family: 'Segoe UI';
 }
@@ -10,8 +13,13 @@ body {
 	lost-utility: clearfix;
 }
 
-.grid {
-	lost-center: 100%;
+.app{
+	height: 100vh;
+}
+
+.multy {
+	lost-flex-container: row;
+
 	lost-utility: clearfix;
 
 	.collumn_side {
@@ -23,28 +31,85 @@ body {
 	}
 }
 
+.single {
+	lost-flex-container: column;
+
+	> .problem_display {
+		flex: 0 0 auto;
+		/*border: 1px solid #999;*/
+		lost-center: 90%;
+		height: 50px;
+		padding: 1vh 1vw;
+		.latex {
+			lost-align: middle-center;
+
+			width: 100%;
+			font-size: 1.5em;
+		}
+	}
+
+	> .solution_display {
+		flex: 0 0 auto;
+		lost-center: 80%;
+		.latex {
+			width: 100%;
+			text-align: center;
+		}
+	}
+
+	.line {
+		flex: 0 0 auto;
+
+		margin-top: 1em;
+		display: block;
+		border-top: 1px solid $blue;
+	}
+
+	.settings_panel {
+		flex: 1 1 auto;
+
+	}
+
+	.button_bar {
+		flex: 0 0 32px;
+		lost-align: middle-right;
+	}
+}
+
 .tabs {
+	lost-flex-container: column;
+	> .panel {
+		lost-flex-container: column;
+		box-sizing: border-box;
+		padding: 10px 10px;
+		flex: 1 1 auto;
+		> * {
+			flex: 1;
+		}
+	}
 	> nav {
+		flex: 0 0 auto;
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
-		background-color: #2780e3;
+		background-color: $blue;
 		color: white;
 		
-		cursor: pointer;
 		> * {
-			padding: 0.4em;
+			padding: 0.3em;
 		}
 
 		> span {
+			cursor: pointer;
+			margin-left: 3px;
 			display: block;
 			&:hover{
-				background-color: #1967be;
+				background-color: $blue-hover;
 			}
 		}
 
 		> .selected {
-			color: #2780e3;
+			color: $blue;
 			background-color: white;
 			cursor: default;
 		}
@@ -53,4 +118,56 @@ body {
 			background-color: white;
 		}
 	}
+}
+$button-padding: 3px;
+
+.button-grey{
+	background-color: #b3b3b3;
+	color: black;
+	&:hover {
+		border: $button-padding #8f8f8f solid;
+		background-color: #8c8c8c;
+
+	}
+
+	&:active {
+		border: $button-padding white solid;
+		background-color: white;
+		color: black;
+	}
+}
+
+.button-blue{
+	background-color: $blue;
+	color: white;
+	&:hover {
+		border: $button-padding $blue-hover solid;
+	}
+
+	&:active {
+		border: $button-padding #8c8c8c solid;
+		background-color: #b3b3b3;
+		color: black;
+	}
+}
+
+.button{
+	display: block;
+	border: 0px;
+	padding: $button-padding;
+	margin: 1px;
+	height: 30px;
+	width: 120px;
+
+	&:hover {
+		padding: 0px;
+	}
+
+	&:active {
+		padding: 0px;
+	}
+}
+
+.row{
+	lost-flex-container: row;
 }

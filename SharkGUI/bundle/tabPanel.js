@@ -18,6 +18,6 @@ export default class TabMenu extends React.Component
 	}
 
 	render(){
-		return this.renderTabPanel()
+		return <div className="panel">{this.renderTabPanel()}</div>
 	}
 }
