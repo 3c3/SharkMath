@@ -5,7 +5,7 @@ using SharkMath;
 namespace UnitTest1
 {
     [TestClass]
-    public class UnitTest1
+    public class PolynomialTest
     {
         [TestMethod]
         public void TestPolynomialAddition()
@@ -197,5 +197,6 @@ namespace UnitTest1
             Assert.AreEqual("-(x^2 + 5x - 7 + x - 5)", sn.print(false, true));
             Assert.AreEqual(" - (x^2 + 5x - 7 + x - 5)", sn.print(true, true));
         }
+
     }
 }
