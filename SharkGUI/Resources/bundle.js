@@ -155,7 +155,7 @@
 
 				return _react2.default.createElement(
 					'div',
-					{ className: 'tabs' },
+					{ className: 'tabs app' },
 					_react2.default.createElement(_tabMenu2.default, { onChange: function onChange(i) {
 							return _this3.setState({ index: i });
 						}, heading: 'Генерирай:', tabs: ["Eдна задача", "Mного задачи"] }),
@@ -164,12 +164,37 @@
 						{ index: this.state.index },
 						_react2.default.createElement(
 							'div',
-							null,
-							'Една задача'
+							{ className: 'single' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'problem_display' },
+								_react2.default.createElement(_katex2.default, { problem: "x^2+5x-6" })
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'solution_display' },
+								_react2.default.createElement(_katex2.default, { problem: "x_1=1, x_2=-6" })
+							),
+							_react2.default.createElement('span', { className: 'line' }),
+							_react2.default.createElement(
+								'div',
+								{ className: 'settings_panel' },
+								'Настройки:'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'button_bar' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'row' },
+									_react2.default.createElement('input', { type: 'button', className: 'button button-grey', value: 'Отговори' }),
+									_react2.default.createElement('input', { type: 'button', className: 'button button-blue', value: 'Генерирай' })
+								)
+							)
 						),
 						_react2.default.createElement(
 							'div',
-							{ className: 'grid' },
+							{ className: 'multy' },
 							_react2.default.createElement(
 								'div',
 								{ className: 'collumn_side' },
@@ -32180,7 +32205,7 @@
 						),
 						_react2.default.createElement(
 							"span",
-							{ className: "button", onClick: this.buttonClick.bind(this) },
+							{ className: "bar_button", onClick: this.buttonClick.bind(this) },
 							this.state.show ? "/\\" : "V"
 						)
 					),
@@ -32286,7 +32311,7 @@
 
 
 	// module
-	exports.push([module.id, ".drop_menu .bar{\n    background-color: #CCC;\n    -webkit-box-align: end;\n    -webkit-align-items: flex-end;\n    -ms-flex-align: end;\n    align-items: flex-end;\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n    -webkit-justify-content: space-between;\n    -ms-flex-pack: justify;\n    justify-content: space-between;\n}\n.drop_menu .bar > .button{}\n.drop_menu .bar > .title{}\n.drop_menu .panel_show{\n    display: block;\n}\n.drop_menu .panel_hide{\n    display: none;\n}", ""]);
+	exports.push([module.id, ".drop_menu .bar{\n    background-color: #CCC;\n    -webkit-box-align: end;\n    -webkit-align-items: flex-end;\n    -ms-flex-align: end;\n    align-items: flex-end;\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n    -webkit-justify-content: space-between;\n    -ms-flex-pack: justify;\n    justify-content: space-between;\n}\n.drop_menu .bar > .bar_button{}\n.drop_menu .bar > .title{}\n.drop_menu .panel_show{\n    display: block;\n}\n.drop_menu .panel_hide{\n    display: none;\n}", ""]);
 
 	// exports
 
@@ -45515,7 +45540,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\r\n\tfont-family: 'Segoe UI';\r\n}\r\n\r\nbody {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n\t*zoom: 1;\r\n}\r\n\r\nbody:before {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n}\r\n\r\nbody:after {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n\tclear: both;\r\n}\r\n\r\n.grid {\r\n\tdisplay: flex;\r\n\tflex-flow: row wrap;\r\n\tmax-width: 100%;\r\n\tmargin-left: auto;\r\n\tmargin-right: auto;\r\n\t*zoom: 1;\r\n}\r\n\r\n.grid:before {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n}\r\n\r\n.grid:after {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n\tclear: both;\r\n}\r\n\r\n.grid .collumn_side {\r\n\tflex: 0 0 auto;\r\n\twidth: calc(99.99% * 1/5 - (30px - 30px * 1/5));\r\n}\r\n\r\n.grid .collumn_side:nth-child(n) {\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.grid .collumn_side:last-child {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.grid .collumn_side:nth-child(5n) {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.grid .collumn_main {\r\n\tflex: 0 0 auto;\r\n\twidth: calc(99.99% * 3/5 - (30px - 30px * 3/5));\r\n}\r\n\r\n.grid .collumn_main:nth-child(n) {\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.grid .collumn_main:last-child {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.grid .collumn_main:nth-child(5n) {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.tabs > nav {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n\t-webkit-box-orient: horizontal;\r\n\t-webkit-box-direction: normal;\r\n\t-webkit-flex-direction: row;\r\n\t-ms-flex-direction: row;\r\n\tflex-direction: row;\r\n\t-webkit-box-pack: start;\r\n\t-webkit-justify-content: flex-start;\r\n\t-ms-flex-pack: start;\r\n\tjustify-content: flex-start;\r\n\tbackground-color: #2780e3;\r\n\tcolor: white;\r\n\tcursor: pointer;\r\n}\r\n\r\n.tabs > nav > * {\r\n\tpadding: 0.4em;\r\n}\r\n\r\n.tabs > nav > span {\r\n\tdisplay: block;\r\n}\r\n\r\n.tabs > nav > span:hover{\r\n\tbackground-color: #1967be;\r\n}\r\n\r\n.tabs > nav > .selected {\r\n\tcolor: #2780e3;\r\n\tbackground-color: white;\r\n\tcursor: default;\r\n}\r\n\r\n.tabs > nav > .selected:hover {\r\n\tbackground-color: white;\r\n}", ""]);
+	exports.push([module.id, "* {\r\n\tfont-family: 'Segoe UI';\r\n}\r\n\r\nbody {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n\t*zoom: 1;\r\n}\r\n\r\nbody:before {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n}\r\n\r\nbody:after {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n\tclear: both;\r\n}\r\n\r\n.app{\r\n\theight: 100vh;\r\n}\r\n\r\n.multy {\r\n\tdisplay: flex;\r\n\tflex-flow: row wrap;\r\n\r\n\t*zoom: 1;\r\n}\r\n\r\n.multy:before {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n}\r\n\r\n.multy:after {\r\n\tcontent: '';\r\n\tdisplay: table;\r\n\tclear: both;\r\n}\r\n\r\n.multy .collumn_side {\r\n\tflex: 0 0 auto;\r\n\twidth: calc(99.99% * 1/5 - (30px - 30px * 1/5));\r\n}\r\n\r\n.multy .collumn_side:nth-child(n) {\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.multy .collumn_side:last-child {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.multy .collumn_side:nth-child(5n) {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.multy .collumn_main {\r\n\tflex: 0 0 auto;\r\n\twidth: calc(99.99% * 3/5 - (30px - 30px * 3/5));\r\n}\r\n\r\n.multy .collumn_main:nth-child(n) {\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.multy .collumn_main:last-child {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.multy .collumn_main:nth-child(5n) {\r\n\tmargin-right: 0;\r\n}\r\n\r\n.single {\r\n\tdisplay: flex;\r\n\tflex-flow: column nowrap;\r\n}\r\n\r\n.single > .problem_display {\r\n\t-webkit-box-flex: 0;\r\n\t-webkit-flex: 0 0 auto;\r\n\t-ms-flex: 0 0 auto;\r\n\tflex: 0 0 auto;\r\n\t/*border: 1px solid #999;*/\r\n\tdisplay: flex;\r\n\tflex-flow: row wrap;\r\n\tmax-width: 90%;\r\n\tmargin-left: auto;\r\n\tmargin-right: auto;\r\n\theight: 50px;\r\n\tpadding: 1vh 1vw;\r\n}\r\n\r\n.single > .problem_display .latex {\r\n\tposition: relative;\r\n\twidth: 100%;\r\n\tfont-size: 1.5em;\r\n}\r\n\r\n.single > .problem_display .latex > * {\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tright: auto;\r\n\tbottom: auto;\r\n\tleft: 50%;\r\n\ttransform: translate(-50%, -50%);\r\n}\r\n\r\n.single > .solution_display {\r\n\t-webkit-box-flex: 0;\r\n\t-webkit-flex: 0 0 auto;\r\n\t-ms-flex: 0 0 auto;\r\n\tflex: 0 0 auto;\r\n\tdisplay: flex;\r\n\tflex-flow: row wrap;\r\n\tmax-width: 80%;\r\n\tmargin-left: auto;\r\n\tmargin-right: auto;\r\n}\r\n\r\n.single > .solution_display .latex {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.single .line {\r\n\t-webkit-box-flex: 0;\r\n\t-webkit-flex: 0 0 auto;\r\n\t-ms-flex: 0 0 auto;\r\n\tflex: 0 0 auto;\r\n\tmargin-top: 1em;\r\n\tdisplay: block;\r\n\tborder-top: 1px solid #2780e3;\r\n}\r\n\r\n.single .settings_panel {\r\n\t-webkit-box-flex: 1;\r\n\t-webkit-flex: 1 1 auto;\r\n\t-ms-flex: 1 1 auto;\r\n\tflex: 1 1 auto;\r\n}\r\n\r\n.single .button_bar {\r\n\t-webkit-box-flex: 0;\r\n\t-webkit-flex: 0 0 32px;\r\n\t-ms-flex: 0 0 32px;\r\n\tflex: 0 0 32px;\r\n\tposition: relative;\r\n}\r\n\r\n.single .button_bar > * {\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tright: 0;\r\n\tbottom: auto;\r\n\tleft: auto;\r\n\ttransform: translate(0, -50%);\r\n}\r\n\r\n.tabs {\r\n\tdisplay: flex;\r\n\tflex-flow: column nowrap;\r\n}\r\n\r\n.tabs > .panel {\r\n\tdisplay: flex;\r\n\tflex-flow: column nowrap;\r\n\tbox-sizing: border-box;\r\n\tpadding: 10px 10px;\r\n\t-webkit-box-flex: 1;\r\n\t-webkit-flex: 1 1 auto;\r\n\t-ms-flex: 1 1 auto;\r\n\tflex: 1 1 auto;\r\n}\r\n\r\n.tabs > .panel > * {\r\n\t-webkit-box-flex: 1;\r\n\t-webkit-flex: 1;\r\n\t-ms-flex: 1;\r\n\tflex: 1;\r\n}\r\n\r\n.tabs > nav {\r\n\t-webkit-box-flex: 0;\r\n\t-webkit-flex: 0 0 auto;\r\n\t-ms-flex: 0 0 auto;\r\n\tflex: 0 0 auto;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n\t-webkit-box-orient: horizontal;\r\n\t-webkit-box-direction: normal;\r\n\t-webkit-flex-direction: row;\r\n\t-ms-flex-direction: row;\r\n\tflex-direction: row;\r\n\t-webkit-box-pack: start;\r\n\t-webkit-justify-content: flex-start;\r\n\t-ms-flex-pack: start;\r\n\tjustify-content: flex-start;\r\n\tbackground-color: #2780e3;\r\n\tcolor: white;\r\n}\r\n\r\n.tabs > nav > * {\r\n\tpadding: 0.3em;\r\n}\r\n\r\n.tabs > nav > span {\r\n\tcursor: pointer;\r\n\tmargin-left: 3px;\r\n\tdisplay: block;\r\n}\r\n\r\n.tabs > nav > span:hover{\r\n\tbackground-color: #1967be;\r\n}\r\n\r\n.tabs > nav > .selected {\r\n\tcolor: #2780e3;\r\n\tbackground-color: white;\r\n\tcursor: default;\r\n}\r\n\r\n.tabs > nav > .selected:hover {\r\n\tbackground-color: white;\r\n}\r\n\r\n.button-grey{\r\n\tbackground-color: #b3b3b3;\r\n\tcolor: black;\r\n}\r\n\r\n.button-grey:hover {\r\n\tborder: 3px #8f8f8f solid;\r\n\tbackground-color: #8c8c8c;\r\n}\r\n\r\n.button-grey:active {\r\n\tborder: 3px white solid;\r\n\tbackground-color: white;\r\n\tcolor: black;\r\n}\r\n\r\n.button-blue{\r\n\tbackground-color: #2780e3;\r\n\tcolor: white;\r\n}\r\n\r\n.button-blue:hover {\r\n\tborder: 3px #1967be solid;\r\n}\r\n\r\n.button-blue:active {\r\n\tborder: 3px #8c8c8c solid;\r\n\tbackground-color: #b3b3b3;\r\n\tcolor: black;\r\n}\r\n\r\n.button{\r\n\tdisplay: block;\r\n\tborder: 0px;\r\n\tpadding: 3px;\r\n\tmargin: 1px;\r\n\theight: 30px;\r\n\twidth: 120px;\r\n}\r\n\r\n.button:hover {\r\n\tpadding: 0px;\r\n}\r\n\r\n.button:active {\r\n\tpadding: 0px;\r\n}\r\n\r\n.row{\r\n\tdisplay: flex;\r\n\tflex-flow: row wrap;\r\n}", ""]);
 
 	// exports
 
@@ -45581,7 +45606,11 @@
 		}, {
 			key: "render",
 			value: function render() {
-				return this.renderTabPanel();
+				return _react2.default.createElement(
+					"div",
+					{ className: "panel" },
+					this.renderTabPanel()
+				);
 			}
 		}]);
 		return TabMenu;

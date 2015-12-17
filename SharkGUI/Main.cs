@@ -64,7 +64,7 @@ namespace SharkGUI
 
             browser = new ChromiumWebBrowser("");
             
-            browser.RegisterJsObject("app", new App());
+            browser.RegisterJsObject("app", new AppObject());
             browser.LoadError += browser_LoadError;
            // browser = new ChromiumWebBrowser("main");
 

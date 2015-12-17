@@ -41,35 +41,55 @@ class App extends React.Component
 
 	render(){
 		return(
-			<div className="tabs">
+			<div className="tabs app">
 				<TabMenu onChange={i => this.setState({index: i})} heading="Генерирай:" tabs={["Eдна задача", "Mного задачи"]}></TabMenu>
 				<TabPanel index={this.state.index}>
-				<div>Една задача</div>
+					<div className="single">
+						<div className="problem_display">
+							<Katex problem={"x^2+5x-6"}/>
+						</div>
+						<div className="solution_display">
+							<Katex problem={"x_1=1, x_2=-6"}/>
 
-				<div className="grid">
-					<div className="collumn_side">
-					Types
-					<TypeList title="7kl">
-						Hello world from 7kl
-					</TypeList>
-					<TypeList title="8kl">
-						Hello world from 8kl
+						</div>
+						<span className="line" />
+						<div className="settings_panel">
+						Настройки:
 
-					</TypeList>
+						</div>
+						<div className="button_bar">
+							<div className="row">
+								<input type="button" className="button button-grey" value="Отговори"/>
+								<input type="button" className="button button-blue" value="Генерирай"/>
+							</div>
+						</div>
 
 					</div>
-					<div className="collumn_main">
-					Мнго задачи
-						Math: 
-						<input onChange={this.handleChange("a")}/>+
-						<input onChange={this.handleChange("b")}/>
-						<input value="Add" type="button" onClick={(e => this.setState({res: app.add(this.state.a, this.state.b)})).bind(this)} />
-						<Katex problem={this.state.res} style={{fontSize: "1.5em"}}/>
+
+					<div className="multy">
+						<div className="collumn_side">
+						Types
+						<TypeList title="7kl">
+							Hello world from 7kl
+						</TypeList>
+						<TypeList title="8kl">
+							Hello world from 8kl
+
+						</TypeList>
+
+						</div>
+						<div className="collumn_main">
+						Мнго задачи
+							Math: 
+							<input onChange={this.handleChange("a")}/>+
+							<input onChange={this.handleChange("b")}/>
+							<input value="Add" type="button" onClick={(e => this.setState({res: app.add(this.state.a, this.state.b)})).bind(this)} />
+							<Katex problem={this.state.res} style={{fontSize: "1.5em"}}/>
+						</div>
+						<div className="collumn_side">
+						Properties
+						</div>
 					</div>
-					<div className="collumn_side">
-					Properties
-					</div>
-				</div>
 				</TabPanel>
 			</div>
 			)
