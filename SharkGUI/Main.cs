@@ -56,14 +56,24 @@ namespace SharkGUI
             };
 
             settings.LogSeverity = LogSeverity.Verbose;
+            settings.Locale = "bg";
             settings.RegisterScheme(new CefCustomScheme() { 
                SchemeName = "app",
                SchemeHandlerFactory = new AppSchemeHandlerFactory()
             });
+
+            BrowserSettings browser_settigns = new BrowserSettings
+            {
+                DefaultEncoding = "utf-8"
+            };
+            
+            
             Cef.Initialize(settings);
 
+
+
             browser = new ChromiumWebBrowser("");
-            
+            browser.BrowserSettings = browser_settigns;
             browser.RegisterJsObject("app", new AppObject());
             browser.LoadError += browser_LoadError;
            // browser = new ChromiumWebBrowser("main");
