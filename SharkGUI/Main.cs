@@ -64,7 +64,7 @@ namespace SharkGUI
 
             BrowserSettings browser_settigns = new BrowserSettings
             {
-                DefaultEncoding = "utf-16"
+                DefaultEncoding = "utf-8"
             };
             
             
@@ -82,8 +82,8 @@ namespace SharkGUI
             var handler = browser.ResourceHandlerFactory as DefaultResourceHandlerFactory;
 
 
-            handler.RegisterHandler("app://bundle.js", ResourceHandler.FromString(Resources.bundle, Encoding.UTF8));
-            handler.RegisterHandler( "app://main", ResourceHandler.FromString(Resources.index, Encoding.UTF8));
+            handler.RegisterHandler("app://bundle.js", ResourceHandler.FromString(Utf8String(Resources.bundle), Encoding.UTF8));
+            handler.RegisterHandler("app://main", ResourceHandler.FromString(Utf8String(Resources.index), Encoding.UTF8));
             
 
             browser.IsBrowserInitializedChanged += browser_IsBrowserInitializedChanged;
