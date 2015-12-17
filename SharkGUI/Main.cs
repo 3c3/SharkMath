@@ -82,8 +82,8 @@ namespace SharkGUI
             var handler = browser.ResourceHandlerFactory as DefaultResourceHandlerFactory;
 
 
-            handler.RegisterHandler("app://bundle.js", ResourceHandler.FromString(Utf8String(Resources.bundle), Encoding.UTF8));
-            handler.RegisterHandler("app://main", ResourceHandler.FromString(Utf8String(Resources.index), Encoding.UTF8));
+            handler.RegisterHandler("app://bundle.js", ResourceHandler.FromString(Resources.bundle, Encoding.UTF8));
+            handler.RegisterHandler("app://main", ResourceHandler.FromString(Resources.index, Encoding.UTF8));
             
 
             browser.IsBrowserInitializedChanged += browser_IsBrowserInitializedChanged;
@@ -105,7 +105,7 @@ namespace SharkGUI
               //  Console.WriteLine(Resources.index);
                 browser.Load("app://main");
                 //browser.Load(@"app://main/index");
-                browser.ShowDevTools();
+                //browser.ShowDevTools();
             }
   
             Console.WriteLine("Browser init {0}", browser.IsBrowserInitialized);
