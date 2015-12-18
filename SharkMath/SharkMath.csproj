@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoefDescriptor.cs" />
+    <Compile Include="Expression.cs" />
     <Compile Include="FracNode.cs" />
     <Compile Include="IAddable.cs" />
     <Compile Include="ICopiable.cs" />

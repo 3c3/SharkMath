@@ -115,6 +115,8 @@ namespace SharkMath
 
             if (polyNodes.Count < 2) return; // нищо за правене
 
+            polyNodes.ForEach(pn => pn.poly.MultiplyByNumber(pn.coef));
+
             Polynomial product = polyNodes[0].poly + polyNodes[1].poly;
             for (int i = 2; i < polyNodes.Count; i++) product += polyNodes[i].poly;
 
