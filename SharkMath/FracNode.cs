@@ -95,6 +95,12 @@ namespace SharkMath
             denominator.coef.makeOne();
         }
 
+        public override void doMath()
+        {
+            numerator.doMath();
+            denominator.doMath();
+        }
+
         /// <summary>
         /// Умножава текущата дроб. Ползвай смело с всичко
         /// </summary>

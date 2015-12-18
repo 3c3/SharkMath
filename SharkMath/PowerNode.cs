@@ -87,5 +87,10 @@ namespace SharkMath
         {
             return; // няма нищо за опростяване
         }
+
+        public override void doMath()
+        {
+            throw new NotImplementedException("PowerNode not available yet!!!");
+        }
     }
 }

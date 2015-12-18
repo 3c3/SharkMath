@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoefDescriptor.cs" />
     <Compile Include="FracNode.cs" />
     <Compile Include="IAddable.cs" />
     <Compile Include="ICopiable.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="ProdNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simple.cs" />
+    <Compile Include="SimpleEquationDescriptor.cs" />
     <Compile Include="SumNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

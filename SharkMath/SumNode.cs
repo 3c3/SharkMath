@@ -93,6 +93,36 @@ namespace SharkMath
             }
         }
 
+        public override void doMath()
+        {           
+            for (int i = 0; i < children.Count; i++)
+            {
+                children[i].coef.MultiplyBy(coef);
+                children[i].doMath();
+                children[i] = children[i].ToNode(); // в случай че стане сума/произведение от един елемент
+            }
+
+            coef.makeOne();
+
+            List<PolyNode> polyNodes = new List<PolyNode>(children.Count);
+            List<Node> nonPolyNodes = new List<Node>(children.Count);
+
+            foreach (Node n in children)
+            {
+                if (n is PolyNode) polyNodes.Add(n as PolyNode);
+                else nonPolyNodes.Add(n);
+            }
+
+            if (polyNodes.Count < 2) return; // нищо за правене
+
+            Polynomial product = polyNodes[0].poly + polyNodes[1].poly;
+            for (int i = 2; i < polyNodes.Count; i++) product += polyNodes[i].poly;
+
+            nonPolyNodes.Add(new PolyNode(product));
+            children = nonPolyNodes;
+            simplify();
+        }
+
         /// <summary>
         /// Добавя елемента към текущата сума. НЕ ползвай с FracNode!
         /// </summary>
@@ -122,6 +152,23 @@ namespace SharkMath
             Node cpyNode = arg.copy() as Node;
             cpyNode.coef.MultiplyBy(modCoef);
             children.Add(cpyNode);
+        }
+
+        /// <summary>
+        /// Ако съдържа само 1 елемент, го връща(умножават се коефициентите).
+        /// Ако има повече от 1 елемент - връща себе си
+        /// Ако няма елементи - връща 0
+        /// </summary>
+        /// <returns></returns>
+        public override Node ToNode()
+        {
+            if (children.Count == 0) return new PolyNode();
+            if(children.Count == 1)
+            {
+                children[0].coef.MultiplyBy(coef);
+                return children[0];
+            }
+            return this;
         }
     }
 }

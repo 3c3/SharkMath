@@ -43,7 +43,15 @@ namespace SharkMath
         /// <returns></returns>
         public abstract object copy();
 
+        /// <summary>
+        /// Изнася множител
+        /// </summary>
         public abstract void simplify();
+
+        /// <summary>
+        /// Извършва пресмятания
+        /// </summary>
+        public abstract void doMath();
 
         /// <summary>
         /// Обръща знака
@@ -51,6 +59,15 @@ namespace SharkMath
         public void flipSign()
         {
             coef.numerator *= -1;
+        }
+
+        /// <summary>
+        /// Използва се за да преобразува от съствани към прости елементи
+        /// </summary>
+        /// <returns>Един елемент, ако текущия е сума/произведение само 1 елемент, иначе this</returns>
+        public virtual Node ToNode()
+        {
+            return this;
         }
 
         /// <summary>

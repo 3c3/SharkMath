@@ -15,6 +15,9 @@ namespace SharkMath
 
         #region Конструктори
 
+        /// <summary>
+        /// Нулиращ конструктор
+        /// </summary>
         public PolyNode()
         {
             coef = new Number(0);
@@ -25,6 +28,12 @@ namespace SharkMath
         {
             coef = new Number(1);
             poly = new Polynomial(srcPoly);
+        }
+
+        public PolyNode(Number num)
+        {
+            coef = new Number(1);
+            poly = new Polynomial(num);
         }
 
         public PolyNode(PolyNode src)
@@ -85,5 +94,15 @@ namespace SharkMath
 
             coef.MultiplyBy(poly.findAndExtractGcd());
         }
+
+        public override void doMath()
+        {
+            if(!coef.isPosOne)
+            {
+                poly.MultiplyByNumber(coef);
+                coef.makeOne();
+            }
+        }
+
     }
 }

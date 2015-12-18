@@ -284,6 +284,11 @@ namespace SharkMath
             return subtractPoly(p1, p2);
         }
 
+        public void MultiplyByNumber(Number num)
+        {
+            monos.ForEach(m => m.coef.MultiplyBy(num));
+        }
+
         public static Polynomial multPolyByMono(Polynomial p, Monomial m)
         {
             List<Monomial> newList = p.monos.Select(mc => mc*m).ToList<Monomial>();
