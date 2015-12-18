@@ -15,16 +15,16 @@ namespace SharkExec
             PolyNode pn1 = new PolyNode(new Polynomial("x + 5"));
             PolyNode pn2 = new PolyNode(new Polynomial("x + 3"));
 
+            ProdNode prn1 = new ProdNode(pn1, pn2);
+
             PolyNode pn3 = new PolyNode(new Polynomial("x + 1"));
 
             Expression result = new Expression();
 
-            Console.WriteLine(result.print(false, false));
+            result.addNode(prn1, true);
+            result.addNode(pn3, true);
 
-            result.doMath();
-            result = result.ToNode();
-
-            Console.WriteLine(result.print(false, false));
+            Console.WriteLine(result.print());
 
             Console.Read();
         }

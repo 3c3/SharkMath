@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    class Expression : IPrintable
+    public class Expression : IPrintable
     {
-        public List<Node> nodes;
+        public List<Node> nodes = new List<Node>();
 
         /// <summary>
         /// Добавя елемент към израза
@@ -16,7 +16,7 @@ namespace SharkMath
         /// <param name="node">Елементът - не се променя</param>
         /// <param name="calculate">Дали да го добави във суров вид, или пресметнат(и да слее
         /// със съществуващ, ако е възможно)</param>
-        public void addNode(Node node, bool calculate)
+        public void addNode(Node node, bool calculate = false)
         {
             if(!calculate)
             {
@@ -32,6 +32,8 @@ namespace SharkMath
                 {
                     IAddable iad = nodes[i] as IAddable;
                     iad.Add(node);
+                    nodes[i].doMath();
+                    nodes[i] = nodes[i].ToNode();
                     return;
                 }
                 if(nodes[i] is PolyNode)
@@ -46,10 +48,19 @@ namespace SharkMath
                 }
             }
 
-            nodes.Add(node.copy() as Node);            
+            Node cpyNode = node.copy() as Node;
+            cpyNode.doMath();
+            cpyNode = cpyNode.ToNode();
+            nodes.Add(cpyNode);            
         }
 
-        public string print(bool attach, bool brackets)
+        /// <summary>
+        /// Принтира израз. Игнорира аргументи
+        /// </summary>
+        /// <param name="attach"></param>
+        /// <param name="brackets"></param>
+        /// <returns></returns>
+        public string print(bool attach = false, bool brackets = false)
         {
             if (nodes.Count == 0) return "0";
 
