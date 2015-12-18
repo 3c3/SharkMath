@@ -11,5 +11,6 @@ namespace SharkMath
         public CoefDescriptor rootDesc;
         public CoefDescriptor elemCoefDesc;
         public int power, maxVisualPower;
+        public int minTransformations, maxTransformations;
     }
 }
