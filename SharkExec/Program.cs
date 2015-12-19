@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using SharkMath;
+using SharkMath.MathProblems;
+using SharkMath.MathProblems.Problems;
 
 namespace SharkExec
 {
@@ -12,19 +14,20 @@ namespace SharkExec
     {
         static void Main(string[] args)
         {
-            PolyNode pn1 = new PolyNode(new Polynomial("x + 5"));
-            PolyNode pn2 = new PolyNode(new Polynomial("x + 3"));
+            SimpleEquationDescriptor sed = new SimpleEquationDescriptor();
 
-            ProdNode prn1 = new ProdNode(pn1, pn2);
+            sed.rootDesc.maxDenominator = 1;
+            sed.rootDesc.minDenominator = 1;
+            sed.rootDesc.maxNumerator = 7;
+            sed.rootDesc.minNumerator = 1;
 
-            PolyNode pn3 = new PolyNode(new Polynomial("x + 1"));
+            sed.rootDesc.pIrrational = 100;
+            sed.power = 2;
 
-            Expression result = new Expression();
+            SimpleEquation se = Generator.getEquation('x', sed);
 
-            result.addNode(prn1, true);
-            result.addNode(pn3, true);
-
-            Console.WriteLine(result.print());
+            Console.WriteLine(se.print());
+            Console.WriteLine(se.solution.print());
 
             Console.Read();
         }

@@ -22,7 +22,7 @@ namespace SharkMath
         {
             powered = src.powered.copy() as Node;
             nodePower = src.nodePower;
-            numPower = src.numPower == null ? null : new Number(src.numPower);
+            numPower = (Object)src.numPower == null ? null : new Number(src.numPower);
             coef = new Number(src.coef);
         }
 
@@ -85,6 +85,21 @@ namespace SharkMath
 
         public override void simplify()
         {
+            if(numPower.numerator == 1 && numPower.denominator == 2)
+            {
+                if(powered is PolyNode)
+                {
+                    PolyNode pn = powered as PolyNode;
+                    Number k = pn.poly.findGcd();
+                    Number sq = k.extractSquare();
+                    if (sq.isPosOne) return; // нищо не можем да извадим
+
+                    coef = sq;
+                    Number div = sq * sq;
+                    div.flip();
+                    pn.poly.MultiplyByNumber(div);
+                }
+            }
             return; // няма нищо за опростяване
         }
 
