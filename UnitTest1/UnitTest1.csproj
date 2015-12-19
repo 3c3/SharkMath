@@ -73,6 +73,7 @@
     <Compile Include="NodeTest.cs" />
     <Compile Include="DoMathTest.cs" />
     <Compile Include="ExpressionTest.cs" />
+    <Compile Include="NumberTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharkMath\SharkMath.csproj">

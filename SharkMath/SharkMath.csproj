@@ -72,14 +72,15 @@
     <Compile Include="Algebra\Polynomial.cs" />
     <Compile Include="Expression\PowerNode.cs" />
     <Compile Include="Expression\ProdNode.cs" />
+    <Compile Include="MathProblems\Generator.cs" />
+    <Compile Include="MathProblems\Problems\SimpleEquation.cs" />
+    <Compile Include="MathProblems\Solution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Algebra\Simple.cs" />
     <Compile Include="MathProblems\Descriptors\SimpleEquationDescriptor.cs" />
     <Compile Include="Expression\SumNode.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MathProblems\Problems\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -64,6 +64,27 @@ namespace SharkMath
             monos.Add(first);
             monos.Add(second);
         }
+
+        /// <summary>
+        /// Прави квадратен тричлен
+        /// </summary>
+        /// <param name="ltr"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        public Polynomial(char ltr, Number a, Number b, Number c)
+        {
+            Monomial first = new Monomial(a, ltr, 2);
+            Monomial second = new Monomial(b, ltr);
+            Monomial third = new Monomial(c);
+
+            monos = new List<Monomial>(3);
+
+            monos.Add(first);
+            monos.Add(second);
+            monos.Add(third);
+        }
+
         /// <summary>
         /// Прави полином от низ, напр. 2x2 - 3x + 3
         /// </summary>
@@ -172,6 +193,25 @@ namespace SharkMath
             }
 
             return new Number(g_num, g_den);
+        }
+
+        /// <summary>
+        /// Премахва дробните коефициенти, като умножава по НОК
+        /// </summary>
+        public void removeFracCoefs()
+        {
+            int g_den = monos[0].coef.denominator;
+            int product = monos[0].coef.denominator;
+
+            for(int i = 0; i < monos.Count; i++)
+            {
+                g_den = Number.gcd(g_den, monos[i].coef.denominator);
+                product *= monos[i].coef.denominator;
+            }
+
+            int mult = product / g_den;
+            if (mult == 1) return;
+            monos.ForEach(m => m.coef.MultiplyBy(mult));
         }
 
         /// <summary>

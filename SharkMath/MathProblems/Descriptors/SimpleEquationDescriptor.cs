@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    class SimpleEquationDescriptor
+    public class SimpleEquationDescriptor
     {
+        public SimpleEquationDescriptor()
+        {
+            rootDesc = new CoefDescriptor();
+            elemCoefDesc = new CoefDescriptor();
+        }
+
         public CoefDescriptor rootDesc;
         public CoefDescriptor elemCoefDesc;
         public int power, maxVisualPower;
         public int minTransformations, maxTransformations;
+        public byte pNoSolution, pNoRealSolutions;
     }
 }

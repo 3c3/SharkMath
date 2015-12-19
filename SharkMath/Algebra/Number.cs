@@ -130,6 +130,11 @@ namespace SharkMath
             return b;
         }
 
+        public static Number gcd(Number a, Number b)
+        {
+            return new Number(gcd(a.numerator, b.numerator), gcd(a.denominator, b.denominator));
+        }
+
         #region Оператори
 
         public static Number operator+(Number n1, Number n2)
@@ -193,6 +198,18 @@ namespace SharkMath
         #region Модифициращи функции
 
         /// <summary>
+        /// За случаи когато трябват много стойности на 1 число
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="denom"></param>
+        public void set(int num, int denom = 1)
+        {
+            numerator = num;
+            denominator = denom;
+            checkGcd();
+        }
+
+        /// <summary>
         /// Съкращава дробта, ако е възможно
         /// </summary>
         public void checkGcd()
@@ -215,6 +232,13 @@ namespace SharkMath
             checkGcd();
         }
 
+        public void MultiplyBy(int arg)
+        {
+            if (arg == 1) return;
+            numerator *= arg;
+            checkGcd();
+        }
+
         /// <summary>
         /// Дели самото число
         /// </summary>
@@ -224,6 +248,13 @@ namespace SharkMath
             if (arg.isPosOne) return;
             numerator *= arg.denominator;
             denominator *= arg.numerator;
+            checkGcd();
+        }
+
+        public void DivideBy(int arg)
+        {
+            if (arg == 1) return;
+            denominator *= arg;
             checkGcd();
         }
 
@@ -248,7 +279,94 @@ namespace SharkMath
             }
         }
 
+        public void flipSign()
+        {
+            numerator *= -1;
+        }
+
         #endregion
+
+        public static bool isSquare(int k)
+        {
+            if (k < 0) return false;
+            if (k == 1) return true;
+            int low = 1;
+            int high = 1;
+
+            while(high*high < k)
+            {
+                low = high;
+                high <<= 1;
+            }
+
+            while(high - low > 1)
+            {
+                int mid = (high + low) / 2;
+                int square = mid * mid;
+                if (k == square) return true;
+                if (k > square) low = mid;
+                else high = mid;
+            }
+
+            return low * low == k || high * high == k;
+        }
+
+        private static List<int> primes = new List<int>();
+        private static bool primesCalculated = false;
+
+        private static void calculatePrimes()
+        {
+            if (primesCalculated) return;
+            primesCalculated = true;
+
+            bool[] isNotPrime = new bool[4096];
+            for(int i = 2; i < 4096; i++)
+            {
+                if(isNotPrime[i] == false)
+                {
+                    primes.Add(i);
+                    for (int j = 2 * i; j < 4096; j += i) isNotPrime[j] = true;
+                }
+            }
+
+        }
+
+        public static int extractSquare(int num)
+        {
+            calculatePrimes();
+            int result = 1;
+
+            int idx = 0;
+            while(primes[idx]*primes[idx] <= num)
+            {
+                int cnt = 0;
+                while(num%primes[idx] == 0)
+                {
+                    cnt++;
+                    if(cnt==2)
+                    {
+                        result *= primes[idx];
+                        cnt = 0;
+                    }
+                    num/=primes[idx];
+                }
+                idx++;
+            }
+
+            return result;
+        }
+
+        public Number extractSquare()
+        {
+            calculatePrimes();
+            return new Number(extractSquare(numerator), extractSquare(denominator));
+        }
+
+        public bool isSquare()
+        {
+            return isSquare(numerator) && isSquare(denominator);
+            return false;
+        }
 
         public Int32 CompareTo(Object obj)
         {
