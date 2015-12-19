@@ -26,16 +26,16 @@ namespace SharkMath.MathProblems
             {
                 if (parts.Count == 0) return String.Format("{0} \\in \\varnothing", letter);
                 string result = letter + " = ";
-                for (int i = 0; i < parts.Count - 1; i++) result += parts[i].print(false, false) + "; ";
-                result += parts[parts.Count - 1].print(false, false);
+                for (int i = 0; i < parts.Count - 1; i++) result += parts[i].print(false, parts[i] is Number) + "; ";
+                result += parts[parts.Count - 1].print(false, parts[parts.Count - 1] is Number);
                 return result;
             }
             else if(type == Type.Inequation)
             {
                 if (parts.Count == 0) return String.Format("{0} \\in \\varnothing", letter);
                 string result = letter + " = ";
-                for (int i = 0; i < parts.Count - 1; i++) result += parts[i].print(false, false) + " \\cup ";
-                result += parts[parts.Count - 1].print(false, false);
+                for (int i = 0; i < parts.Count - 1; i++) result += parts[i].print(false, parts[i] is Number) + " \\cup ";
+                result += parts[parts.Count - 1].print(false, parts[parts.Count - 1] is Number);
                 return result;
             }
             return "error";

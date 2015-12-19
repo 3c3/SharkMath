@@ -18,10 +18,11 @@ namespace SharkExec
 
             sed.rootDesc.maxDenominator = 1;
             sed.rootDesc.minDenominator = 1;
-            sed.rootDesc.maxNumerator = 7;
+            sed.rootDesc.maxNumerator = 3;
             sed.rootDesc.minNumerator = 1;
 
-            sed.rootDesc.pIrrational = 100;
+            sed.rootDesc.pIrrational = 0;
+            sed.rootDesc.pNatural = 100;
             sed.power = 2;
 
             SimpleEquation se = Generator.getEquation('x', sed);
