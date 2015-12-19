@@ -2,7 +2,8 @@ var autoprefixer	= require('autoprefixer');
 var precss			= require('precss');
 var lost 			= require('lost');
 var cssnext 		= require('cssnext');
-
+var EncodingPlugin 	= require('webpack-encoding-plugin');
+var BomPlugin 		= require('webpack-utf8-bom');
 module.exports = {
 	entry: ["./main.js"],
 	output: {
@@ -40,4 +41,5 @@ module.exports = {
 	resolve: {
 		modulesDirectories: ["node_modules"],
 	},
+	plugins: [/*new EncodingPlugin('utf-8'),*/ new BomPlugin(true)]
 }

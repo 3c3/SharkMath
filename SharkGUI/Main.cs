@@ -105,7 +105,7 @@ namespace SharkGUI
               //  Console.WriteLine(Resources.index);
                 browser.Load("app://main");
                 //browser.Load(@"app://main/index");
-                //browser.ShowDevTools();
+                browser.ShowDevTools();
             }
   
             Console.WriteLine("Browser init {0}", browser.IsBrowserInitialized);

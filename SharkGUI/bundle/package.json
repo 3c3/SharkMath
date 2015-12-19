@@ -28,6 +28,8 @@
     "classnames": "^2.2.1",
     "react-dnd": "^2.0.2",
     "react-dnd-html5-backend": "^2.0.0",
-    "validate.js": "^0.9.0"
+    "validate.js": "^0.9.0",
+    "webpack-encoding-plugin": "0.0.1",
+    "webpack-utf8-bom": "^1.0.1"
   }
 }

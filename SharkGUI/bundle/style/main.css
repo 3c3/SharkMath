@@ -1,10 +1,22 @@
+
+@font-face{
+	font-family:'Open Sans';
+	src:url(fonts/OpenSans-Regular.ttf);
+}
+
+@font-face{
+	font-family:'Open Sans';
+	src:url(fonts/OpenSans-Bold.ttf);
+	font-weight: bold;
+
+}
 @lost flexbox flex;
 
 $blue: #2780e3;
 $blue-hover: #1967be;
 
-* {
-	font-family: 'Segoe UI';
+*  {
+	font-family: 'Segoe UI','Open Sans','Verdana',sans-serif;
 }
 
 body {
@@ -64,10 +76,49 @@ body {
 		display: block;
 		border-top: 1px solid $blue;
 	}
-
-	.settings_panel {
+	.content{
 		flex: 1 1 auto;
 
+		lost-flex-container: row;
+		
+		> * {
+				width: 100%;
+		}
+
+		.settings_panel {
+			lost-column: 4/5;
+			
+		}
+		.type_choise_panel{
+			lost-column: 1/5;
+			> span {
+				width: 100%;
+				display: block;
+				text-align: center;
+				cursor: pointer;
+
+			}
+
+			> span:hover {
+				background-color: gray;
+
+				
+			}
+
+			> span.selected {
+				cursor: default;
+				color: $blue;
+
+				
+			}
+
+			> span.selected:hover {
+				background-color: rgba(0,0,0,0);
+				cursor: default;
+
+			}
+
+		}
 	}
 
 	.button_bar {
@@ -170,4 +221,17 @@ $button-padding: 3px;
 
 .row{
 	lost-flex-container: row;
+}
+
+.input {
+	padding: 2px;
+	lost-flex-container: row;
+	.label {
+		flex: 0 0 auto;
+		padding-right: 1em;
+	}
+
+	input {
+		flex: 1 0 auto;
+	}
 }
