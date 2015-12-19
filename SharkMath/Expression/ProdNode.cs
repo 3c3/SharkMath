@@ -89,6 +89,8 @@ namespace SharkMath
 
         public override void doMath()
         {
+            if (children.Count == 0) return;
+
             for (int i = 0; i < children.Count; i++)
             {
                 children[i].doMath();

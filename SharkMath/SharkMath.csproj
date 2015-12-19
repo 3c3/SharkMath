@@ -57,24 +57,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoefDescriptor.cs" />
-    <Compile Include="FracNode.cs" />
-    <Compile Include="IAddable.cs" />
-    <Compile Include="ICopiable.cs" />
-    <Compile Include="IMultipliable.cs" />
-    <Compile Include="IPrintable.cs" />
-    <Compile Include="ISimplifiable.cs" />
-    <Compile Include="Monomial.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="Number.cs" />
-    <Compile Include="PolyNode.cs" />
-    <Compile Include="Polynomial.cs" />
-    <Compile Include="PowerNode.cs" />
-    <Compile Include="ProdNode.cs" />
+    <Compile Include="MathProblems\Descriptors\CoefDescriptor.cs" />
+    <Compile Include="Expression\Expression.cs" />
+    <Compile Include="Expression\FracNode.cs" />
+    <Compile Include="Interfaces\IAddable.cs" />
+    <Compile Include="Interfaces\ICopiable.cs" />
+    <Compile Include="Interfaces\IMultipliable.cs" />
+    <Compile Include="Interfaces\IPrintable.cs" />
+    <Compile Include="Interfaces\ISimplifiable.cs" />
+    <Compile Include="Algebra\Monomial.cs" />
+    <Compile Include="Expression\Node.cs" />
+    <Compile Include="Algebra\Number.cs" />
+    <Compile Include="Expression\PolyNode.cs" />
+    <Compile Include="Algebra\Polynomial.cs" />
+    <Compile Include="Expression\PowerNode.cs" />
+    <Compile Include="Expression\ProdNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Simple.cs" />
-    <Compile Include="SimpleEquationDescriptor.cs" />
-    <Compile Include="SumNode.cs" />
+    <Compile Include="Algebra\Simple.cs" />
+    <Compile Include="MathProblems\Descriptors\SimpleEquationDescriptor.cs" />
+    <Compile Include="Expression\SumNode.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MathProblems\Problems\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
