@@ -10,6 +10,28 @@ namespace SharkGUI
 {
     class AppObject
     {
+
+        public AppObject()
+        {
+            simpleEquationDescriptor = new SimpleEquationDescriptor();
+        }
+        public SimpleEquationDescriptor simpleEquationDescriptor
+        {
+            get;
+            set;
+        }
+        public void test(Dictionary<string, Object> o){
+            Console.WriteLine(o);
+            foreach (KeyValuePair<string, Object> kvp in o) {
+                Console.WriteLine("row: {0} , {1}", kvp.Key , kvp.Value);
+                var A = kvp.Value as Object[];
+                if(A != null){
+                    foreach (Object obj in A) {
+                        Console.WriteLine("sub_value: {0}", obj);
+                    }
+                }
+            }
+        }
         public string Add(string a, string b)
         {
             Polynomial p1 = new Polynomial(a);

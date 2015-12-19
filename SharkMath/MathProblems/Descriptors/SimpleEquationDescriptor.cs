@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    class SimpleEquationDescriptor
+    public class SimpleEquationDescriptor
     {
         public CoefDescriptor rootDesc;
         public CoefDescriptor elemCoefDesc;

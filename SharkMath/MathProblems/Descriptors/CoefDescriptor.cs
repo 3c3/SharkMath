@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    class CoefDescriptor
+    public class CoefDescriptor
     {
         public int minNumerator, maxNumerator;
         public int minDenominator, maxDenominator;
