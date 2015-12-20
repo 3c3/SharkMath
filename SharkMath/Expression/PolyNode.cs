@@ -20,7 +20,7 @@ namespace SharkMath
         /// </summary>
         public PolyNode()
         {
-            coef = new Number(0);
+            coef = new Number(1);
             poly = new Polynomial();
         }
 
@@ -102,6 +102,21 @@ namespace SharkMath
                 poly.MultiplyByNumber(coef);
                 coef.makeOne();
             }
+        }
+
+        /// <summary>
+        /// Изважда част от двата полинома
+        /// </summary>
+        /// <param name="pn"></param>
+        public void exchange(PolyNode pn)
+        {
+            PolyNode higher = this; // този, с по-висока степен
+            if (pn.poly.maxPower > poly.maxPower) higher = pn;
+
+            Polynomial extract = higher.poly.getExtract();
+
+            this.poly -= extract;
+            pn.poly -= extract;
         }
 
     }

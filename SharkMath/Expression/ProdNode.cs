@@ -8,7 +8,7 @@ namespace SharkMath
 {
     public class ProdNode : Node, IMultipliable
     {
-        List<Node> children;
+        public List<Node> children;
 
         /// <summary>
         /// за unit test/debug
@@ -24,7 +24,7 @@ namespace SharkMath
         public ProdNode()
         {
             children = new List<Node>();
-            coef = new Number(0);
+            coef = new Number(1);
         }
 
         public ProdNode(ProdNode src)

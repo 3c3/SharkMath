@@ -8,13 +8,13 @@ namespace SharkMath
 {
     public class PowerNode : Node
     {
-        Node powered; // това, което е на степен
-        Node nodePower; // ако nodePower == null
-        Number numPower; // се ползва numPower
+       public  Node powered; // това, което е на степен
+        public Node nodePower; // ако nodePower == null
+        public Number numPower; // се ползва numPower
 
         public PowerNode()
         {
-            coef = new Number(0);
+            coef = new Number(1);
             numPower = new Number(1);
         }
 
@@ -103,9 +103,30 @@ namespace SharkMath
             return; // няма нищо за опростяване
         }
 
+        public override Node ToNode()
+        {
+            if(numPower.isPosOne)
+            {
+                powered.coef.MultiplyBy(coef);
+                return powered;
+            }
+            return this;
+        }
+
+        private void doMathNum()
+        {
+            if (numPower.isInteger == false) return; // засега без действия с корени
+            ProdNode result = new ProdNode();
+            for (int i = 0; i < numPower.numerator; i++) result.children.Add(powered.copy() as Node);
+            result.doMath();
+            powered = result.ToNode();
+            numPower.makeOne();
+        }
+
         public override void doMath()
         {
-            throw new NotImplementedException("PowerNode not available yet!!!");
+            if ((object)numPower == null) throw new NotImplementedException("Cannot do math with Node power yet!");
+            doMathNum();
         }
     }
 }

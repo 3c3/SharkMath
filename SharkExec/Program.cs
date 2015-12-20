@@ -14,6 +14,12 @@ namespace SharkExec
     {
         static void Main(string[] args)
         {
+            PolyNode pon = new PolyNode(new Polynomial("x + 1"));
+            PowerNode pn = new PowerNode(pon, new Number(2));
+            pn.doMath();
+            Node res = pn.ToNode();
+            Console.WriteLine(res.print(false, false));
+
             SimpleEquationDescriptor sed = new SimpleEquationDescriptor();
 
             sed.rootDesc.maxDenominator = 3;
@@ -26,10 +32,27 @@ namespace SharkExec
             sed.rootDesc.pRational = 0;
             sed.power = 2;
 
-            SimpleEquation se = Generator.getEquation('x', sed);
+            sed.maxVisualPower = 2;
+            sed.minTransformations = 1;
+            sed.maxTransformations = 1;
 
-            Console.WriteLine(se.print());
-            Console.WriteLine(se.solution.print());
+            sed.elemCoefDesc.maxDenominator = 1;
+            sed.elemCoefDesc.minDenominator = 1;
+            sed.elemCoefDesc.maxNumerator = 5;
+            sed.elemCoefDesc.minNumerator = 1;
+            sed.elemCoefDesc.pNatural = 100;
+
+            for(int i = 0; i < 3; i++)
+            {
+                SimpleEquation se = Generator.getEquation('x', sed);
+
+                Console.WriteLine(se.print());
+                se.fixPolynomials();
+                Console.WriteLine(se.print());
+                Console.WriteLine(se.solution.print());
+
+                Console.WriteLine();
+            }            
 
             Console.Read();
         }

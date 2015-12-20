@@ -137,6 +137,22 @@ namespace SharkMath
                 return monos.Count > 0 ? monos[0].coef.isNegative : false;
             }
         }
+
+        public int maxPower
+        {
+            get
+            {
+                return monos.Count > 0 ? monos[0].power : 0;
+            }
+        }
+
+        public bool isZero
+        {
+            get
+            {
+                return monos.Count == 0;
+            }
+        }
        
         /// <summary>
         /// Принтира многочлен
@@ -354,5 +370,22 @@ namespace SharkMath
         }
 
         #endregion
+
+        public Polynomial getExtract()
+        {
+            Polynomial result = new Polynomial();
+            Random r = new Random();
+            for(int i = 0; i < monos.Count; i++)
+            {
+                Monomial current = new Monomial(monos[i]);
+                if (monos[i].coef.isNegative)
+                {
+                    current.coef.numerator = r.Next(monos[i].coef.numerator, 0);
+                }
+                else current.coef.numerator = r.Next(monos[i].coef.numerator) + 1;
+                result.monos.Add(current);
+            }
+            return result;
+        }
     }
 }

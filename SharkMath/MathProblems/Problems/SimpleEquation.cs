@@ -93,6 +93,34 @@ namespace SharkMath.MathProblems.Problems
 
         #endregion
 
+        public void fixPolynomials()
+        {
+            int idxLeft = -1;
+            int idxRight = -1;
+            for(int i = 0; i < left.nodes.Count; i++)
+                if(left.nodes[i] is PolyNode)
+                {
+                    idxLeft = i;
+                    break;
+                }
+
+            for (int i = 0; i < right.nodes.Count; i++)
+                if (right.nodes[i] is PolyNode)
+                {
+                    idxRight = i;
+                    break;
+                }
+
+            if (idxLeft != -1 && idxRight !=-1)
+            {
+                PolyNode leftPoly = left.nodes[idxLeft] as PolyNode;
+                PolyNode rightPoly = right.nodes[idxRight] as PolyNode;
+                leftPoly.exchange(rightPoly);
+                if (leftPoly.poly.isZero) left.nodes.RemoveAt(idxLeft);
+                if (rightPoly.poly.isZero) right.nodes.RemoveAt(idxRight);
+            }
+        }
+
         public string print()
         {
             return left.print() + " = " + right.print();

@@ -33,6 +33,44 @@ namespace SharkMath.MathProblems
             if (random.Next(100) >= 50) num.numerator *= -1;
         }
 
+        /// <summary>
+        /// Съставя полином с дадените буква, степен, и коефициенти
+        /// </summary>
+        /// <param name="letter"></param>
+        /// <param name="power"></param>
+        /// <param name="cd">Описателя на коефициентите</param>
+        /// <returns></returns>
+        public static Polynomial getPolynomial(char letter, int power, CoefDescriptor cd)
+        {
+            Polynomial result = new Polynomial();
+            for(int i = power; i >= 1; i--)
+            {
+                Monomial current = new Monomial(getNumber(cd), letter, (short)i);
+                result.monos.Add(current);
+            }
+            result.monos.Add(new Monomial(getNumber(cd)));
+            return result;
+        }
+
+        public static PolyNode getPolyNode(char letter, int power, CoefDescriptor cd)
+        {
+            PolyNode result = new PolyNode();
+            for (int i = power; i >= 1; i--)
+            {
+                Monomial current = new Monomial(getNumber(cd), letter, (short)i);
+                result.poly.monos.Add(current);
+            }
+            result.poly.monos.Add(new Monomial(getNumber(cd)));
+            return result;
+        }
+
+        /// <summary>
+        /// Намира дискриминанта на ax2 + bx + c = 0
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
         public static Number getD(Number a, Number b, Number c)
         {
             Number part = a * c;
@@ -40,6 +78,13 @@ namespace SharkMath.MathProblems
             return b * b - part;
         }
 
+        /// <summary>
+        /// Създава такива a,b,c че дискриминантата да не е квадрат
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="cd"></param>
         public static void createNonSquareD(out Number a, out Number b, out Number c, CoefDescriptor cd)
         {
             a = new Number();
@@ -56,6 +101,13 @@ namespace SharkMath.MathProblems
             }
         }
 
+        /// <summary>
+        /// Създава отрицателна дискриминанта
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="cd"></param>
         public static void createNegativeD(out Number a, out Number b, out Number c, CoefDescriptor cd)
         {
             a = new Number();
@@ -72,6 +124,13 @@ namespace SharkMath.MathProblems
             }
         }
 
+        /// <summary>
+        /// Намира ирационалните корени на ax2 + bc + c = 0
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
         public static Node[] getRoots(Number a, Number b, Number c)
         {
             a = new Number(a);
@@ -118,10 +177,97 @@ namespace SharkMath.MathProblems
             return _result;
         }
 
+        /// <summary>
+        /// Създава масив от цели числа със сума power и ги разпределя
+        /// </summary>
+        /// <param name="n">броя числа</param>
+        /// <param name="power">сумарната степен</param>
+        /// <returns></returns>
+        private static int[] makePowerList(int n, int power)
+        {
+            int[] result = new int[n];
+            result[0] = power;
+
+            int[] chArr = new int[n];
+
+            for (int i = 0; i < n - 1; i++)
+            {
+                int chArrLen = 0;
+                for (int j = 0; j <= i; j++)
+                { // на всяка стъпка записваме кои елементи имат степен над 1
+                    if (result[j] > 1) chArr[chArrLen++] = j;
+                }
+
+                int choice = random.Next(chArrLen); // след това избираме 1 от тях
+
+                int newInt = random.Next(1, result[chArr[choice]]);
+                result[i + 1] = newInt; // и изваждаме от него някаква степен
+                result[chArr[choice]] -= newInt; // за да я добавим на друго място
+            } // сложност N^2 но за практически стойности няма смисъл да се пише по-сложно/оптимално
+            return result;
+        }
+
+        public static Node getNode(char letter, int maxVisualPower, CoefDescriptor cd)
+        {
+            if (maxVisualPower < 2) throw new Exception("There is no point in maxVisualPower < 2!");
+            int power = random.Next(maxVisualPower - 1) + 2;
+            int nElements = random.Next(power) + 1;
+
+            if(nElements == 1)
+            {
+                if(power == 1)
+                {
+                    return getPolyNode(letter, 1, cd);
+                }
+                else
+                {
+                    PowerNode pn = new PowerNode();
+                    pn.powered = getPolyNode(letter, 1, cd);
+                    pn.numPower.set(power);
+                    return pn;
+                }
+            }
+            else
+            {
+                int[] distrib = makePowerList(nElements, power);
+                ProdNode result = new ProdNode();
+                for(int i = 0; i < nElements; i++)
+                {
+                    int cPower = distrib[i];
+                    if (cPower == 1) result.children.Add(getPolyNode(letter, 1, cd));
+                    else
+                    {
+                        int typeRoll = random.Next(100) + 1;
+                        if (typeRoll <= 50)
+                        {
+                            PowerNode pn = new PowerNode();
+                            pn.powered = getPolyNode(letter, 1, cd);
+                            pn.numPower.set(cPower);
+                            result.children.Add(pn);
+                        }
+                        else result.children.Add(getPolyNode(letter, cPower, cd));
+                    }
+                }
+                return result;
+            }
+        }
+
         public static SimpleEquation getEquation(char letter, SimpleEquationDescriptor sed)
         {
             SimpleEquation se = new SimpleEquation(letter);
             se.create(sed);
+
+            int nTrans = random.Next(sed.minTransformations, sed.maxTransformations + 1);
+            for(int i = 0; i < nTrans; i++)
+            {
+                Node current = getNode(letter, sed.maxVisualPower, sed.elemCoefDesc);
+                bool choice = (random.Next()&1) == 0;
+                se.left.addNode(current, choice);
+                se.right.addNode(current, !choice);
+            }
+
+            //se.fixPolynomials();
+
             return se;
         }
     }
