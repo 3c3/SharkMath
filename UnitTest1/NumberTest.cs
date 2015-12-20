@@ -20,5 +20,19 @@ namespace UnitTest1
                 Assert.IsFalse(Number.isSquare(i * i - 1));
             }
         }
+
+        [TestMethod]
+        public void PrintTest()
+        {
+            Number n1 = new Number(1);
+
+            Assert.AreEqual("1", n1.print(false, true));
+            Assert.AreEqual("", n1.print(false, false));
+
+            Number n2 = new Number(-1);
+
+            Assert.AreEqual("-1", n2.print(false, true), "-1 true");
+            Assert.AreEqual("-", n2.print(false, false), "-1 false");
+        }
     }
 }

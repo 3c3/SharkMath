@@ -404,9 +404,13 @@ namespace SharkMath
             }
             else
             {
-                if (!showOne && isPosOne) return "";
-                if (isNegative && isOne) return "-";
-                if (isInteger) return numerator.ToString();
+                if(isInteger)
+                {
+                    if(showOne) return numerator.ToString();
+                    if (numerator == -1) return "-";
+                    if (numerator == 1) return "";
+                    return numerator.ToString();
+                }
                 else
                 {
                     if (isNegative) result = "-\\frac{" + (-numerator).ToString() + "}{" + denominator + "}"; // при дроб минуса трябва да е отпред
