@@ -16,13 +16,14 @@ namespace SharkExec
         {
             SimpleEquationDescriptor sed = new SimpleEquationDescriptor();
 
-            sed.rootDesc.maxDenominator = 1;
+            sed.rootDesc.maxDenominator = 3;
             sed.rootDesc.minDenominator = 1;
-            sed.rootDesc.maxNumerator = 3;
+            sed.rootDesc.maxNumerator = 5;
             sed.rootDesc.minNumerator = 1;
 
-            sed.rootDesc.pIrrational = 0;
-            sed.rootDesc.pNatural = 100;
+            sed.rootDesc.pIrrational = 50;
+            sed.rootDesc.pNatural = 50;
+            sed.rootDesc.pRational = 0;
             sed.power = 2;
 
             SimpleEquation se = Generator.getEquation('x', sed);

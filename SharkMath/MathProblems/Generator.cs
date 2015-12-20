@@ -19,18 +19,18 @@ namespace SharkMath.MathProblems
         /// <returns></returns>
         public static Number getNumber(CoefDescriptor cd)
         {
-            int typeRoll = random.Next(1, 101); // 1-100
-
-            if (typeRoll <= cd.pNatural) return new Number(random.Next(cd.minNumerator, cd.maxNumerator + 1));
-            return new Number(random.Next(cd.minNumerator, cd.maxNumerator + 1), random.Next(cd.minDenominator, cd.maxDenominator + 1));
+            Number result = new Number();
+            setNumber(result, cd);
+            return result;
         }
 
         public static void setNumber(Number num, CoefDescriptor cd)
         {
             int typeRoll = random.Next(1, 101); // 1-100
 
-            if (typeRoll <= cd.pNatural) num.set(random.Next(cd.minNumerator, cd.maxNumerator + 1));
+            if (typeRoll <= cd.pNatural + cd.pIrrational) num.set(random.Next(cd.minNumerator, cd.maxNumerator + 1));
             else num.set(random.Next(cd.minNumerator, cd.maxNumerator + 1), random.Next(cd.minDenominator, cd.maxDenominator + 1));
+            if (random.Next(100) >= 50) num.numerator *= -1;
         }
 
         public static Number getD(Number a, Number b, Number c)

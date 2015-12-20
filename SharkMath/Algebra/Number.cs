@@ -364,6 +364,7 @@ namespace SharkMath
 
         public bool isSquare()
         {
+            if (numerator == 0) return true;
             return isSquare(numerator) && isSquare(denominator);
             return false;
         }
