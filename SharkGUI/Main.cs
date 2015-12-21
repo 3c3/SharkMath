@@ -12,7 +12,8 @@ using CefSharp.WinForms;
 using SharkGUI.Properties;
 using System.Net;
 using System.IO;
-using SharkMath;  
+using SharkMath;
+using System.Runtime.InteropServices;  
 
 namespace SharkGUI
 {
@@ -20,7 +21,10 @@ namespace SharkGUI
     {
         public Main()
         {
+
             InitializeComponent();
+            this.BrowserDock.MouseDown += BrowserDock_MouseDown;
+
             InitBrowser();
         }
 
@@ -28,6 +32,11 @@ namespace SharkGUI
         {
 
         }
+
+        private const int WM_NCHITTEST = 0x84;
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HTCLIENT = 0x1;
+        private const int HT_CAPTION = 0x2;
 
         public static string Utf8String(string s) {
             byte[] bytes = Encoding.Default.GetBytes(s);
@@ -74,8 +83,9 @@ namespace SharkGUI
 
             browser = new ChromiumWebBrowser("");
             browser.BrowserSettings = browser_settigns;
-            browser.RegisterJsObject("app", new AppObject());
+            browser.RegisterJsObject("app", new AppObject(this.Handle));
             browser.LoadError += browser_LoadError;
+            //browser.Click += browser_Click;
            // browser = new ChromiumWebBrowser("main");
 
 
@@ -87,9 +97,26 @@ namespace SharkGUI
             
 
             browser.IsBrowserInitializedChanged += browser_IsBrowserInitializedChanged;
-            this.Controls.Add(browser);
+            this.BrowserDock.Controls.Add(browser);
             //IBrowser b = browser.GetBrowser();
             browser.Dock = DockStyle.Fill;
+        }
+
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+        void BrowserDock_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        void browser_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("event: click");
+            ReleaseCapture();
+            SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
 
         void browser_LoadError(object sender, LoadErrorEventArgs e)
@@ -111,5 +138,23 @@ namespace SharkGUI
             Console.WriteLine("Browser init {0}", browser.IsBrowserInitialized);
 
         }
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("event: click");
+            ReleaseCapture();
+            SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+        }
+
+        private void close_button_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void minimiza_button_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
     }
 }

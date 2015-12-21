@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,7 +12,12 @@ namespace SharkGUI
     class AppObject
     {
 
-        public AppObject()
+
+        public void MoveWin()
+        {
+            
+        }
+        public AppObject(IntPtr Handle)
         {
             simpleEquationDescriptor = new SimpleEquationDescriptor();
         }
@@ -54,5 +60,6 @@ namespace SharkGUI
         {
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
     }
 }
