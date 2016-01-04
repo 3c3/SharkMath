@@ -9,7 +9,7 @@ namespace SharkMath
     /// <summary>
     /// Основният клас за сложни изрази.
     /// </summary>
-    public abstract class Node : IPrintable, ICopiable, ISimplifiable
+    public abstract class Node : IPrintable, ICopiable, ISimplifiable, IEvaluable
     {
         /// <summary>
         /// Коефициентът
@@ -31,6 +31,8 @@ namespace SharkMath
         /// <param name="brackets">Дали да показва +1</param>
         /// <returns></returns>
         public abstract string print(bool attach, bool brackets);
+
+        public abstract double eval();
 
         public Node()
         {

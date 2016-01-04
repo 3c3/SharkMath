@@ -87,6 +87,13 @@ namespace SharkMath
             }
         }
 
+        public override double eval()
+        {
+            double result = coef.eval();
+            children.ForEach(n => result *= n.coef.eval());
+            return result;
+        }
+
         public override void doMath()
         {
             if (children.Count == 0) return;

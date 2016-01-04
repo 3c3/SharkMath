@@ -103,6 +103,13 @@ namespace SharkMath
             return; // няма нищо за опростяване
         }
 
+        public override double eval()
+        {
+            double d = powered.eval();
+            double power = (object)numPower != null ? numPower.eval() : nodePower.eval();
+            return coef.eval() * Math.Pow(d, power);
+        }
+
         public override Node ToNode()
         {
             if(numPower.isPosOne)
