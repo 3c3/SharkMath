@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharkMath
+namespace SharkMath.MathProblems.Descriptors
 {
-    public interface IEvaluable
+    public class ExpressionDescriptor
     {
-        double eval();
+        // WIP/NYI
     }
 }

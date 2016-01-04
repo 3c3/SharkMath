@@ -150,5 +150,10 @@ namespace SharkMath
             newNode.coef.DivideBy(coef);
             numerator = Node.Add2(numerator, newNode);
         }
+
+        public override double eval()
+        {
+            return coef.eval() * numerator.eval() / denominator.eval();
+        }
     }
 }
