@@ -17,7 +17,8 @@ namespace SharkMath
 
             for (int i = 0; i < n; i++)
             {
-                SimpleEquation se = MathProblems.Generator.getEquation(desc.letter)
+                SimpleEquation se = MathProblems.Generator.getEquation(desc.letter, desc.toSEquationDescriptor());
+                result[i] = new UiData(se.print(), se.solution.print());
             }
 
             return result;
