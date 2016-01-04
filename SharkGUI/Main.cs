@@ -13,7 +13,8 @@ using SharkGUI.Properties;
 using System.Net;
 using System.IO;
 using SharkMath;
-using System.Runtime.InteropServices;  
+using System.Runtime.InteropServices;
+using System.Windows.Forms.VisualStyles;  
 
 namespace SharkGUI
 {
@@ -37,6 +38,7 @@ namespace SharkGUI
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HTCLIENT = 0x1;
         private const int HT_CAPTION = 0x2;
+
 
         public static string Utf8String(string s) {
             byte[] bytes = Encoding.Default.GetBytes(s);
@@ -141,7 +143,7 @@ namespace SharkGUI
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
-            Console.WriteLine("event: click");
+            Console.WriteLine("event: mouse down");
             ReleaseCapture();
             SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }

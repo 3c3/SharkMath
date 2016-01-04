@@ -6,26 +6,37 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
+using SharkMath.MathProblems;
 
 namespace SharkGUI
 {
     class AppObject
     {
+        private const int WM_NCHITTEST = 0x84;
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HTCLIENT = 0x1;
+        private const int HT_CAPTION = 0x2;
+        private IntPtr Handle;
 
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
 
         public void MoveWin()
         {
-            
+            Console.WriteLine("event: click");
+            ReleaseCapture();
+            SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
         public AppObject(IntPtr Handle)
         {
-            simpleEquationDescriptor = new SimpleEquationDescriptor();
+            this.Handle = Handle;
+            simpleEquationDescriptor = new ReducedSEquationDescriptor();
         }
-        public SimpleEquationDescriptor simpleEquationDescriptor
-        {
-            get;
-            set;
-        }
+        public ReducedSEquationDescriptor simpleEquationDescriptor;
+
         public void test(Dictionary<string, Object> o){
             Console.WriteLine(o);
             foreach (KeyValuePair<string, Object> kvp in o) {
@@ -45,16 +56,38 @@ namespace SharkGUI
             Polynomial result = p1 + p2;
             return result.print(false, false);
         }
-        public string Generate()
+        public string Generate(Dictionary<string, Object> jsObject)
         {
-            Polynomial p1 = new Polynomial("x2 - 3x + 5");
-            Polynomial p2 = new Polynomial("x - 3");
+            var desc_t = typeof(ReducedSEquationDescriptor);
+            foreach(KeyValuePair<string,Object> field in jsObject){
+                Console.WriteLine("Key: {0}, Type: {1}", field.Key, field.Value.GetType());
+                if(field.Value is Int32){
+                    Int32? val = field.Value as Int32?;
+                    desc_t.GetField(field.Key).SetValue(simpleEquationDescriptor, (byte)val);
 
-            PolyNode pn1 = new PolyNode(p1);
-            PolyNode pn2 = new PolyNode(p2);
+                }
+                else if (field.Value is String)
+                {
+                    String val = field.Value as String;
+                    var object_field = desc_t.GetField(field.Key);
 
-            FracNode fn = new FracNode(pn1, pn2);
-            return fn.print(false, false);
+                    if (object_field.FieldType == typeof(char))
+                    {
+                        desc_t.GetField(field.Key).SetValue(simpleEquationDescriptor, val[0]);
+                    }
+                    else {
+                        desc_t.GetField(field.Key).SetValue(simpleEquationDescriptor, val);
+                    }
+                }
+                else {
+                    throw new Exception(String.Format("Unkonw data type of object {0} with type {1}", simpleEquationDescriptor, typeof(SimpleEquationDescriptor)));
+                }
+
+                
+                
+            }
+
+            return Generator.getEquation(simpleEquationDescriptor.letter, simpleEquationDescriptor.toSEquationDescriptor()).print();
         }
         public void Show(string title, string message)
         {
