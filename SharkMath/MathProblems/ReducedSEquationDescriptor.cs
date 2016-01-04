@@ -8,11 +8,11 @@ namespace SharkMath.MathProblems
 {
     public class ReducedSEquationDescriptor
     {
-        char letter;
-        byte pFractions;
-        byte pIrrational;
-        byte minTransformations, maxTransformations;
-        byte power, maxVisualPower;
+        public char letter;
+        public byte pFractions;
+        public byte pIrrational;
+        public byte minTransformations, maxTransformations;
+        public byte power, maxVisualPower;
 
         public SimpleEquationDescriptor toSEquationDescriptor()
         {
