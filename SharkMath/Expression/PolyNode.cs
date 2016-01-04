@@ -104,6 +104,11 @@ namespace SharkMath
             }
         }
 
+        public override double eval()
+        {
+            return poly.eval() * coef.eval();
+        }
+
         /// <summary>
         /// Изважда част от двата полинома
         /// </summary>

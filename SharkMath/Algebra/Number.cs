@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    public class Number : IPrintable, IComparable
+    public class Number : IPrintable, IComparable, IEvaluable
     {
         public int numerator; // числител
         public int denominator; // знаменател
@@ -421,5 +421,9 @@ namespace SharkMath
         }
 
 
+        public double eval()
+        {
+            return (double)numerator / (double)denominator; 
+        }
     }
 }

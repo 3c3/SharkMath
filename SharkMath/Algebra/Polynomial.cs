@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharkMath
 {
-    public class Polynomial : IPrintable
+    public class Polynomial : IPrintable, IEvaluable
     {
         public List<Monomial> monos; /// състващите едночлени
         
@@ -386,6 +386,14 @@ namespace SharkMath
                 result.monos.Add(current);
             }
             return result;
+        }
+
+        public double eval()
+        {
+            if (monos.Count > 1) throw new Exception("Polynomial cannot be evaluated because it has letters.");
+            if (monos.Count == 0) return 0.0;
+            if (monos[0].power == 0) return monos[0].coef.eval();
+            throw new Exception("Polynomial cannot be evaluated because it is a letter.");
         }
     }
 }
