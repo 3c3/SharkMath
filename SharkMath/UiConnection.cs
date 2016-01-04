@@ -23,5 +23,19 @@ namespace SharkMath
 
             return result;
         }
+
+        public static UiData[] getFracEquations(int n, ReducedFEquationDescriptor desc)
+        {
+            throw new NotImplementedException();
+            UiData[] result = new UiData[n];
+
+           /* for (int i = 0; i < n; i++)
+            {
+                SimpleEquation se = MathProblems.Generator.getEquation(desc.letter, desc.toFEquationDescriptor());
+                result[i] = new UiData(se.print(), se.solution.print());
+            }*/
+
+            return result;
+        }
     }
 }

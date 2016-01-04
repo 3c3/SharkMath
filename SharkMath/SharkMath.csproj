@@ -73,6 +73,8 @@
     <Compile Include="Algebra\Polynomial.cs" />
     <Compile Include="Expression\PowerNode.cs" />
     <Compile Include="Expression\ProdNode.cs" />
+    <Compile Include="MathProblems\Descriptors\ExpressionDescriptor.cs" />
+    <Compile Include="MathProblems\Descriptors\FracEquationDescriptor.cs" />
     <Compile Include="MathProblems\Generator.cs" />
     <Compile Include="MathProblems\Interval.cs" />
     <Compile Include="MathProblems\Problems\SimpleEquation.cs" />
