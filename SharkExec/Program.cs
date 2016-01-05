@@ -14,13 +14,18 @@ namespace SharkExec
     {
         static void Main(string[] args)
         {
-            Random rand = new Random(); //reuse this if you are generating many
+            int n = 5;
+            Number[] nums = new Number[n];
+            for (int i = 0; i < n; i++) nums[i] = new Number(i);
 
-            for (int i = 0; i < 20; i++)
-            {
-                int iRand = Generator.getIntCustom(1, 13);
-                Console.Write(iRand + " ");
-            }            
+            IntervalPoint[] points = new IntervalPoint[n];
+            for (int i = 0; i < n; i++) points[i] = new IntervalPoint(nums[i], false);
+
+            points[2].isExcluded = true;
+
+            Interval[] intervals = Interval.constructIntervals(true, '<', points);
+
+            foreach (Interval i in intervals) Console.WriteLine(i.print(false, false));
 
             Console.ReadLine();
         }        

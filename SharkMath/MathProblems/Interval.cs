@@ -65,5 +65,53 @@ namespace SharkMath.MathProblems
 
             return result;
         }
+
+        public static Interval[] constructIntervals(bool closed, char sign, IntervalPoint[] points)
+        {
+            if (sign != '>' && sign != '<') throw new ArgumentException("Invalid inequation sign!");
+            Array.Sort(points);
+            if (sign == '>') return constructIntervalsGreater(closed, points);
+            else return constructIntervalsLess(closed, points);
+        }
+
+        private static Interval[] constructIntervalsGreater(bool closed, IntervalPoint[] points)
+        {
+            int nIntervals = points.Length / 2 + 1;
+            Interval[] result = new Interval[nIntervals];
+            int last = nIntervals - 1;
+            
+            IntervalPoint current = points[points.Length - 1];
+
+            result[last] = new Interval(current.value as IPrintable, null, closed && !current.isExcluded, false);
+            int pIdx = points.Length - 2;
+
+            for(int i = last - 1; i >= 0; i--)
+            {
+                IntervalPoint right = points[pIdx--];
+                IntervalPoint left = pIdx >= 0 ? points[pIdx--] : null;
+                if (left == null) result[i] = new Interval(null, right.value as IPrintable, false, closed && !right.isExcluded);
+                else result[i] = new Interval(left.value as IPrintable, right.value as IPrintable, closed && !left.isExcluded, closed && !right.isExcluded);
+            }
+
+            return result;
+        }
+
+        private static Interval[] constructIntervalsLess(bool closed, IntervalPoint[] points)
+        {
+            int nIntervals = points.Length / 2 + points.Length % 2;
+            Interval[] result = new Interval[nIntervals];
+            int last = nIntervals - 1;
+
+            int pIdx = points.Length - 1;
+            for(int i = last; i >= 0; i --)
+            {
+                IntervalPoint right = points[pIdx--];
+                IntervalPoint left = pIdx >= 0 ? points[pIdx--] : null;
+                if(left == null) result[i] = new Interval(null, right.value as IPrintable, false, closed && !right.isExcluded);
+                else result[i] = new Interval(left.value as IPrintable, right.value as IPrintable, closed && !left.isExcluded, closed && !right.isExcluded);
+            }
+
+            return result;
+        }
     }
 }
