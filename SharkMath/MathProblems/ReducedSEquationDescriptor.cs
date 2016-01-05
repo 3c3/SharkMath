@@ -33,7 +33,7 @@ namespace SharkMath.MathProblems
             rootCd.minDenominator = 1;
             rootCd.maxDenominator = 7;
             rootCd.minNumerator = 1;
-            rootCd.maxDenominator = 13;
+            rootCd.maxNumerator = 13;
 
             sed.maxTransformations = maxTransformations;
             sed.minTransformations = minTransformations;

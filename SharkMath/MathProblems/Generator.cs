@@ -24,12 +24,27 @@ namespace SharkMath.MathProblems
             return result;
         }
 
+        private static readonly int pLow = 30;
+        private static readonly int pMid = 50;
+
+        public static int getIntCustom(int min, int max)
+        {
+            double diff = max-min;
+            int point1 = min + (int)Math.Round(diff / 3.0);
+            int point2 = min + (int)Math.Round(diff * 0.666);
+
+            int bucketRoll = random.Next(100);
+            if (bucketRoll < pLow) return random.Next(min, point1);
+            else if (bucketRoll > pLow && bucketRoll < (pMid + pLow)) return random.Next(point1, point2);
+            else return random.Next(point2, max + 1);
+        }
+
         public static void setNumber(Number num, CoefDescriptor cd)
         {
             int typeRoll = random.Next(1, 101); // 1-100
 
-            if (typeRoll <= cd.pNatural + cd.pIrrational) num.set(random.Next(cd.minNumerator, cd.maxNumerator + 1));
-            else num.set(random.Next(cd.minNumerator, cd.maxNumerator + 1), random.Next(cd.minDenominator, cd.maxDenominator + 1));
+            if (typeRoll <= cd.pNatural) num.set(getIntCustom(cd.minNumerator, cd.maxNumerator));
+            else num.set(getIntCustom(cd.minNumerator, cd.maxNumerator), getIntCustom(cd.minDenominator, cd.maxDenominator));
             if (random.Next(100) >= 50) num.numerator *= -1;
         }
 

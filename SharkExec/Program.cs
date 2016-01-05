@@ -14,8 +14,13 @@ namespace SharkExec
     {
         static void Main(string[] args)
         {
-            Interval i1 = new Interval(new Number(-1), new Number(5), true, false);
-            Console.WriteLine(i1.print(false, false));
+            Random rand = new Random(); //reuse this if you are generating many
+
+            for (int i = 0; i < 20; i++)
+            {
+                int iRand = Generator.getIntCustom(1, 13);
+                Console.Write(iRand + " ");
+            }            
 
             Console.ReadLine();
         }        
