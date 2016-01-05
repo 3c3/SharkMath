@@ -254,6 +254,7 @@ namespace SharkMath.MathProblems
 
         public static SimpleEquation getEquation(char letter, SimpleEquationDescriptor sed)
         {
+            if(letter == 0)letter = 'x';
             SimpleEquation se = new SimpleEquation(letter);
             se.create(sed);
 

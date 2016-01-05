@@ -24,7 +24,7 @@ namespace SharkMath.MathProblems
             elemCd.minDenominator = 1;
             elemCd.maxDenominator = 7;
             elemCd.minNumerator = 1;
-            elemCd.maxDenominator = 13;
+            elemCd.maxNumerator = 13;
 
             CoefDescriptor rootCd = sed.rootDesc;
             rootCd.pIrrational = pIrrational;
