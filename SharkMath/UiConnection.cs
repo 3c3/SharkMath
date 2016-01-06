@@ -37,5 +37,18 @@ namespace SharkMath
 
             return result;
         }
+
+        public static UiData[] getInequations(int n, ReducedSEquationDescriptor desc)
+        {
+            UiData[] result = new UiData[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                SimpleInequation se = MathProblems.Generator.getInequation(desc.letter, desc.toSEquationDescriptor());
+                result[i] = new UiData(se.print(), se.solution.print());
+            }
+
+            return result;
+        }
     }
 }

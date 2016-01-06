@@ -286,5 +286,15 @@ namespace SharkMath.MathProblems
 
             return se;
         }
+
+        public static SimpleInequation getInequation(char letter, SimpleEquationDescriptor sed)
+        {
+            SimpleInequation sin = new SimpleInequation(letter);
+            sin.createRational(sed);
+
+            // WIP
+
+            return sin;
+        }
     }
 }

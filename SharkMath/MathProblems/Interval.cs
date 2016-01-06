@@ -55,7 +55,7 @@ namespace SharkMath.MathProblems
             if ((object)left == null) result += "-\\infty";
             else result += left.print(false, left is Number);
 
-            result += " ; ";
+            result += "; ";
 
             if ((object)right == null) result += "+\\infty";
             else result += right.print(false, right is Number);
