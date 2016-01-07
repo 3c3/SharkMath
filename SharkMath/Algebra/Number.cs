@@ -366,7 +366,6 @@ namespace SharkMath
         {
             if (numerator == 0) return true;
             return isSquare(numerator) && isSquare(denominator);
-            return false;
         }
 
         public Int32 CompareTo(Object obj)

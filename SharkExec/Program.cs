@@ -17,9 +17,10 @@ namespace SharkExec
             ReducedSEquationDescriptor rsed = new ReducedSEquationDescriptor();
             rsed.letter = 'x';
             rsed.power = 2;
-
-            SimpleInequation sin = new SimpleInequation(rsed.letter);
-            sin.createRational(rsed.toSEquationDescriptor());
+            rsed.pIrrational = 50;
+            rsed.minTransformations = 1;
+            rsed.maxTransformations = 2;
+            rsed.maxVisualPower = 2;
 
             UiData[] stuff = UiConnection.getInequations(5, rsed);
 

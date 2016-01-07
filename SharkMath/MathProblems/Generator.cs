@@ -27,6 +27,11 @@ namespace SharkMath.MathProblems
         private static readonly int pLow = 30;
         private static readonly int pMid = 50;
 
+        public static bool getBool()
+        {
+            return (random.Next() & 1) == 0;
+        }
+
         public static int getIntCustom(int min, int max)
         {
             double diff = max-min;
@@ -117,6 +122,30 @@ namespace SharkMath.MathProblems
         }
 
         /// <summary>
+        /// Създава такива a,b,c че дискриминантата да не е квадрат и a > 0
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="cd"></param>
+        public static void createNonSquareDPosA(out Number a, out Number b, out Number c, CoefDescriptor cd)
+        {
+            a = new Number();
+            b = new Number();
+            c = new Number();
+
+            while (true)
+            {
+                setNumber(a, cd);
+                if (a.isNegative) a.flipSign();
+                setNumber(b, cd);
+                setNumber(c, cd);
+                Number d = getD(a, b, c);
+                if (!d.isNegative && d.isSquare() == false) return;
+            }
+        }
+
+        /// <summary>
         /// Създава отрицателна дискриминанта
         /// </summary>
         /// <param name="a"></param>
@@ -132,6 +161,30 @@ namespace SharkMath.MathProblems
             while (true)
             {
                 setNumber(a, cd);
+                setNumber(b, cd);
+                setNumber(c, cd);
+                Number d = getD(a, b, c);
+                if (d.isNegative) return;
+            }
+        }
+
+        /// <summary>
+        /// Създава отрицателна дискриминанта с а > 0
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="cd"></param>
+        public static void createNegativeDPosA(out Number a, out Number b, out Number c, CoefDescriptor cd)
+        {
+            a = new Number();
+            b = new Number();
+            c = new Number();
+
+            while (true)
+            {
+                setNumber(a, cd);
+                if (a.isNegative) a.flipSign();
                 setNumber(b, cd);
                 setNumber(c, cd);
                 Number d = getD(a, b, c);
@@ -278,8 +331,7 @@ namespace SharkMath.MathProblems
             {
                 Node current = getNode(letter, sed.maxVisualPower, sed.elemCoefDesc);
                 bool choice = (random.Next()&1) == 0;
-                se.left.addNode(current, choice);
-                se.right.addNode(current, !choice);
+                se.sides.addNode(current, choice);
             }
 
             //se.fixPolynomials();
@@ -290,9 +342,17 @@ namespace SharkMath.MathProblems
         public static SimpleInequation getInequation(char letter, SimpleEquationDescriptor sed)
         {
             SimpleInequation sin = new SimpleInequation(letter);
-            sin.createRational(sed);
+            sin.create(sed);
 
-            // WIP
+            int nTrans = random.Next(sed.minTransformations, sed.maxTransformations + 1);
+            for (int i = 0; i < nTrans; i++)
+            {
+                Node current = getNode(letter, sed.maxVisualPower, sed.elemCoefDesc);
+                bool choice = (random.Next() & 1) == 0;
+                sin.sides.addNode(current, choice);
+            }
+
+            sin.sides.fixPolynomials();
 
             return sin;
         }

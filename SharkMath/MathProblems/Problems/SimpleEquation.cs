@@ -8,15 +8,14 @@ namespace SharkMath.MathProblems.Problems
 {
     public class SimpleEquation
     {
-        public Expression left, right;
+        public DoubleExpression sides;
         public Solution solution;
         public char letter;
 
         public SimpleEquation(char letter)
         {
             this.letter = letter;
-            left = new Expression();
-            right = new Expression();
+            sides = new DoubleExpression();
             solution = new Solution(letter, Solution.Type.Equation);
         }
 
@@ -36,7 +35,7 @@ namespace SharkMath.MathProblems.Problems
                 solution.parts.Add(root);
             }
 
-            left.addNode(new PolyNode(basePoly));
+            sides.left.addNode(new PolyNode(basePoly));
         }
 
         private void createIrrational(SimpleEquationDescriptor sed)
@@ -58,19 +57,19 @@ namespace SharkMath.MathProblems.Problems
                 solution.parts.Add(root);
             }
 
-            left.addNode(new PolyNode(basePoly));
+            sides.left.addNode(new PolyNode(basePoly));
         }
 
         private void createNoSolutionRational(SimpleEquationDescriptor sed)
         {
-            left.addNode(new PolyNode(Generator.getNumber(sed.rootDesc))); // 0x = b, b!=0
+            sides.left.addNode(new PolyNode(Generator.getNumber(sed.rootDesc))); // 0x = b, b!=0
         }
 
         private void createNoSolutionIrrational(SimpleEquationDescriptor sed)
         {
             Number a, b, c;
             Generator.createNegativeD(out a, out b, out c, sed.rootDesc);
-            left.addNode(new PolyNode(new Polynomial(letter, a, b, c)));
+            sides.left.addNode(new PolyNode(new Polynomial(letter, a, b, c)));
         }
 
         public void create(SimpleEquationDescriptor sed)
@@ -93,37 +92,9 @@ namespace SharkMath.MathProblems.Problems
 
         #endregion
 
-        public void fixPolynomials()
-        {
-            int idxLeft = -1;
-            int idxRight = -1;
-            for(int i = 0; i < left.nodes.Count; i++)
-                if(left.nodes[i] is PolyNode)
-                {
-                    idxLeft = i;
-                    break;
-                }
-
-            for (int i = 0; i < right.nodes.Count; i++)
-                if (right.nodes[i] is PolyNode)
-                {
-                    idxRight = i;
-                    break;
-                }
-
-            if (idxLeft != -1 && idxRight !=-1)
-            {
-                PolyNode leftPoly = left.nodes[idxLeft] as PolyNode;
-                PolyNode rightPoly = right.nodes[idxRight] as PolyNode;
-                leftPoly.exchange(rightPoly);
-                if (leftPoly.poly.isZero) left.nodes.RemoveAt(idxLeft);
-                if (rightPoly.poly.isZero) right.nodes.RemoveAt(idxRight);
-            }
-        }
-
         public string print()
         {
-            return left.print() + " = " + right.print();
+            return sides.left.print() + " = " + sides.right.print();
         }
     }
 }

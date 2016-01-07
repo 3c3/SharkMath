@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Expression\DoubleExpression.cs" />
     <Compile Include="Interfaces\IEvaluable.cs" />
     <Compile Include="MathProblems\Descriptors\CoefDescriptor.cs" />
     <Compile Include="Expression\Expression.cs" />
