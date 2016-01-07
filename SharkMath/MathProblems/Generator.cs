@@ -345,6 +345,13 @@ namespace SharkMath.MathProblems
             sin.create(sed);
 
             int nTrans = random.Next(sed.minTransformations, sed.maxTransformations + 1);
+
+            if(nTrans>1)
+            {
+                sed.elemCoefDesc.maxNumerator = 8;
+                sed.elemCoefDesc.maxDenominator = 5;
+            }
+
             for (int i = 0; i < nTrans; i++)
             {
                 Node current = getNode(letter, sed.maxVisualPower, sed.elemCoefDesc);
