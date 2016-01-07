@@ -10,6 +10,8 @@ namespace SharkMath
     {
         List<Node> children;
 
+        #region Конструктори
+
         /// <summary>
         /// Нулиращ конструктор
         /// </summary>
@@ -42,6 +44,8 @@ namespace SharkMath
             children.Add(n2.copy() as Node);
             coef = new Number(1);
         }
+
+        #endregion
 
         public override string print(bool attach, bool brackets)
         {
@@ -86,6 +90,13 @@ namespace SharkMath
         public override void simplify()
         {
             if (children.Count == 0) return;
+
+            for(int i = 0; i < children.Count; i++)
+            {
+                children[i].simplify();
+                children[i] = children[i].ToNode();
+            }
+
             if(children[0].coef.isNegative)
             {
                 children.ForEach(n => n.flipSign());

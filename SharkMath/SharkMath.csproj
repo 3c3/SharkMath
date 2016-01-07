@@ -79,6 +79,7 @@
     <Compile Include="MathProblems\Generator.cs" />
     <Compile Include="MathProblems\Interval.cs" />
     <Compile Include="MathProblems\IntervalPoint.cs" />
+    <Compile Include="MathProblems\Problems\FracEquation.cs" />
     <Compile Include="MathProblems\Problems\SimpleEquation.cs" />
     <Compile Include="MathProblems\Problems\SimpleInequation.cs" />
     <Compile Include="MathProblems\ReducedFEquationDescriptor.cs" />

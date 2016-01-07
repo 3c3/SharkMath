@@ -52,6 +52,12 @@ namespace SharkMath
         /// <returns></returns>
         public override string print(bool attach, bool brackets)
         {
+            if(poly.isOne)
+            {
+                poly.MultiplyByNumber(coef);
+                coef.makeOne();
+            }
+
             string result = "";
             
             if(attach)

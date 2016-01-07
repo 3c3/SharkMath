@@ -209,6 +209,12 @@ namespace SharkMath
             checkGcd();
         }
 
+        public void set(Number n)
+        {
+            numerator = n.numerator;
+            denominator = n.denominator;
+        }
+
         /// <summary>
         /// Съкращава дробта, ако е възможно
         /// </summary>

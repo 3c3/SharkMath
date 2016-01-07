@@ -12,6 +12,8 @@ namespace SharkMath.MathProblems
     {
         public static Random random = new Random();
 
+        #region Генерация на прости неща
+
         /// <summary>
         /// Връша рационално число
         /// </summary>
@@ -83,6 +85,12 @@ namespace SharkMath.MathProblems
             result.poly.monos.Add(new Monomial(getNumber(cd)));
             return result;
         }
+
+        #endregion
+
+        #region Квадратен тричлен
+
+        #region Дискриминанта
 
         /// <summary>
         /// Намира дискриминанта на ax2 + bx + c = 0
@@ -192,6 +200,8 @@ namespace SharkMath.MathProblems
             }
         }
 
+        #endregion
+
         /// <summary>
         /// Намира ирационалните корени на ax2 + bc + c = 0
         /// </summary>
@@ -201,6 +211,10 @@ namespace SharkMath.MathProblems
         /// <returns></returns>
         public static Node[] getRoots(Number a, Number b, Number c)
         {
+            if(a.isZero)
+            {
+                throw new ArgumentException("There is no quadratic equation when a == 0!");
+            }
             a = new Number(a);
             b = new Number(b);
             c = new Number(c);
@@ -228,6 +242,11 @@ namespace SharkMath.MathProblems
 
                     sqRoot.flipSign();
                     result[0] = new SumNode(new PolyNode(b), sqRoot);
+
+                    result[0].doMath();
+                    result[0] = result[0].ToNode();
+                    result[1].doMath();
+                    result[1] = result[1].ToNode();
                     return result;
                 }
             }
@@ -244,6 +263,10 @@ namespace SharkMath.MathProblems
 
             return _result;
         }
+
+        #endregion
+
+        #region Генерация на елементи
 
         /// <summary>
         /// Създава масив от цели числа със сума power и ги разпределя
@@ -320,6 +343,10 @@ namespace SharkMath.MathProblems
             }
         }
 
+        #endregion
+
+        #region Генерация на задачи
+
         public static SimpleEquation getEquation(char letter, SimpleEquationDescriptor sed)
         {
             if(letter == 0)letter = 'x';
@@ -363,5 +390,7 @@ namespace SharkMath.MathProblems
 
             return sin;
         }
+
+        #endregion
     }
 }
