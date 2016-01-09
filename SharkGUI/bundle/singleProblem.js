@@ -9,6 +9,10 @@ import Range from "./range";
 import SettingsPanel from "./settingsPanel";
 import TabMenu from "./tabMenu.js";
 
+let types = [
+	app.generateEquations,
+	app.generateInequations
+]
 
 export default class SingleProblem extends React.Component
 {
@@ -17,8 +21,11 @@ export default class SingleProblem extends React.Component
 		super(props);
 		this.state = {
 			descriptor: {},
-			problem: " - ",
-			solution: " - "
+			selectedType: 0,
+			result: [{
+				Problem: " - ",
+				Solution: " - "
+			}]
 		}
 
 		window.test = (() => {
@@ -29,10 +36,11 @@ export default class SingleProblem extends React.Component
 
 	generate(e){
 		//alert("Hello");
-		let res = app.generate(this.state.descriptor);
-		console.log(res);
+		console.log(types[this.state.selectedType], this.state.selectedType , types)
+		let res = JSON.parse(types[this.state.selectedType](this.state.descriptor, 2));
+		console.log("Result: ",res);
 
-		this.setState({problem: res.problem, solution: res.solution});
+		this.setState({result: res});
 	}
 
 
@@ -41,15 +49,15 @@ export default class SingleProblem extends React.Component
 
 		return(<div className="single">
 						<div className="problem_display">
-							<Katex problem={this.state.problem}/>
+							<Katex problem={this.state.result[0].Problem}/>
 						</div>
 						<div className="solution_display">
-							<Katex problem={this.state.solution}/>
+							<Katex problem={this.state.result[0].Solution}/>
 
 						</div>
 						<span className="line" />
 						<div className="content">
-							<TabMenu className="type_choise_panel" tabs={["тъждествени изрази","уравнения","неравенства"]}/>
+							<TabMenu onChange={e => {this.setState({selectedType: e})}} className="type_choise_panel" tabs={[/*"тъждествени изрази",*/"уравнения","неравенства"]}/>
 
 
 							<SettingsPanel onValue={val => {this.setState({descriptor: val})}}>

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
 using SharkMath.MathProblems;
+using System.Web.Script.Serialization;
 
 namespace SharkGUI
 {
@@ -88,12 +89,24 @@ namespace SharkGUI
             }
         }
 
-        public UiData Generate(Dictionary<string, Object> jsObject)
+        public string GenerateEquations(Dictionary<string, Object> jsObject, int count)
         {
             var desc_t = typeof(ReducedSEquationDescriptor);
             copyToObject(jsObject, simpleEquationDescriptor, desc_t);
-            return UiConnection.getEquations(1, simpleEquationDescriptor)[0];
+           return new JavaScriptSerializer().Serialize(UiConnection.getEquations(count, simpleEquationDescriptor));
+
         }
+
+        public string GenerateInequations(Dictionary<string, Object> jsObject, int count)
+        {
+            var desc_t = typeof(ReducedSEquationDescriptor);
+            copyToObject(jsObject, simpleEquationDescriptor, desc_t);
+            return new JavaScriptSerializer().Serialize(UiConnection.getInequations(count, simpleEquationDescriptor));
+
+        }
+
+
+
         public void Show(string title, string message)
         {
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);

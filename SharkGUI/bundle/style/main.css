@@ -15,6 +15,9 @@
 $blue: #2780e3;
 $blue-hover: #1967be;
 
+$button-padding: 3px;
+
+
 *  {
 	font-family: 'Segoe UI','Open Sans','Verdana',sans-serif;
 }
@@ -175,7 +178,6 @@ body {
 		}
 	}
 }
-$button-padding: 3px;
 
 .button-grey{
 	background-color: #b3b3b3;

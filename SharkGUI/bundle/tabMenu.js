@@ -12,8 +12,10 @@ export default class TabMenu extends React.Component
 	}
 
 	onChange(i,e){
-		this.props.onChange(i)
 		this.setState({selectedIndex: i})
+		if(this.props.onChange != null){
+			this.props.onChange(i)
+		}
 	}
 
 	renderTabs(){
