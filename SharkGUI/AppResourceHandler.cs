@@ -37,6 +37,11 @@ namespace SharkGUI
         public Stream GetResponse(IResponse response, out long responseLength, out string redirectUrl)
         {
             //How long is your stream?
+            if(stream == null){
+                responseLength = 0;
+                redirectUrl = null;
+                return new MemoryStream();
+            }
             responseLength = stream.Length;
             //Set to null if not redirecting to a different url
             redirectUrl = null;

@@ -24,12 +24,9 @@ class App extends React.Component
 	render(){
 		return(
 			<div className="tabs app">
-				<TabMenu onClick={e => console.log("Hello")} onChange={i => this.setState({index: i})} heading="Генерирай:" tabs={["Eдна задача", "Mного задачи"]}></TabMenu>
-				<TabPanel index={this.state.index}>
-					<SingleProblem />
-					<MultipleProblems />
-
-					
+				<TabPanel heading="Генерирай:">
+					<SingleProblem title="Eдна задача" />
+					<MultipleProblems title="Mного задачи" />
 				</TabPanel>
 			</div>
 			)

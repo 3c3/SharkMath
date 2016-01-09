@@ -52,11 +52,6 @@ namespace SharkGUI
 
 
             settings.MultiThreadedMessageLoop = true;
-           /* settings.RegisterScheme(new CefCustomScheme() {
-                SchemeName = "app"//,
-            //    SchemeHandlerFactory = new AppSchemeHandlerFactory()
-            });
-*/
 
             Cef.OnContextInitialized = delegate
             {
@@ -67,7 +62,7 @@ namespace SharkGUI
             };
 
             settings.LogSeverity = LogSeverity.Verbose;
-            settings.Locale = "bg";
+            //settings.Locale = "bg";
             settings.RegisterScheme(new CefCustomScheme() { 
                SchemeName = "app",
                SchemeHandlerFactory = new AppSchemeHandlerFactory()
@@ -94,11 +89,14 @@ namespace SharkGUI
             var handler = browser.ResourceHandlerFactory as DefaultResourceHandlerFactory;
 
 
-            handler.RegisterHandler("app://bundle.js", ResourceHandler.FromString(Resources.bundle, Encoding.UTF8));
             handler.RegisterHandler("app://main", ResourceHandler.FromString(Resources.index, Encoding.UTF8));
+            handler.RegisterHandler("app://bundle.js", ResourceHandler.FromString(Resources.bundle, Encoding.UTF8));
+
             
 
             browser.IsBrowserInitializedChanged += browser_IsBrowserInitializedChanged;
+            browser.LoadError += browser_LoadError;
+            
             this.BrowserDock.Controls.Add(browser);
             //IBrowser b = browser.GetBrowser();
             browser.Dock = DockStyle.Fill;
