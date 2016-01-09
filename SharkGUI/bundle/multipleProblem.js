@@ -9,9 +9,9 @@ export default class MultipleProblems extends React.Component
 	constructor(props){
 		super(props)
 		this.state = {
-			res: app.generate(),
 			a: "",
-			b: ""
+			b: "",
+			res: "x^2 + 5x - 6"
 		}
 
 		
@@ -27,7 +27,11 @@ export default class MultipleProblems extends React.Component
 		}
 
 		if(key.constructor === Array){
-			
+			return e => {
+				for(var b in r){
+					alert(r[b])
+				}
+			}
 		}
 
 		return e => {

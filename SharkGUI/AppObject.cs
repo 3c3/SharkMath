@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
 using SharkMath.MathProblems;
+using System.Web.Script.Serialization;
 
 namespace SharkGUI
 {
@@ -26,7 +27,7 @@ namespace SharkGUI
 
         public void MoveWin()
         {
-           // Console.WriteLine("event: click");
+            Console.WriteLine("event: click");
             ReleaseCapture();
             SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
@@ -38,13 +39,13 @@ namespace SharkGUI
         public ReducedSEquationDescriptor simpleEquationDescriptor;
 
         public void test(Dictionary<string, Object> o){
-            //Console.WriteLine(o);
+            Console.WriteLine(o);
             foreach (KeyValuePair<string, Object> kvp in o) {
-                //Console.WriteLine("row: {0} , {1}", kvp.Key , kvp.Value);
+                Console.WriteLine("row: {0} , {1}", kvp.Key , kvp.Value);
                 var A = kvp.Value as Object[];
                 if(A != null){
                     foreach (Object obj in A) {
-                        //Console.WriteLine("sub_value: {0}", obj);
+                        Console.WriteLine("sub_value: {0}", obj);
                     }
                 }
             }
@@ -56,12 +57,13 @@ namespace SharkGUI
             Polynomial result = p1 + p2;
             return result.print(false, false);
         }
-        public string Generate(Dictionary<string, Object> jsObject)
+        public void copyToObject(Dictionary<string, Object> jsObject, Object o, Type desc_t)
         {
-            var desc_t = typeof(ReducedSEquationDescriptor);
-            foreach(KeyValuePair<string,Object> field in jsObject){
-                //Console.WriteLine("Key: {0}, Type: {1}", field.Key, field.Value.GetType());
-                if(field.Value is Int32){
+            foreach (KeyValuePair<string, Object> field in jsObject)
+            {
+                Console.WriteLine("Key: {0}, Type: {1}, Value:\t\t{2}", field.Key, field.Value.GetType(), field.Value);
+                if (field.Value is Int32)
+                {
                     Int32? val = field.Value as Int32?;
                     desc_t.GetField(field.Key).SetValue(simpleEquationDescriptor, (byte)val);
 
@@ -75,20 +77,36 @@ namespace SharkGUI
                     {
                         desc_t.GetField(field.Key).SetValue(simpleEquationDescriptor, val[0]);
                     }
-                    else {
+                    else
+                    {
                         desc_t.GetField(field.Key).SetValue(simpleEquationDescriptor, val);
                     }
                 }
-                else {
+                else
+                {
                     throw new Exception(String.Format("Unkonw data type of object {0} with type {1}", simpleEquationDescriptor, typeof(SimpleEquationDescriptor)));
                 }
-
-                
-                
             }
-
-            return Generator.getEquation(simpleEquationDescriptor.letter, simpleEquationDescriptor.toSEquationDescriptor()).print();
         }
+
+        public string GenerateEquations(Dictionary<string, Object> jsObject, int count)
+        {
+            var desc_t = typeof(ReducedSEquationDescriptor);
+            copyToObject(jsObject, simpleEquationDescriptor, desc_t);
+           return new JavaScriptSerializer().Serialize(UiConnection.getEquations(count, simpleEquationDescriptor));
+
+        }
+
+        public string GenerateInequations(Dictionary<string, Object> jsObject, int count)
+        {
+            var desc_t = typeof(ReducedSEquationDescriptor);
+            copyToObject(jsObject, simpleEquationDescriptor, desc_t);
+            return new JavaScriptSerializer().Serialize(UiConnection.getInequations(count, simpleEquationDescriptor));
+
+        }
+
+
+
         public void Show(string title, string message)
         {
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);

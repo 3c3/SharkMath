@@ -9,6 +9,6 @@ export default class Range extends React.Component
 	}
 
 	render(){
-		return <div className="input"><span className="label">{this.props.label}:</span><input type="range" min={this.props.min} max={this.props.max} onChange={this.onChange.bind(this)}/></div>
+		return <div className="input"><span className="label">{this.props.label}:</span><input type="range" defaultValue={this.props.def} onChange={this.onChange.bind(this)}/></div>
 	}
 }

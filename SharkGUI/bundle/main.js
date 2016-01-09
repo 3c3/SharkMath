@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Katex from "./katex";
 import lodash from "lodash"; //because I can
-import TabMenu from "./tabMenu.js";
 import TabPanel from "./tabPanel.js";
 
 import SingleProblem from "./singleProblem.js";
@@ -24,12 +23,9 @@ class App extends React.Component
 	render(){
 		return(
 			<div className="tabs app">
-				<TabMenu onClick={e => console.log("Hello")} onChange={i => this.setState({index: i})} heading="Генерирай:" tabs={["Eдна задача", "Mного задачи"]}></TabMenu>
-				<TabPanel index={this.state.index}>
-					<SingleProblem />
-					<MultipleProblems />
-
-					
+				<TabPanel heading="Генерирай:">
+					<SingleProblem title="Eдна задача" />
+					<MultipleProblems title="Mного задачи" />
 				</TabPanel>
 			</div>
 			)
