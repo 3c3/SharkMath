@@ -10,7 +10,8 @@ export default class MultipleProblems extends React.Component
 		super(props)
 		this.state = {
 			a: "",
-			b: ""
+			b: "",
+			res: "x^2 + 5x - 6"
 		}
 
 		

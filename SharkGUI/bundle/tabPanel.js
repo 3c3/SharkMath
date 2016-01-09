@@ -1,7 +1,8 @@
 import React from 'react'
 import classnames from "classnames";
+import TabMenu from "./tabMenu.js";
 
-export default class TabMenu extends React.Component
+export default class TabPanel extends React.Component
 {
 	constructor(props)
 	{
@@ -12,18 +13,31 @@ export default class TabMenu extends React.Component
 		}
 	}
 
-	renderTabPanel(){
-		console.log(this)
-		let children = React.Children.toArray(this.props.children);
+	componentWillMount(){
+		this.componentWillReceiveProps(this.props);
+	}
+
+	componentWillReceiveProps(newProps){
 		let titles = []
+		let children = React.Children.toArray(newProps.children);
+		
+		children.forEach(child => {
+			titles.push(child.props.title);
+		})
+		
+		this.setState({tabs: titles});
+
+	}
+
+	renderTabPanel(){
+		let children = React.Children.toArray(this.props.children);
 		
 		for(let child in children){
-			if(child == this.props.index){
-				title.append(this.props.children[child].title);
+			if(child == this.state.index){
+				//console.log(this.props.children[child]);
 				return this.props.children[child];
 			}
 		}
-		this.setState({tabs: titles});
 	}
 
 	render(){

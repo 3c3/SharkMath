@@ -8,6 +8,7 @@ namespace SharkMath
 {
     public class UiData
     {
+
         string problem;
 
         public string Problem
@@ -22,6 +23,7 @@ namespace SharkMath
             get { return solution; }
             set { solution = value; }
         }
+
         public UiData(string p, string s) { this.problem = p; this.solution = s; }
     }
 }

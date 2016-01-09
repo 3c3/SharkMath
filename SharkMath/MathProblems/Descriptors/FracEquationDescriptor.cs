@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharkMath.MathProblems.Descriptors
+namespace SharkMath
 {
     public class FracEquationDescriptor
     {

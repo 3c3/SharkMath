@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Katex from "./katex";
 import lodash from "lodash"; //because I can
-import TabMenu from "./tabMenu.js";
 import TabPanel from "./tabPanel.js";
 
 import SingleProblem from "./singleProblem.js";

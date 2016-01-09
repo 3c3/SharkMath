@@ -14,18 +14,28 @@ namespace SharkExec
     {
         static void Main(string[] args)
         {
-            int n = 5;
-            Number[] nums = new Number[n];
-            for (int i = 0; i < n; i++) nums[i] = new Number(i);
+            Number a = new Number(1);
+            Number b = new Number(4);
+            Number c = new Number(3);
 
-            IntervalPoint[] points = new IntervalPoint[n];
-            for (int i = 0; i < n; i++) points[i] = new IntervalPoint(nums[i], false);
+            Node[] roots = Generator.getRoots(a, b, c);
+            foreach (Node root in roots) Console.WriteLine(root.print(false, false));
+            /*ReducedSEquationDescriptor rsed = new ReducedSEquationDescriptor();
+            rsed.letter = 'x';
+            rsed.power = 2;
+            rsed.pIrrational = 50;
+            rsed.minTransformations = 1;
+            rsed.maxTransformations = 2;
+            rsed.maxVisualPower = 2;
 
-            points[2].isExcluded = true;
+            UiData[] stuff = UiConnection.getInequations(5, rsed);
 
-            Interval[] intervals = Interval.constructIntervals(true, '<', points);
-
-            foreach (Interval i in intervals) Console.WriteLine(i.print(false, false));
+            foreach(UiData ud in stuff)
+            {
+                Console.WriteLine(ud.problem);
+                Console.WriteLine(ud.solution);
+                Console.WriteLine();
+            }*/
 
             Console.ReadLine();
         }        

@@ -132,41 +132,46 @@ body {
 	> .panel {
 		lost-flex-container: column;
 		box-sizing: border-box;
-		padding: 10px 10px;
+		/*  */
 		flex: 1 1 auto;
 		> * {
 			flex: 1;
 		}
-	}
-	> nav {
-		flex: 0 0 auto;
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
-		background-color: $blue;
-		color: white;
-		
-		> * {
-			padding: 0.3em;
+
+		> div {
+			padding: 11px 11px;
 		}
 
-		> span {
-			cursor: pointer;
-			margin-left: 3px;
-			display: block;
-			&:hover{
-				background-color: $blue-hover;
+		> nav {
+			flex: 0 0 auto;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			background-color: $blue;
+			color: white;
+			
+			> * {
+				padding: 0.3em;
 			}
-		}
 
-		> .selected {
-			color: $blue;
-			background-color: white;
-			cursor: default;
-		}
+			> span {
+				cursor: pointer;
+				margin-left: 3px;
+				display: block;
+				&:hover{
+					background-color: $blue-hover;
+				}
+			}
 
-		> .selected:hover {
-			background-color: white;
+			> .selected {
+				color: $blue;
+				background-color: white;
+				cursor: default;
+			}
+
+			> .selected:hover {
+				background-color: white;
+			}
 		}
 	}
 }

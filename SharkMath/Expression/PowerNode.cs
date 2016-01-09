@@ -98,6 +98,8 @@ namespace SharkMath
                     Number div = sq * sq;
                     div.flip();
                     pn.poly.MultiplyByNumber(div);
+
+                    if (pn.poly.isOne) numPower.denominator = 1; // за да може ToNode да го обърне на число
                 }
             }
             return; // няма нищо за опростяване
@@ -132,6 +134,7 @@ namespace SharkMath
 
         public override void doMath()
         {
+            simplify();
             if ((object)numPower == null) throw new NotImplementedException("Cannot do math with Node power yet!");
             doMathNum();
         }

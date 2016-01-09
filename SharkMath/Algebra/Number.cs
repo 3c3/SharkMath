@@ -209,6 +209,12 @@ namespace SharkMath
             checkGcd();
         }
 
+        public void set(Number n)
+        {
+            numerator = n.numerator;
+            denominator = n.denominator;
+        }
+
         /// <summary>
         /// Съкращава дробта, ако е възможно
         /// </summary>
@@ -366,7 +372,6 @@ namespace SharkMath
         {
             if (numerator == 0) return true;
             return isSquare(numerator) && isSquare(denominator);
-            return false;
         }
 
         public Int32 CompareTo(Object obj)

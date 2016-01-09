@@ -7,6 +7,7 @@ import Input from "./input";
 import Range from "./range";
 
 import SettingsPanel from "./settingsPanel";
+import TabMenu from "./tabMenu.js";
 
 
 export default class SingleProblem extends React.Component
@@ -48,11 +49,8 @@ export default class SingleProblem extends React.Component
 						</div>
 						<span className="line" />
 						<div className="content">
-							<div className="type_choise_panel">
-								<span>тъждествени изрази</span>
-								<span className="selected">уравнения</span>
-								<span>неравенства</span>
-							</div>
+							<TabMenu className="type_choise_panel" tabs={["тъждествени изрази","уравнения","неравенства"]}/>
+
 
 							<SettingsPanel onValue={val => {this.setState({descriptor: val})}}>
 								<Input type="text" value="letter" label="Знак:" />

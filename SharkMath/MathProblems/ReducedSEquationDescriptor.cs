@@ -37,8 +37,7 @@ namespace SharkMath.MathProblems
 
             sed.maxTransformations = maxTransformations;
             sed.minTransformations = minTransformations;
-            sed.pNoRealSolutions = 30;
-            sed.pNoSolution = 5;
+            sed.pNoSolution = 35;
             sed.power = power;
             sed.maxVisualPower = maxVisualPower;
 

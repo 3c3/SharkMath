@@ -12,6 +12,8 @@ namespace SharkMath.MathProblems
     {
         public static Random random = new Random();
 
+        #region Генерация на прости неща
+
         /// <summary>
         /// Връша рационално число
         /// </summary>
@@ -26,6 +28,11 @@ namespace SharkMath.MathProblems
 
         private static readonly int pLow = 30;
         private static readonly int pMid = 50;
+
+        public static bool getBool()
+        {
+            return (random.Next() & 1) == 0;
+        }
 
         public static int getIntCustom(int min, int max)
         {
@@ -79,6 +86,12 @@ namespace SharkMath.MathProblems
             return result;
         }
 
+        #endregion
+
+        #region Квадратен тричлен
+
+        #region Дискриминанта
+
         /// <summary>
         /// Намира дискриминанта на ax2 + bx + c = 0
         /// </summary>
@@ -117,6 +130,30 @@ namespace SharkMath.MathProblems
         }
 
         /// <summary>
+        /// Създава такива a,b,c че дискриминантата да не е квадрат и a > 0
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="cd"></param>
+        public static void createNonSquareDPosA(out Number a, out Number b, out Number c, CoefDescriptor cd)
+        {
+            a = new Number();
+            b = new Number();
+            c = new Number();
+
+            while (true)
+            {
+                setNumber(a, cd);
+                if (a.isNegative) a.flipSign();
+                setNumber(b, cd);
+                setNumber(c, cd);
+                Number d = getD(a, b, c);
+                if (!d.isNegative && d.isSquare() == false) return;
+            }
+        }
+
+        /// <summary>
         /// Създава отрицателна дискриминанта
         /// </summary>
         /// <param name="a"></param>
@@ -140,6 +177,32 @@ namespace SharkMath.MathProblems
         }
 
         /// <summary>
+        /// Създава отрицателна дискриминанта с а > 0
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="cd"></param>
+        public static void createNegativeDPosA(out Number a, out Number b, out Number c, CoefDescriptor cd)
+        {
+            a = new Number();
+            b = new Number();
+            c = new Number();
+
+            while (true)
+            {
+                setNumber(a, cd);
+                if (a.isNegative) a.flipSign();
+                setNumber(b, cd);
+                setNumber(c, cd);
+                Number d = getD(a, b, c);
+                if (d.isNegative) return;
+            }
+        }
+
+        #endregion
+
+        /// <summary>
         /// Намира ирационалните корени на ax2 + bc + c = 0
         /// </summary>
         /// <param name="a"></param>
@@ -148,6 +211,10 @@ namespace SharkMath.MathProblems
         /// <returns></returns>
         public static Node[] getRoots(Number a, Number b, Number c)
         {
+            if(a.isZero)
+            {
+                throw new ArgumentException("There is no quadratic equation when a == 0!");
+            }
             a = new Number(a);
             b = new Number(b);
             c = new Number(c);
@@ -175,6 +242,11 @@ namespace SharkMath.MathProblems
 
                     sqRoot.flipSign();
                     result[0] = new SumNode(new PolyNode(b), sqRoot);
+
+                    result[0].doMath();
+                    result[0] = result[0].ToNode();
+                    result[1].doMath();
+                    result[1] = result[1].ToNode();
                     return result;
                 }
             }
@@ -191,6 +263,10 @@ namespace SharkMath.MathProblems
 
             return _result;
         }
+
+        #endregion
+
+        #region Генерация на елементи
 
         /// <summary>
         /// Създава масив от цели числа със сума power и ги разпределя
@@ -267,6 +343,10 @@ namespace SharkMath.MathProblems
             }
         }
 
+        #endregion
+
+        #region Генерация на задачи
+
         public static SimpleEquation getEquation(char letter, SimpleEquationDescriptor sed)
         {
             if(letter == 0)letter = 'x';
@@ -278,13 +358,39 @@ namespace SharkMath.MathProblems
             {
                 Node current = getNode(letter, sed.maxVisualPower, sed.elemCoefDesc);
                 bool choice = (random.Next()&1) == 0;
-                se.left.addNode(current, choice);
-                se.right.addNode(current, !choice);
+                se.sides.addNode(current, choice);
             }
 
             //se.fixPolynomials();
 
             return se;
         }
+
+        public static SimpleInequation getInequation(char letter, SimpleEquationDescriptor sed)
+        {
+            SimpleInequation sin = new SimpleInequation(letter);
+            sin.create(sed);
+
+            int nTrans = random.Next(sed.minTransformations, sed.maxTransformations + 1);
+
+            if(nTrans>1)
+            {
+                sed.elemCoefDesc.maxNumerator = 8;
+                sed.elemCoefDesc.maxDenominator = 5;
+            }
+
+            for (int i = 0; i < nTrans; i++)
+            {
+                Node current = getNode(letter, sed.maxVisualPower, sed.elemCoefDesc);
+                bool choice = (random.Next() & 1) == 0;
+                sin.sides.addNode(current, choice);
+            }
+
+            sin.sides.fixPolynomials();
+
+            return sin;
+        }
+
+        #endregion
     }
 }

@@ -153,6 +153,15 @@ namespace SharkMath
                 return monos.Count == 0;
             }
         }
+
+        public bool isOne
+        {
+            get
+            {
+                if (monos.Count != 1) return false;
+                return monos[0].power == 0 && monos[0].coef.isPosOne;
+            }
+        }
        
         /// <summary>
         /// Принтира многочлен
@@ -394,6 +403,19 @@ namespace SharkMath
             if (monos.Count == 0) return 0.0;
             if (monos[0].power == 0) return monos[0].coef.eval();
             throw new Exception("Polynomial cannot be evaluated because it is a letter.");
+        }
+
+        public Number[] getQuadraticCoefs()
+        {
+            Number[] coefs = new Number[3];
+            for (int i = 0; i < 3; i++) coefs[i] = new Number(0);
+            foreach(Monomial mono in monos)
+            {
+                if (mono.power > 2) return null;
+                coefs[mono.power].set(mono.coef);
+            }
+
+            return coefs;
         }
     }
 }

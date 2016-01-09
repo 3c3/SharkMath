@@ -18,12 +18,12 @@ export default class TabMenu extends React.Component
 
 	renderTabs(){
 		if(!this.props.tabs){return <div></div>}
-		console.log(this.props)
+		//console.log(this.props)
 		return this.props.tabs.map((t,i) => {return <span key={t+i} onClick={this.onChange.bind(this,i)} className={classnames({ selected: i == this.state.selectedIndex })}>{t}</span>})
 	}
 
 	render(){
-		return(<nav>
+		return(<nav {...this.props}>
 				{(this.props.heading != null) ? <b>{this.props.heading}</b> : ""}
 				{this.renderTabs()}
 			</nav>)
