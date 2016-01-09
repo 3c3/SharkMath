@@ -14,13 +14,7 @@ namespace SharkExec
     {
         static void Main(string[] args)
         {
-            Number a = new Number(1);
-            Number b = new Number(4);
-            Number c = new Number(3);
-
-            Node[] roots = Generator.getRoots(a, b, c);
-            foreach (Node root in roots) Console.WriteLine(root.print(false, false));
-            /*ReducedSEquationDescriptor rsed = new ReducedSEquationDescriptor();
+            ReducedSEquationDescriptor rsed = new ReducedSEquationDescriptor();
             rsed.letter = 'x';
             rsed.power = 2;
             rsed.pIrrational = 50;
@@ -35,7 +29,7 @@ namespace SharkExec
                 Console.WriteLine(ud.problem);
                 Console.WriteLine(ud.solution);
                 Console.WriteLine();
-            }*/
+            }
 
             Console.ReadLine();
         }        

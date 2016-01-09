@@ -24,7 +24,7 @@ namespace SharkMath.MathProblems
         {
             if(type == Type.Equation)
             {
-                if (parts.Count == 0) return String.Format("{0} \\in \\varnothing", letter);
+                if (parts.Count == 0) return String.Format("{0} \\in \\emptyset", letter);
                 string result = letter + " = ";
                 for (int i = 0; i < parts.Count - 1; i++) result += parts[i].print(false, parts[i] is Number) + "; ";
                 result += parts[parts.Count - 1].print(false, parts[parts.Count - 1] is Number);
@@ -32,7 +32,7 @@ namespace SharkMath.MathProblems
             }
             else if(type == Type.Inequation)
             {
-                if (parts.Count == 0) return String.Format("{0} \\in \\varnothing", letter);
+                if (parts.Count == 0) return String.Format("{0} \\in \\emptyset", letter);
                 string result = letter + " \\in ";
                 for (int i = 0; i < parts.Count - 1; i++) result += parts[i].print(false, parts[i] is Number) + " \\cup ";
                 result += parts[parts.Count - 1].print(false, parts[parts.Count - 1] is Number);

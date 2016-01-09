@@ -66,7 +66,7 @@ namespace SharkGUI
                 cookieManager.SetSupportedSchemes("chrome-devtools");
             };
 
-            settings.LogSeverity = LogSeverity.Verbose;
+            settings.LogSeverity = LogSeverity.Disable;
             settings.Locale = "bg";
             settings.RegisterScheme(new CefCustomScheme() { 
                SchemeName = "app",
@@ -116,14 +116,14 @@ namespace SharkGUI
 
         void browser_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("event: click");
+            //Console.WriteLine("event: click");
             ReleaseCapture();
             SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
 
         void browser_LoadError(object sender, LoadErrorEventArgs e)
         {
-            Console.WriteLine("Load error: {0}, url: {1}, coed: {2}, from: {3}", e.ErrorText, e.FailedUrl, e.ErrorCode, sender.GetType());
+            //Console.WriteLine("Load error: {0}, url: {1}, coed: {2}, from: {3}", e.ErrorText, e.FailedUrl, e.ErrorCode, sender.GetType());
         }
 
         void browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e)
@@ -134,16 +134,16 @@ namespace SharkGUI
               //  Console.WriteLine(Resources.index);
                 browser.Load("app://main");
                 //browser.Load(@"app://main/index");
-                browser.ShowDevTools();
+                //browser.ShowDevTools();
             }
   
-            Console.WriteLine("Browser init {0}", browser.IsBrowserInitialized);
+            //Console.WriteLine("Browser init {0}", browser.IsBrowserInitialized);
 
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
-            Console.WriteLine("event: mouse down");
+            //Console.WriteLine("event: mouse down");
             ReleaseCapture();
             SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }

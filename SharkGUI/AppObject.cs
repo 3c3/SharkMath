@@ -26,7 +26,7 @@ namespace SharkGUI
 
         public void MoveWin()
         {
-            Console.WriteLine("event: click");
+           // Console.WriteLine("event: click");
             ReleaseCapture();
             SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
@@ -38,13 +38,13 @@ namespace SharkGUI
         public ReducedSEquationDescriptor simpleEquationDescriptor;
 
         public void test(Dictionary<string, Object> o){
-            Console.WriteLine(o);
+            //Console.WriteLine(o);
             foreach (KeyValuePair<string, Object> kvp in o) {
-                Console.WriteLine("row: {0} , {1}", kvp.Key , kvp.Value);
+                //Console.WriteLine("row: {0} , {1}", kvp.Key , kvp.Value);
                 var A = kvp.Value as Object[];
                 if(A != null){
                     foreach (Object obj in A) {
-                        Console.WriteLine("sub_value: {0}", obj);
+                        //Console.WriteLine("sub_value: {0}", obj);
                     }
                 }
             }
@@ -60,7 +60,7 @@ namespace SharkGUI
         {
             var desc_t = typeof(ReducedSEquationDescriptor);
             foreach(KeyValuePair<string,Object> field in jsObject){
-                Console.WriteLine("Key: {0}, Type: {1}", field.Key, field.Value.GetType());
+                //Console.WriteLine("Key: {0}, Type: {1}", field.Key, field.Value.GetType());
                 if(field.Value is Int32){
                     Int32? val = field.Value as Int32?;
                     desc_t.GetField(field.Key).SetValue(simpleEquationDescriptor, (byte)val);
