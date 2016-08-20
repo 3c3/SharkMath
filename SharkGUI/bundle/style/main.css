@@ -1,0 +1,237 @@
+
+@font-face{
+	font-family:'Open Sans';
+	src:url(fonts/OpenSans-Regular.ttf);
+}
+
+@font-face{
+	font-family:'Open Sans';
+	src:url(fonts/OpenSans-Bold.ttf);
+	font-weight: bold;
+
+}
+@lost flexbox flex;
+
+$blue: #2780e3;
+$blue-hover: #1967be;
+
+*  {
+	font-family: 'Segoe UI','Open Sans','Verdana',sans-serif;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	lost-utility: clearfix;
+}
+
+.app{
+	height: 100vh;
+}
+
+.multy {
+	lost-flex-container: row;
+
+	lost-utility: clearfix;
+
+	.collumn_side {
+		lost-column: 1/5;
+	}
+
+	.collumn_main {
+		lost-column: 3/5;
+	}
+}
+
+.single {
+	lost-flex-container: column;
+
+	> .problem_display {
+		flex: 0 0 auto;
+		/*border: 1px solid #999;*/
+		lost-center: 90%;
+		height: 50px;
+		padding: 1vh 1vw;
+		.latex {
+			lost-align: middle-center;
+
+			width: 100%;
+			font-size: 1.5em;
+		}
+	}
+
+	> .solution_display {
+		flex: 0 0 auto;
+		lost-center: 80%;
+		.latex {
+			width: 100%;
+			text-align: center;
+		}
+	}
+
+	.line {
+		flex: 0 0 auto;
+
+		margin-top: 1em;
+		display: block;
+		border-top: 1px solid $blue;
+	}
+	.content{
+		flex: 1 1 auto;
+
+		lost-flex-container: row;
+		
+		> * {
+				width: 100%;
+		}
+
+		.settings_panel {
+			lost-column: 4/5;
+			
+		}
+		.type_choise_panel{
+			lost-column: 1/5;
+			> span {
+				width: 100%;
+				display: block;
+				text-align: center;
+				cursor: pointer;
+
+			}
+
+			> span:hover {
+				background-color: gray;
+
+				
+			}
+
+			> span.selected {
+				cursor: default;
+				color: $blue;
+
+				
+			}
+
+			> span.selected:hover {
+				background-color: rgba(0,0,0,0);
+				cursor: default;
+
+			}
+
+		}
+	}
+
+	.button_bar {
+		flex: 0 0 32px;
+		lost-align: middle-right;
+	}
+}
+
+.tabs {
+	lost-flex-container: column;
+	> .panel {
+		lost-flex-container: column;
+		box-sizing: border-box;
+		padding: 10px 10px;
+		flex: 1 1 auto;
+		> * {
+			flex: 1;
+		}
+	}
+	> nav {
+		flex: 0 0 auto;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		background-color: $blue;
+		color: white;
+		
+		> * {
+			padding: 0.3em;
+		}
+
+		> span {
+			cursor: pointer;
+			margin-left: 3px;
+			display: block;
+			&:hover{
+				background-color: $blue-hover;
+			}
+		}
+
+		> .selected {
+			color: $blue;
+			background-color: white;
+			cursor: default;
+		}
+
+		> .selected:hover {
+			background-color: white;
+		}
+	}
+}
+$button-padding: 3px;
+
+.button-grey{
+	background-color: #b3b3b3;
+	color: black;
+	&:hover {
+		border: $button-padding #8f8f8f solid;
+		background-color: #8c8c8c;
+
+	}
+
+	&:active {
+		border: $button-padding white solid;
+		background-color: white;
+		color: black;
+	}
+}
+
+.button-blue{
+	background-color: $blue;
+	color: white;
+	&:hover {
+		border: $button-padding $blue-hover solid;
+	}
+
+	&:active {
+		border: $button-padding #8c8c8c solid;
+		background-color: #b3b3b3;
+		color: black;
+	}
+}
+
+.button{
+	display: block;
+	border: 0px;
+	padding: $button-padding;
+	margin: 1px;
+	height: 30px;
+	width: 120px;
+
+	&:hover {
+		padding: 0px;
+	}
+
+	&:active {
+		padding: 0px;
+	}
+}
+
+.row{
+	lost-flex-container: row;
+}
+
+.input {
+	padding: 2px;
+	lost-flex-container: row;
+	.label {
+		flex: 0 0 auto;
+		padding-right: 1em;
+	}
+
+	input {
+		flex: 1 0 auto;
+	}
+}

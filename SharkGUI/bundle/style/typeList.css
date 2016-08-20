@@ -1,0 +1,32 @@
+.drop_menu{
+	.bar{
+		background-color: #CCC;
+		align-items: flex-end; 
+		display: flex; 
+		justify-content: space-between;
+
+		> .bar_button{
+		
+		}
+
+		> .title{
+			
+		}
+	}
+
+
+
+	.panel{
+
+		&_show{
+			display: block;
+		}
+
+		&_hide{
+			display: none;
+		}
+
+	}
+
+
+}
